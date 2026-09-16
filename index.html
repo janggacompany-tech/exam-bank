@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- PAGE-START -->
+<title>레벨 진단 시험</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#F5F6F2; --surface:#FFFFFF; --surface-2:#ECEEE7; --line:#D8DCD1; --line-strong:#B9BFB2;
+  --ink:#1A2130; --ink-2:#48516A; --muted:#7A8394;
+  --accent:#2451B3; --accent-ink:#FFFFFF; --accent-soft:#E2E9FA; --accent-line:#9DB3EA;
+  --ok:#1E8E5A; --ok-soft:#DDF2E6; --bad:#C43A2E; --bad-soft:#FBE3E0; --warn:#B07417; --warn-soft:#FBEFD6;
+  --shadow:0 1px 2px rgba(20,30,50,.05), 0 10px 30px rgba(20,30,50,.06);
+  --r:10px; --r-lg:16px;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10141C; --surface:#171C27; --surface-2:#1F2532; --line:#2B3342; --line-strong:#3D4658;
+    --ink:#E8EBF1; --ink-2:#B6BCC8; --muted:#7E8797;
+    --accent:#84A4FF; --accent-ink:#0B1020; --accent-soft:#1E2A4A; --accent-line:#3C5390;
+    --ok:#4CCB8C; --ok-soft:#14331F; --bad:#F27A70; --bad-soft:#3B1D19; --warn:#E5AB4C; --warn-soft:#3A2D12;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10141C; --surface:#171C27; --surface-2:#1F2532; --line:#2B3342; --line-strong:#3D4658;
+  --ink:#E8EBF1; --ink-2:#B6BCC8; --muted:#7E8797;
+  --accent:#84A4FF; --accent-ink:#0B1020; --accent-soft:#1E2A4A; --accent-line:#3C5390;
+  --ok:#4CCB8C; --ok-soft:#14331F; --bad:#F27A70; --bad-soft:#3B1D19; --warn:#E5AB4C; --warn-soft:#3A2D12;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;line-height:1.3;text-wrap:balance;font-weight:600}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+.shell{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+.shell.wide{max-width:1100px}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.mark{width:44px;height:44px;border-radius:12px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:20px;flex:none}
+.brand h1{font-size:22px}
+.brand p{color:var(--ink-2);font-size:14px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow)}
+.card + .card{margin-top:16px}
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:24px;background:var(--surface-2)}
+.spec > div{padding:12px 16px;background:var(--surface);border-right:1px solid var(--line)}
+.spec > div:last-child{border-right:0}
+.spec .k{font-size:12px;color:var(--muted);font-weight:500}
+.spec .v{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}
+.spec .v small{font-size:12px;color:var(--ink-2);font-weight:500;margin-left:2px}
+
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field label{font-size:13px;font-weight:600;color:var(--ink-2)}
+.field .hint{font-size:12px;color:var(--muted)}
+.input{width:100%;padding:11px 13px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);color:var(--ink)}
+.input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.input.err{border-color:var(--bad)}
+textarea.input{min-height:80px;resize:vertical}
+.error{font-size:12px;color:var(--bad)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-2);margin:6px 0 20px}
+.check input{margin-top:4px;accent-color:var(--accent)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.between{justify-content:space-between}
+.row.end{justify-content:flex-end}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:var(--r);border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);font-weight:600;cursor:pointer;transition:background .15s,border-color .15s,transform .05s;white-space:nowrap}
+.btn:hover{background:var(--surface-2)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn.sm{padding:7px 12px;font-size:13px}
+.btn.block{width:100%}
+
+.notice{padding:12px 14px;border-radius:var(--r);font-size:13px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2);margin-bottom:16px}
+.notice.warn{background:var(--warn-soft);border-color:transparent;color:var(--ink)}
+.notice.bad{background:var(--bad-soft);border-color:transparent;color:var(--ink)}
+.notice.ok{background:var(--ok-soft);border-color:transparent;color:var(--ink)}
+.notice b{font-weight:600}
+.notice ul{margin:6px 0 0 18px;padding:0}
+
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface-2);color:var(--ink-2)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.accent{background:var(--accent-soft);color:var(--accent)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.lvl{display:inline-block;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;background:var(--accent-soft);color:var(--accent)}
+
+/* ===== 시험 ===== */
+.exambar{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);}
+.exambar .in{max-width:760px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
+.exambar .who{font-weight:600;font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exambar .who small{color:var(--muted);font-weight:500;margin-left:6px}
+.exambar .prog{margin-left:auto;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.timer{font-family:var(--mono);font-weight:600;font-size:20px;letter-spacing:.02em;padding:4px 10px;border-radius:8px;background:var(--surface-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.timer.warn{background:var(--bad-soft);color:var(--bad);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+.progressbar{height:3px;background:var(--surface-2)}
+.progressbar i{display:block;height:100%;background:var(--accent);transition:width .2s}
+
+.qnav{display:grid;grid-template-columns:repeat(auto-fill,minmax(34px,1fr));gap:6px;margin-bottom:22px}
+.qnav button{height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-variant-numeric:tabular-nums}
+.qnav button.done{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+.qnav button.cur{outline:2px solid var(--ink);outline-offset:-1px;color:var(--ink)}
+.qgroup{grid-column:1/-1;font-size:11px;color:var(--muted);font-weight:600;margin-top:2px}
+
+.question{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:28px}
+.question .head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.question .num{font-family:var(--mono);font-weight:600;color:var(--muted);font-size:13px}
+.question h2{font-size:19px;font-weight:600;line-height:1.55;margin-bottom:22px;white-space:pre-wrap}
+.choices{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line-strong);border-radius:var(--r);cursor:pointer;transition:border-color .12s,background .12s;background:var(--surface)}
+.choice:hover{background:var(--surface-2)}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice .n{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-strong);display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.choice.on{border-color:var(--accent);background:var(--accent-soft)}
+.choice.on .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.choice .t{white-space:pre-wrap;padding-top:1px}
+.choice.correct{border-color:var(--ok);background:var(--ok-soft)}
+.choice.correct .n{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.choice.wrong .n{background:var(--bad);border-color:var(--bad);color:#fff}
+.choice.static{cursor:default}
+.choice.static:hover{background:inherit}
+.choice.static.correct:hover{background:var(--ok-soft)}
+.choice.static.wrong:hover{background:var(--bad-soft)}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.keyhint{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
+kbd{font-family:var(--mono);font-size:11px;padding:1px 5px;border:1px solid var(--line-strong);border-bottom-width:2px;border-radius:4px;background:var(--surface)}
+
+/* ===== 결과 ===== */
+.score{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:22px}
+.score .big{font-family:var(--mono);font-size:64px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.score .big small{font-size:22px;color:var(--muted);font-weight:500}
+.score .meta{color:var(--ink-2);font-size:14px;padding-bottom:8px}
+.levels{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.lrow{display:grid;grid-template-columns:70px 1fr 64px;gap:12px;align-items:center;font-size:14px}
+.lrow .bar{height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden}
+.lrow .bar i{display:block;height:100%;background:var(--accent);border-radius:5px}
+.lrow .c{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.review{margin-top:24px}
+.review .question{padding:20px 22px;margin-top:12px;box-shadow:none}
+.review .question h2{font-size:16px;margin-bottom:14px}
+.review .choice{padding:9px 12px}
+.explain{margin-top:12px;font-size:13px;color:var(--ink-2);padding:10px 12px;border-left:3px solid var(--line-strong);background:var(--surface-2);border-radius:0 8px 8px 0}
+
+/* ===== 관리자 ===== */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.tabs button{padding:10px 14px;border:0;background:none;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;background:var(--surface)}
+.stat .k{font-size:12px;color:var(--muted);font-weight:600}
+.stat .v{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.stat .v small{font-size:12px;color:var(--muted);font-family:var(--sans);font-weight:500}
+.stat.low .v{color:var(--warn)}
+.stat.zero .v{color:var(--bad)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.toolbar .sp{flex:1}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:600;background:var(--surface-2);white-space:nowrap;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.clickable{cursor:pointer}
+tr.clickable:hover td{background:var(--surface-2)}
+.trunc{max-width:420px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.editor{border:1px solid var(--accent-line);background:var(--surface);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.editor .field{margin-bottom:10px}
+.detail{padding:12px 14px;background:var(--surface-2);font-size:13px}
+.detail .a{display:grid;grid-template-columns:80px 1fr auto;gap:10px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.detail .a:last-child{border-bottom:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td.mono{white-space:nowrap}
+.dz{border:2px dashed var(--line-strong);border-radius:var(--r);padding:22px;text-align:center;color:var(--ink-2);font-size:14px;margin-bottom:14px;background:var(--surface)}
+.dz.over{border-color:var(--accent);background:var(--accent-soft)}
+.dz input{display:none}
+.footer{margin-top:28px;text-align:center;font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:var(--shadow);z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
+.toast.show{opacity:1}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.switch:last-child{border-bottom:0}
+.switch .l{font-size:14px;font-weight:600}
+.switch .d{font-size:12px;color:var(--muted)}
+.switch input{width:18px;height:18px;accent-color:var(--accent);flex:none}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast" role="status"></div>
+
+<script src="questions.js"></script>
+<script src="tools/word-parser.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.12.3/mammoth.browser.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+// ===================== 설정 =====================
+const LEVELS = [1,2,3,4];
+const DEFAULT_CONFIG = {
+  title: '레벨 진단 시험',
+  intro: '총 4개 레벨의 문제은행에서 레벨별 문항이 무작위로 출제됩니다. 시작하면 타이머가 바로 시작되니 준비되면 시작해 주세요.',
+  perLevel: 5,          // 레벨당 출제 문항 수
+  timeLimitMin: 20,     // 제한 시간(분). 0이면 제한 없음
+  passPercent: 60,      // 합격 기준(%)
+  shuffleChoices: true, // 보기 순서 섞기
+  showAnswers: true,    // 제출 후 정답/해설 공개
+  adminPass: 'admin1234',
+  webhookUrl: ''        // 구글 Apps Script 웹앱 URL (결과 자동 전송)
+};
+
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+const sess = {
+  get(k, d){ try{ const v = sessionStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ sessionStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ sessionStorage.removeItem(k); }catch(e){} }
+};
+
+let config = Object.assign({}, DEFAULT_CONFIG, store.get('exam.config', {}));
+function saveConfig(c){ config = Object.assign({}, DEFAULT_CONFIG, c); store.set('exam.config', config); }
+
+function fileBank(){ return Array.isArray(window.QUESTION_BANK) ? window.QUESTION_BANK : []; }
+function draftBank(){ const d = store.get('exam.bankDraft', null); return Array.isArray(d) && d.length ? d : null; }
+function getBank(){ return draftBank() || fileBank(); }
+function levelCounts(bank){ const c = {}; LEVELS.forEach(L => c[L] = 0); bank.forEach(q => { if (c[q.level] != null) c[q.level]++; }); return c; }
+
+// ===================== 유틸 =====================
+const app = document.getElementById('app');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+function shuffle(a){ const r = a.slice(); for (let i = r.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+function fmtTime(sec){ sec = Math.max(0, Math.floor(sec)); const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60; return (h ? h + ':' : '') + pad(m) + ':' + pad(s); }
+function fmtDate(ts){ const d = new Date(ts); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function formatPhone(v){ const d = v.replace(/\D/g, '').slice(0, 11); if (d.length < 4) return d; if (d.length < 8) return d.slice(0,3) + '-' + d.slice(3); if (d.length === 10 && !d.startsWith('010')) return d.slice(0,3) + '-' + d.slice(3,6) + '-' + d.slice(6); return d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7); }
+let toastId;
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastId); toastId = setTimeout(() => t.classList.remove('show'), 2600); }
+function download(name, text, type){
+  const blob = new Blob([text], {type: type || 'text/plain;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function csvCell(v){ v = String(v == null ? '' : v); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+function toCSV(rows){ return '\uFEFF' + rows.map(r => r.map(csvCell).join(',')).join('\r\n'); }
+
+// ===================== 시험 세션 =====================
+let session = sess.get('exam.session', null);
+let timerId = null;
+function saveSession(){ sess.set('exam.session', session); }
+function clearSession(){ session = null; sess.del('exam.session'); }
+
+function buildExam(bank){
+  const questions = [], shortages = [];
+  LEVELS.forEach(L => {
+    const pool = shuffle(bank.filter(q => q.level === L));
+    const take = pool.slice(0, config.perLevel);
+    if (take.length < config.perLevel) shortages.push({ level: L, have: take.length });
+    take.forEach(q => {
+      let choices = q.choices.slice(), answer = q.answer;
+      if (config.shuffleChoices){
+        const order = shuffle(choices.map((_, i) => i));
+        choices = order.map(i => q.choices[i]);
+        answer = order.indexOf(q.answer);
+      }
+      questions.push({ id: q.id, level: L, q: q.q, choices, answer, explain: q.explain || '' });
+    });
+  });
+  return { questions, shortages };
+}
+
+function startExam(applicant){
+  const { questions } = buildExam(getBank());
+  const now = Date.now();
+  session = {
+    id: uid(), applicant, startedAt: now,
+    deadline: config.timeLimitMin > 0 ? now + config.timeLimitMin * 60000 : null,
+    questions, answers: questions.map(() => null), current: 0, submitted: false, result: null
+  };
+  saveSession();
+  route();
+}
+
+function grade(s, auto){
+  const byLevel = {}; LEVELS.forEach(L => byLevel[L] = { correct: 0, total: 0 });
+  const answers = s.questions.map((q, i) => {
+    const picked = s.answers[i]; const correct = picked === q.answer;
+    byLevel[q.level].total++; if (correct) byLevel[q.level].correct++;
+    return { id: q.id, level: q.level, text: q.q.slice(0, 80), picked, answer: q.answer, correct };
+  });
+  const total = answers.length, score = answers.filter(a => a.correct).length;
+  const percent = total ? Math.round(score / total * 100) : 0;
+  const now = Date.now();
+  return {
+    id: s.id, name: s.applicant.name, phone: s.applicant.phone, email: s.applicant.email,
+    startedAt: s.startedAt, submittedAt: now, durationSec: Math.round((now - s.startedAt) / 1000),
+    score, total, percent, pass: percent >= config.passPercent, passPercent: config.passPercent,
+    byLevel, answers, auto: !!auto, sent: config.webhookUrl ? 'pending' : 'none'
+  };
+}
+
+function submitExam(auto){
+  if (!session || session.submitted) return;
+  if (!auto){
+    const un = session.answers.filter(a => a == null).length;
+    const msg = un ? `아직 답하지 않은 문항이 ${un}개 있습니다.\n그래도 제출할까요?` : '답안을 제출할까요? 제출 후에는 수정할 수 없습니다.';
+    if (!confirm(msg)) return;
+  }
+  stopTimer();
+  const result = grade(session, auto);
+  session.submitted = true; session.result = result; saveSession();
+  const list = store.get('exam.results', []); list.push(result); store.set('exam.results', list);
+  postWebhook(result).then(status => {
+    const l = store.get('exam.results', []); const r = l.find(x => x.id === result.id); if (r){ r.sent = status; store.set('exam.results', l); }
+  });
+  route();
+}
+
+async function postWebhook(rec){
+  if (!config.webhookUrl) return 'none';
+  try{
+    await fetch(config.webhookUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(rec) });
+    return 'ok';
+  }catch(e){ return 'fail'; }
+}
+
+// ===================== 타이머 =====================
+function startTimer(){ stopTimer(); tick(); timerId = setInterval(tick, 500); }
+function stopTimer(){ if (timerId){ clearInterval(timerId); timerId = null; } }
+function tick(){
+  if (!session || session.submitted) return;
+  const el = document.getElementById('timer'); const now = Date.now();
+  if (session.deadline){
+    const rem = (session.deadline - now) / 1000;
+    if (el){ el.textContent = fmtTime(rem); el.classList.toggle('warn', rem < 60); }
+    if (rem <= 0){ submitExam(true); toast('제한 시간이 끝나 자동으로 제출되었습니다.'); }
+  } else if (el){ el.textContent = fmtTime((now - session.startedAt) / 1000); }
+}
+
+window.addEventListener('beforeunload', e => {
+  if (session && !session.submitted && location.hash !== '#admin'){ e.preventDefault(); e.returnValue = ''; }
+});
+
+// ===================== 라우팅 =====================
+function route(){
+  stopTimer(); document.onkeydown = null;
+  if (location.hash === '#admin') return renderAdmin();
+  if (session && !session.submitted) return renderExam();
+  if (session && session.submitted) return renderResult();
+  renderEntry();
+}
+window.addEventListener('hashchange', route);
+
+// ===================== 화면: 응시자 입장 =====================
+function renderEntry(){
+  const bank = getBank(); const counts = levelCounts(bank);
+  const total = LEVELS.reduce((s, L) => s + Math.min(counts[L], config.perLevel), 0);
+  const empty = LEVELS.filter(L => counts[L] === 0);
+  const active = LEVELS.filter(L => counts[L] > 0);
+  const short = LEVELS.filter(L => counts[L] > 0 && counts[L] < config.perLevel);
+  document.title = config.title;
+  app.innerHTML = `
+  <div class="shell">
+    <header class="brand"><div class="mark">Q</div><div><h1>${esc(config.title)}</h1><p>응시자 정보를 입력하면 시험이 시작됩니다.</p></div></header>
+    <section class="card">
+      <div class="spec">
+        <div><div class="k">문항 수</div><div class="v">${total}<small>문항</small></div></div>
+        <div><div class="k">출제 방식</div><div class="v">${config.perLevel}<small>문항 × ${active.length}레벨</small></div></div>
+        <div><div class="k">제한 시간</div><div class="v">${config.timeLimitMin > 0 ? config.timeLimitMin + '<small>분</small>' : '없음'}</div></div>
+        <div><div class="k">합격 기준</div><div class="v">${config.passPercent}<small>% 이상</small></div></div>
+      </div>
+      <p style="color:var(--ink-2);font-size:14px;margin-bottom:22px;white-space:pre-wrap">${esc(config.intro)}</p>
+      ${!active.length ? `<div class="notice bad"><b>등록된 문항이 없습니다.</b> 관리자 페이지에서 문항을 등록해 주세요.</div>` : empty.length ? `<div class="notice">${empty.map(L => '레벨 ' + L).join(', ')}은(는) 아직 문항이 없어 출제되지 않습니다.</div>` : ''}
+      ${short.length ? `<div class="notice warn">문항이 부족한 레벨은 등록된 문항만 출제됩니다. (${short.map(L => `레벨 ${L}: ${counts[L]}문항`).join(', ')})</div>` : ''}
+      <form id="entry" novalidate>
+        <div class="field"><label for="f-name">이름</label><input class="input" id="f-name" name="name" autocomplete="name" placeholder="홍길동" required></div>
+        <div class="grid2">
+          <div class="field"><label for="f-phone">전화번호</label><input class="input" id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000" required></div>
+          <div class="field"><label for="f-email">이메일 주소</label><input class="input" id="f-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required></div>
+        </div>
+        <label class="check"><input type="checkbox" id="f-agree"><span>입력한 이름·전화번호·이메일은 시험 결과 확인과 안내 목적으로만 사용되는 것에 동의합니다.</span></label>
+        <div id="entry-err" class="error" style="margin-bottom:12px"></div>
+        <button class="btn primary block" type="submit" ${!active.length ? 'disabled' : ''}>시험 시작하기</button>
+      </form>
+    </section>
+    <p class="footer">시작하면 타이머가 바로 시작됩니다. 문제를 푸는 동안 브라우저를 닫지 마세요. · <a href="#admin">관리자</a></p>
+  </div>`;
+
+  const phone = document.getElementById('f-phone');
+  phone.addEventListener('input', () => { phone.value = formatPhone(phone.value); });
+  document.getElementById('entry').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('f-name').value.trim();
+    const ph = phone.value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const agree = document.getElementById('f-agree').checked;
+    const err = document.getElementById('entry-err');
+    const digits = ph.replace(/\D/g, '');
+    let msg = '';
+    if (name.length < 2) msg = '이름을 입력해 주세요.';
+    else if (digits.length < 10 || digits.length > 11) msg = '전화번호를 정확히 입력해 주세요.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) msg = '이메일 주소 형식이 올바르지 않습니다.';
+    else if (!agree) msg = '개인정보 이용에 동의해 주세요.';
+    err.textContent = msg;
+    if (msg) return;
+    startExam({ name, phone: ph, email });
+  });
+}
+
+// ===================== 화면: 시험 =====================
+function renderExam(){
+  const s = session; const i = s.current; const q = s.questions[i]; const n = s.questions.length;
+  const answered = s.answers.filter(a => a != null).length;
+  document.title = `${i+1}/${n} · ${config.title}`;
+  let navHtml = '', lastLevel = null;
+  s.questions.forEach((qq, k) => {
+    if (qq.level !== lastLevel){ navHtml += `<div class="qgroup">레벨 ${qq.level}</div>`; lastLevel = qq.level; }
+    navHtml += `<button type="button" data-go="${k}" class="${s.answers[k] != null ? 'done' : ''} ${k === i ? 'cur' : ''}" aria-label="${k+1}번 문항">${k+1}</button>`;
+  });
+  app.innerHTML = `
+  <div class="exambar">
+    <div class="in">
+      <div class="who">${esc(s.applicant.name)}<small>${esc(config.title)}</small></div>
+      <div class="prog">${answered} / ${n} 응답</div>
+      <div class="timer" id="timer" aria-live="off">${s.deadline ? fmtTime((s.deadline - Date.now())/1000) : '00:00'}</div>
+      <button class="btn sm" id="submit-top" type="button">제출</button>
+    </div>
+    <div class="progressbar"><i style="width:${answered / n * 100}%"></i></div>
+  </div>
+  <div class="shell">
+    <nav class="qnav" aria-label="문항 이동">${navHtml}</nav>
+    <article class="question">
+      <div class="head"><span class="lvl">레벨 ${q.level}</span><span class="num">문항 ${i+1} / ${n}</span></div>
+      <h2>${esc(q.q)}</h2>
+      <ol class="choices">
+        ${q.choices.map((c, ci) => `
+        <li><label class="choice ${s.answers[i] === ci ? 'on' : ''}"><input type="radio" name="a" value="${ci}" ${s.answers[i] === ci ? 'checked' : ''}><span class="n">${ci+1}</span><span class="t">${esc(c)}</span></label></li>`).join('')}
+      </ol>
+      <div class="pager">
+        <button class="btn" type="button" id="prev" ${i === 0 ? 'disabled' : ''}>이전</button>
+        ${i < n - 1 ? `<button class="btn primary" type="button" id="next">다음</button>` : `<button class="btn primary" type="button" id="submit">답안 제출</button>`}
+      </div>
+    </article>
+    <p class="keyhint">숫자 키 <kbd>1</kbd>~<kbd>${q.choices.length}</kbd>로 선택, <kbd>←</kbd> <kbd>→</kbd>로 이동할 수 있습니다.</p>
+  </div>`;
+
+  app.querySelectorAll('input[name="a"]').forEach(r => r.addEventListener('change', () => pick(+r.value)));
+  app.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(+b.dataset.go)));
+  const prev = document.getElementById('prev'), next = document.getElementById('next');
+  if (prev) prev.addEventListener('click', () => go(i - 1));
+  if (next) next.addEventListener('click', () => go(i + 1));
+  ['submit', 'submit-top'].forEach(id => { const b = document.getElementById(id); if (b) b.addEventListener('click', () => submitExam(false)); });
+  document.onkeydown = e => {
+    if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName) && e.target.type !== 'radio') return;
+    if (/^[1-9]$/.test(e.key) && +e.key <= q.choices.length){ pick(+e.key - 1); }
+    else if (e.key === 'ArrowRight' && i < n - 1) go(i + 1);
+    else if (e.key === 'ArrowLeft' && i > 0) go(i - 1);
+  };
+  startTimer();
+
+  function pick(ci){ s.answers[i] = ci; saveSession(); renderExam(); }
+  function go(k){ if (k < 0 || k >= n) return; s.current = k; saveSession(); renderExam(); window.scrollTo({ top: 0 }); }
+}
+
+// ===================== 화면: 결과 =====================
+function renderResult(){
+  const s = session, r = s.result;
+  document.title = `결과 · ${config.title}`;
+  app.innerHTML = `
+  <div class="shell">
+    <header class="brand"><div class="mark">Q</div><div><h1>시험 결과</h1><p>${esc(r.name)} 님 · ${fmtDate(r.submittedAt)} 제출${r.auto ? ' (시간 종료로 자동 제출)' : ''}</p></div></header>
+    <section class="card">
+      <div class="score">
+        <div class="big">${r.score}<small> / ${r.total}</small></div>
+        <div class="meta">
+          <div><span class="chip ${r.pass ? 'ok' : 'bad'}">${r.pass ? '합격' : '불합격'}</span> <span class="chip">정답률 ${r.percent}%</span> <span class="chip">소요 ${fmtTime(r.durationSec)}</span></div>
+          <div style="margin-top:6px">합격 기준 ${r.passPercent}% 이상</div>
+        </div>
+      </div>
+      <div class="eyebrow" style="margin-bottom:10px">레벨별 결과</div>
+      <div class="levels">
+        ${LEVELS.filter(L => r.byLevel[L] && r.byLevel[L].total > 0).map(L => { const b = r.byLevel[L]; const p = b.total ? b.correct / b.total * 100 : 0; return `
+        <div class="lrow"><span class="lvl">레벨 ${L}</span><div class="bar"><i style="width:${p}%"></i></div><span class="c">${b.correct} / ${b.total}</span></div>`; }).join('')}
+      </div>
+    </section>
+    ${config.showAnswers ? `
+    <section class="review">
+      <div class="eyebrow">문항별 확인</div>
+      ${s.questions.map((q, i) => { const a = r.answers[i]; return `
+      <article class="question">
+        <div class="head"><span class="lvl">레벨 ${q.level}</span><span class="num">문항 ${i+1}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : a.picked == null ? '미응답' : '오답'}</span></div>
+        <h2>${esc(q.q)}</h2>
+        <ol class="choices">${q.choices.map((c, ci) => `<li><div class="choice static ${ci === q.answer ? 'correct' : ''} ${a.picked === ci && ci !== q.answer ? 'wrong' : ''}"><span class="n">${ci+1}</span><span class="t">${esc(c)}</span></div></li>`).join('')}</ol>
+        ${q.explain ? `<div class="explain">${esc(q.explain)}</div>` : ''}
+      </article>`; }).join('')}
+    </section>` : `<div class="notice">답안이 제출되었습니다. 결과는 담당자가 별도로 안내드립니다.</div>`}
+    <div class="row end" style="margin-top:20px"><button class="btn" id="home" type="button">처음 화면으로</button></div>
+  </div>`;
+  document.getElementById('home').addEventListener('click', () => { clearSession(); route(); window.scrollTo({ top: 0 }); });
+}
+
+// ===================== 화면: 관리자 =====================
+let adminTab = 'questions';
+const A = { level: 'all', search: '', editing: null, pending: null, open: null };
+
+function renderAdmin(){
+  document.title = `관리자 · ${config.title}`;
+  if (sessionStorage.getItem('exam.admin') !== '1'){
+    app.innerHTML = `
+    <div class="shell" style="max-width:420px">
+      <header class="brand"><div class="mark">Q</div><div><h1>관리자</h1><p>${esc(config.title)}</p></div></header>
+      <section class="card">
+        <form id="gate">
+          <div class="field"><label for="g-pass">관리자 비밀번호</label><input class="input" id="g-pass" type="password" autocomplete="current-password" autofocus></div>
+          <div id="g-err" class="error" style="margin-bottom:12px"></div>
+          <button class="btn primary block" type="submit">들어가기</button>
+        </form>
+      </section>
+      <p class="footer"><a href="#">응시 화면으로</a></p>
+    </div>`;
+    document.getElementById('gate').addEventListener('submit', e => {
+      e.preventDefault();
+      if (document.getElementById('g-pass').value === config.adminPass){ sessionStorage.setItem('exam.admin', '1'); renderAdmin(); }
+      else document.getElementById('g-err').textContent = '비밀번호가 맞지 않습니다.';
+    });
+    return;
+  }
+  app.innerHTML = `
+  <div class="shell wide">
+    <header class="brand row between" style="flex-wrap:wrap">
+      <div class="row"><div class="mark">Q</div><div><h1>관리자</h1><p>${esc(config.title)}</p></div></div>
+      <div class="row"><a class="btn sm" href="#">응시 화면 보기</a><button class="btn sm ghost" id="logout" type="button">나가기</button></div>
+    </header>
+    <nav class="tabs">
+      <button type="button" data-tab="questions" class="${adminTab === 'questions' ? 'on' : ''}">문항 관리</button>
+      <button type="button" data-tab="results" class="${adminTab === 'results' ? 'on' : ''}">응시 결과</button>
+      <button type="button" data-tab="settings" class="${adminTab === 'settings' ? 'on' : ''}">설정</button>
+    </nav>
+    <div id="panel"></div>
+  </div>`;
+  document.getElementById('logout').addEventListener('click', () => { sessionStorage.removeItem('exam.admin'); location.hash = ''; });
+  app.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => { adminTab = b.dataset.tab; A.editing = null; renderAdmin(); }));
+  ({ questions: renderQuestionsTab, results: renderResultsTab, settings: renderSettingsTab })[adminTab]();
+}
+
+// ---------- 문항 관리 ----------
+function renderQuestionsTab(){
+  const panel = document.getElementById('panel');
+  const bank = getBank(); const counts = levelCounts(bank); const isDraft = !!draftBank();
+  const filtered = bank.filter(q => (A.level === 'all' || q.level === +A.level) && (!A.search || (q.q + ' ' + q.choices.join(' ')).toLowerCase().includes(A.search.toLowerCase())));
+  const P = A.pending;
+  panel.innerHTML = `
+    ${isDraft ? `<div class="notice warn"><b>이 브라우저에 임시 저장된 문항(초안)을 보고 있습니다.</b> 응시자에게 적용하려면 아래 <b>questions.js 내려받기</b>로 파일을 받아 index.html 옆의 questions.js를 교체해 주세요. <button class="btn sm ghost" id="drop-draft" type="button" style="margin-left:6px">초안 버리고 파일 문항으로</button></div>`
+             : `<div class="notice">현재 <b>questions.js</b> 파일의 문항을 보고 있습니다. 가져오기·수정 내용은 이 브라우저에 초안으로 저장되며, questions.js를 내려받아 교체해야 응시자에게 적용됩니다.</div>`}
+    <div class="stats">${LEVELS.map(L => `<div class="stat ${counts[L] === 0 ? 'zero' : counts[L] < config.perLevel ? 'low' : ''}"><div class="k">레벨 ${L}</div><div class="v">${counts[L]}<small> / 100 문항</small></div></div>`).join('')}</div>
+    <div class="dz" id="dz">
+      <input type="file" id="file" accept=".xlsx,.xls,.csv,.json,.docx">
+      <div><b>Word(.docx) · 엑셀(.xlsx) · CSV · JSON 파일을 끌어다 놓거나</b> <button class="btn sm" type="button" id="pick">파일 선택</button></div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">Word: "1. 문제" + ①~⑤ 보기 + 문서 끝 정답표 형식의 문제지를 그대로 읽습니다 (레벨은 문서의 "LEVEL n"에서 자동 인식).<br>엑셀·CSV 열 순서: 레벨(1~4) · 문제 · 보기1~5 · 정답(보기 번호) · 해설(선택) · 분류(선택) &nbsp;·&nbsp; <a href="#" id="tpl">양식 내려받기</a></div>
+    </div>
+    ${P ? `<div class="notice ${P.errors.length ? 'warn' : 'ok'}">
+      <b>${esc(P.name)}</b>에서 문항 ${P.questions.length}개를 읽었습니다. (${LEVELS.map(L => `레벨 ${L}: ${P.questions.filter(q => q.level === L).length}`).join(' · ')})
+      ${P.isWord ? `<span style="margin-left:8px">이 문서의 레벨: <select class="input" id="imp-level" style="width:auto;padding:3px 8px">${LEVELS.map(L => `<option value="${L}" ${P.wordLevel === L ? 'selected' : ''}>레벨 ${L}</option>`).join('')}</select>${P.levelDetected ? '' : ' <span class="chip warn">자동 인식 실패 — 직접 선택</span>'}</span>` : ''}
+      ${P.errors.length ? `<div style="margin-top:6px">건너뛴 항목 ${P.errors.length}개:</div><ul>${P.errors.slice(0, 8).map(e => `<li>${esc(e)}</li>`).join('')}${P.errors.length > 8 ? `<li>… 외 ${P.errors.length - 8}개</li>` : ''}</ul>` : ''}
+      <div class="row" style="margin-top:10px">
+        <button class="btn sm primary" type="button" id="imp-level-replace" ${P.questions.length ? '' : 'disabled'}>같은 레벨만 교체</button>
+        <button class="btn sm" type="button" id="imp-append" ${P.questions.length ? '' : 'disabled'}>기존 문항에 추가</button>
+        <button class="btn sm" type="button" id="imp-replace" ${P.questions.length ? '' : 'disabled'}>전체 교체</button>
+        <button class="btn sm ghost" type="button" id="imp-cancel">취소</button>
+      </div></div>` : ''}
+    <div class="toolbar">
+      <select class="input" id="lv" style="width:auto"><option value="all">전체 레벨</option>${LEVELS.map(L => `<option value="${L}" ${A.level == L ? 'selected' : ''}>레벨 ${L}</option>`).join('')}</select>
+      <input class="input" id="search" style="width:240px" placeholder="문제·보기 검색" value="${esc(A.search)}">
+      <span class="sp"></span>
+      <button class="btn sm" type="button" id="add">문항 추가</button>
+      <button class="btn sm" type="button" id="exp-xlsx">엑셀로 내보내기</button>
+      <button class="btn sm primary" type="button" id="exp-js">questions.js 내려받기</button>
+    </div>
+    <div id="editor"></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>ID</th><th>레벨</th><th>분류</th><th>문제</th><th>보기</th><th>정답</th><th></th></tr></thead>
+      <tbody>${filtered.length ? filtered.map(q => `
+        <tr><td class="mono">${esc(q.id)}</td><td><span class="lvl">L${q.level}</span></td><td class="trunc" style="max-width:140px;color:var(--ink-2)">${esc(q.topic || '')}</td><td class="trunc" title="${esc(q.q)}">${esc(q.q)}</td><td class="trunc" style="max-width:260px;color:var(--ink-2)">${q.choices.map((c, i) => `${i+1}. ${esc(c)}`).join(' · ')}</td><td class="num">${q.answer + 1}번</td>
+        <td class="num"><button class="btn sm ghost" type="button" data-edit="${esc(q.id)}">수정</button><button class="btn sm ghost" type="button" data-del="${esc(q.id)}" style="color:var(--bad)">삭제</button></td></tr>`).join('')
+        : `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:28px">문항이 없습니다.</td></tr>`}</tbody>
+    </table></div>
+    <p class="footer">총 ${bank.length}문항 중 ${filtered.length}개 표시</p>`;
+
+  // 이벤트
+  const dz = document.getElementById('dz'), file = document.getElementById('file');
+  document.getElementById('pick').addEventListener('click', () => file.click());
+  file.addEventListener('change', () => { if (file.files[0]) importFile(file.files[0]); });
+  ['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+  dz.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if (f) importFile(f); });
+  document.getElementById('tpl').addEventListener('click', e => { e.preventDefault(); downloadTemplate(); });
+  document.getElementById('lv').addEventListener('change', e => { A.level = e.target.value; renderQuestionsTab(); });
+  let st; document.getElementById('search').addEventListener('input', e => { clearTimeout(st); st = setTimeout(() => { A.search = e.target.value; renderQuestionsTab(); const si = document.getElementById('search'); si.focus(); si.setSelectionRange(si.value.length, si.value.length); }, 250); });
+  document.getElementById('add').addEventListener('click', () => { A.editing = { level: A.level === 'all' ? 1 : +A.level, q: '', choices: ['', '', '', '', ''], answer: 0, explain: '', topic: '', isNew: true }; renderQuestionsTab(); });
+  document.getElementById('exp-js').addEventListener('click', () => exportQuestionsJs(bank));
+  document.getElementById('exp-xlsx').addEventListener('click', () => exportXlsx(bank));
+  const dd = document.getElementById('drop-draft'); if (dd) dd.addEventListener('click', () => { if (confirm('이 브라우저의 초안을 버리고 questions.js 파일의 문항으로 되돌릴까요?')){ store.del('exam.bankDraft'); A.pending = null; renderQuestionsTab(); } });
+  if (P){
+    document.getElementById('imp-cancel').addEventListener('click', () => { A.pending = null; renderQuestionsTab(); });
+    document.getElementById('imp-replace').addEventListener('click', () => { if (confirm(`기존 ${bank.length}문항을 모두 지우고 ${P.questions.length}문항으로 교체할까요?`)){ saveDraft(P.questions); A.pending = null; toast('문항을 교체했습니다. questions.js를 내려받아 적용하세요.'); renderQuestionsTab(); } });
+    document.getElementById('imp-append').addEventListener('click', () => { saveDraft(bank.concat(P.questions)); A.pending = null; toast('문항을 추가했습니다.'); renderQuestionsTab(); });
+    document.getElementById('imp-level-replace').addEventListener('click', () => {
+      const lv = [...new Set(P.questions.map(q => q.level))]; const drop = bank.filter(q => lv.includes(q.level)).length;
+      if (confirm(`${lv.map(L => '레벨 ' + L).join(', ')}의 기존 ${drop}문항을 지우고 새 ${P.questions.length}문항으로 바꿀까요? (다른 레벨은 그대로)`)){ saveDraft(bank.filter(q => !lv.includes(q.level)).concat(P.questions)); A.pending = null; toast('해당 레벨 문항을 교체했습니다. questions.js를 내려받아 적용하세요.'); renderQuestionsTab(); }
+    });
+    const il = document.getElementById('imp-level'); if (il) il.addEventListener('change', () => { P.wordLevel = +il.value; P.questions.forEach(q => q.level = P.wordLevel); renderQuestionsTab(); });
+  }
+  panel.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => { const q = bank.find(x => x.id === b.dataset.edit); A.editing = Object.assign({}, q, { choices: q.choices.concat(['', '', '', '', '']).slice(0, Math.max(5, q.choices.length)) }); renderQuestionsTab(); document.getElementById('editor').scrollIntoView({ block: 'start' }); }));
+  panel.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => { if (confirm('이 문항을 삭제할까요?')){ saveDraft(bank.filter(x => x.id !== b.dataset.del)); renderQuestionsTab(); } }));
+  if (A.editing) renderEditor(bank);
+}
+
+function renderEditor(bank){
+  const e = A.editing; const box = document.getElementById('editor');
+  box.innerHTML = `
+  <form class="editor" id="qform">
+    <div class="row between" style="margin-bottom:10px"><b>${e.isNew ? '새 문항' : '문항 수정 · ' + esc(e.id)}</b>
+      <select class="input" name="level" style="width:auto">${LEVELS.map(L => `<option value="${L}" ${e.level === L ? 'selected' : ''}>레벨 ${L}</option>`).join('')}</select></div>
+    <div class="field"><label>문제</label><textarea class="input" name="q" required>${esc(e.q)}</textarea></div>
+    <div class="grid2">${e.choices.map((c, i) => `<div class="field"><label>보기 ${i+1}${i < 2 ? '' : ' (선택)'}</label><input class="input" name="c${i}" value="${esc(c)}"></div>`).join('')}</div>
+    <div class="grid2">
+      <div class="field"><label>정답</label><select class="input" name="answer">${e.choices.map((_, i) => `<option value="${i}" ${e.answer === i ? 'selected' : ''}>보기 ${i+1}</option>`).join('')}</select></div>
+      <div class="field"><label>해설 (선택)</label><input class="input" name="explain" value="${esc(e.explain || '')}"></div>
+      <div class="field"><label>분류 (선택)</label><input class="input" name="topic" value="${esc(e.topic || '')}" placeholder="예: 매출 구조와 원인 진단"></div>
+    </div>
+    <div class="row end"><button class="btn sm ghost" type="button" id="ed-cancel">취소</button><button class="btn sm primary" type="submit">저장</button></div>
+    <div id="ed-err" class="error"></div>
+  </form>`;
+  document.getElementById('ed-cancel').addEventListener('click', () => { A.editing = null; renderQuestionsTab(); });
+  document.getElementById('qform').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const f = new FormData(ev.target);
+    const raw = e.choices.map((_, i) => String(f.get('c' + i) || '').trim());
+    const keep = raw.map((c, i) => ({ c, i })).filter(x => x.c);
+    const ans = +f.get('answer');
+    const err = document.getElementById('ed-err');
+    if (!String(f.get('q')).trim()) return err.textContent = '문제를 입력해 주세요.';
+    if (keep.length < 2) return err.textContent = '보기는 최소 2개 필요합니다.';
+    if (!raw[ans]) return err.textContent = '정답으로 고른 보기가 비어 있습니다.';
+    const nq = { id: e.id, level: +f.get('level'), q: String(f.get('q')).trim(), choices: keep.map(x => x.c), answer: keep.findIndex(x => x.i === ans), explain: String(f.get('explain') || '').trim(), topic: String(f.get('topic') || '').trim() };
+    const list = e.isNew ? bank.concat([nq]) : bank.map(x => x.id === e.id ? nq : x);
+    saveDraft(list); A.editing = null; toast('저장했습니다.'); renderQuestionsTab();
+  });
+}
+
+function reindex(list){
+  const c = {}; LEVELS.forEach(L => c[L] = 0);
+  return list.slice().sort((a, b) => a.level - b.level).map(q => { c[q.level]++; return Object.assign({}, q, { id: `L${q.level}-${String(c[q.level]).padStart(3, '0')}` }); });
+}
+function saveDraft(list){ store.set('exam.bankDraft', reindex(list)); }
+
+function parseCSV(text){
+  const rows = []; let row = [], field = '', inQ = false; text = text.replace(/^\uFEFF/, '');
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (inQ){ if (c === '"'){ if (text[i+1] === '"'){ field += '"'; i++; } else inQ = false; } else field += c; }
+    else if (c === '"') inQ = true;
+    else if (c === ','){ row.push(field); field = ''; }
+    else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+    else if (c !== '\r') field += c;
+  }
+  if (field !== '' || row.length){ row.push(field); rows.push(row); }
+  return rows;
+}
+function rowsToQuestions(rows){
+  const questions = [], errors = [];
+  rows.forEach((r, idx) => {
+    const cells = r.map(v => String(v == null ? '' : v).trim());
+    if (cells.every(v => !v)) return;
+    const level = parseInt(cells[0], 10);
+    if (idx === 0 && !(level >= 1 && level <= 4)) return; // 헤더 행
+    const line = idx + 1;
+    if (!(level >= 1 && level <= 4)) return errors.push(`${line}행: 레벨은 1~4여야 합니다. ("${cells[0]}")`);
+    const q = cells[1]; if (!q) return errors.push(`${line}행: 문제가 비어 있습니다.`);
+    const rawChoices = cells.slice(2, 7); const keep = rawChoices.map((c, i) => ({ c, i })).filter(x => x.c);
+    if (keep.length < 2) return errors.push(`${line}행: 보기는 최소 2개 필요합니다.`);
+    const ansNum = parseInt(String(cells[7]).replace(/[^\d]/g, ''), 10);
+    if (!(ansNum >= 1 && ansNum <= 5) || !rawChoices[ansNum - 1]) return errors.push(`${line}행: 정답 번호가 올바르지 않습니다. ("${cells[7]}")`);
+    questions.push({ id: '', level, q, choices: keep.map(x => x.c), answer: keep.findIndex(x => x.i === ansNum - 1), explain: cells[8] || '', topic: cells[9] || '' });
+  });
+  return { questions, errors };
+}
+function jsonToQuestions(text){
+  let data = JSON.parse(text.replace(/^\s*window\.QUESTION_BANK\s*=\s*/, '').replace(/;\s*$/, ''));
+  if (!Array.isArray(data)) throw new Error('배열이 아닙니다');
+  const rows = data.map(q => [q.level, q.q, ...(q.choices || []).concat(['', '', '', '', '']).slice(0, 5), (q.answer | 0) + 1, q.explain || '', q.topic || '']);
+  return rowsToQuestions(rows);
+}
+async function importFile(f){
+  const ext = (f.name.split('.').pop() || '').toLowerCase();
+  try{
+    let parsed;
+    if (ext === 'xlsx' || ext === 'xls'){
+      if (!window.XLSX){ toast('엑셀 읽기 도구를 불러오지 못했습니다(인터넷 연결 필요). CSV로 저장해 올려주세요.'); return; }
+      const wb = XLSX.read(await f.arrayBuffer(), { type: 'array' });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      parsed = rowsToQuestions(XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' }));
+    } else if (ext === 'docx'){
+      if (!window.mammoth || !window.parseWordText){ toast('Word 읽기 도구를 불러오지 못했습니다(인터넷 연결 필요).'); return; }
+      const { value: text } = await mammoth.extractRawText({ arrayBuffer: await f.arrayBuffer() });
+      const lm = text.match(/LEVEL\s*([1-4])/i) || f.name.match(/LEVEL\s*_?([1-4])/i) || f.name.match(/레벨\s*([1-4])/);
+      const wordLevel = lm ? +lm[1] : 1;
+      const r = parseWordText(text, wordLevel);
+      parsed = { questions: r.questions, errors: r.problems, isWord: true, wordLevel, levelDetected: !!lm };
+    } else if (ext === 'json' || ext === 'js'){ parsed = jsonToQuestions(await f.text()); }
+    else { parsed = rowsToQuestions(parseCSV(await f.text())); }
+    A.pending = Object.assign({ name: f.name }, parsed);
+  }catch(e){ toast('파일을 읽지 못했습니다: ' + e.message); }
+  renderQuestionsTab();
+}
+function downloadTemplate(){
+  const rows = [['레벨', '문제', '보기1', '보기2', '보기3', '보기4', '보기5', '정답(번호)', '해설', '분류'],
+    [1, '매출을 가장 기본적으로 분해한 식은?', '객수 × 객단가', '신규 × 재방문', '광고비 × 전환율', '노출 × 리뷰', 'LTV × CAC', 1, '', '사업·매출·비용의 기본'],
+    [2, '3, 6, 12, 24 다음 수는?', '36', '42', '48', '54', '', 3, '앞의 수에 2를 곱합니다.', '']];
+  if (window.XLSX){
+    const ws = XLSX.utils.aoa_to_sheet(rows); ws['!cols'] = [{ wch: 6 }, { wch: 50 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 10 }, { wch: 30 }, { wch: 20 }];
+    const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, '문항'); XLSX.writeFile(wb, '문항_양식.xlsx');
+  } else download('문항_양식.csv', toCSV(rows), 'text/csv;charset=utf-8');
+}
+function exportXlsx(bank){
+  const rows = [['레벨', '문제', '보기1', '보기2', '보기3', '보기4', '보기5', '정답(번호)', '해설', '분류']].concat(bank.map(q => [q.level, q.q, ...q.choices.concat(['', '', '', '', '']).slice(0, 5), q.answer + 1, q.explain || '', q.topic || '']));
+  if (window.XLSX){ const ws = XLSX.utils.aoa_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, '문항'); XLSX.writeFile(wb, '문제은행.xlsx'); }
+  else download('문제은행.csv', toCSV(rows), 'text/csv;charset=utf-8');
+}
+function exportQuestionsJs(bank){
+  const text = `// 문제은행 데이터 — 관리자 페이지에서 내려받은 파일입니다. index.html 옆의 questions.js를 이 파일로 교체하세요.\n// 생성: ${fmtDate(Date.now())} · ${bank.length}문항\nwindow.QUESTION_BANK = ${JSON.stringify(reindex(bank), null, 2)};\n`;
+  download('questions.js', text, 'text/javascript;charset=utf-8');
+  toast('questions.js를 내려받았습니다. 기존 파일을 교체하세요.');
+}
+
+// ---------- 응시 결과 ----------
+function renderResultsTab(){
+  const panel = document.getElementById('panel');
+  const list = store.get('exam.results', []).slice().reverse();
+  const passN = list.filter(r => r.pass).length;
+  const avg = list.length ? Math.round(list.reduce((s, r) => s + r.percent, 0) / list.length) : 0;
+  panel.innerHTML = `
+    <div class="notice">여기에는 <b>이 브라우저(이 컴퓨터)에서 치른 시험</b>의 결과만 남습니다. 여러 사람이 각자 기기로 응시한 결과를 한곳에 모으려면 설정 탭에서 <b>구글 시트 전송 주소</b>를 등록하세요.</div>
+    <div class="stats">
+      <div class="stat"><div class="k">응시</div><div class="v">${list.length}<small> 명</small></div></div>
+      <div class="stat"><div class="k">합격</div><div class="v">${passN}<small> 명</small></div></div>
+      <div class="stat"><div class="k">평균 정답률</div><div class="v">${avg}<small> %</small></div></div>
+      <div class="stat"><div class="k">시트 전송 실패</div><div class="v">${list.filter(r => r.sent === 'fail').length}<small> 건</small></div></div>
+    </div>
+    <div class="toolbar"><span class="sp"></span><button class="btn sm" type="button" id="exp-csv" ${list.length ? '' : 'disabled'}>CSV로 내보내기</button><button class="btn sm danger" type="button" id="clear" ${list.length ? '' : 'disabled'}>전체 삭제</button></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>제출 일시</th><th>이름</th><th>전화번호</th><th>이메일</th><th class="num">점수</th>${LEVELS.map(L => `<th class="num">L${L}</th>`).join('')}<th>판정</th><th class="num">소요</th><th>전송</th></tr></thead>
+      <tbody>${list.length ? list.map(r => `
+        <tr class="clickable" data-open="${r.id}">
+          <td class="mono" style="white-space:nowrap">${fmtDate(r.submittedAt)}</td><td style="white-space:nowrap">${esc(r.name)}</td><td class="mono">${esc(r.phone)}</td><td style="white-space:nowrap">${esc(r.email)}</td>
+          <td class="num"><b>${r.score}</b>/${r.total} <span style="color:var(--muted)">(${r.percent}%)</span></td>
+          ${LEVELS.map(L => `<td class="num">${r.byLevel[L] ? r.byLevel[L].correct + '/' + r.byLevel[L].total : '-'}</td>`).join('')}
+          <td><span class="chip ${r.pass ? 'ok' : 'bad'}">${r.pass ? '합격' : '불합격'}</span>${r.auto ? ' <span class="chip warn" title="시간 종료 자동 제출">자동</span>' : ''}</td>
+          <td class="num mono">${fmtTime(r.durationSec)}</td>
+          <td>${({ ok: '<span class="chip ok">전송됨</span>', fail: '<span class="chip bad">실패</span>', pending: '<span class="chip">대기</span>', none: '<span class="chip">-</span>' })[r.sent] || '-'}</td>
+        </tr>
+        ${A.open === r.id ? `<tr><td colspan="${8 + LEVELS.length}" class="detail">${r.answers.map((a, i) => `<div class="a"><span class="mono">${esc(a.id)}</span><span>${esc(a.text)}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : a.picked == null ? '미응답' : '오답 (' + (a.picked + 1) + '번 선택, 정답 ' + (a.answer + 1) + '번)'}</span></div>`).join('')}</td></tr>` : ''}`).join('')
+        : `<tr><td colspan="${8 + LEVELS.length}" style="text-align:center;color:var(--muted);padding:28px">아직 응시 결과가 없습니다.</td></tr>`}</tbody>
+    </table></div>`;
+  panel.querySelectorAll('[data-open]').forEach(tr => tr.addEventListener('click', () => { A.open = A.open === tr.dataset.open ? null : tr.dataset.open; renderResultsTab(); }));
+  document.getElementById('exp-csv').addEventListener('click', () => {
+    const rows = [['제출일시', '이름', '전화번호', '이메일', '점수', '총문항', '정답률(%)', '판정', ...LEVELS.map(L => `레벨${L}`), '소요(초)', '자동제출', '문항별']]
+      .concat(list.map(r => [fmtDate(r.submittedAt), r.name, r.phone, r.email, r.score, r.total, r.percent, r.pass ? '합격' : '불합격', ...LEVELS.map(L => r.byLevel[L] ? `${r.byLevel[L].correct}/${r.byLevel[L].total}` : ''), r.durationSec, r.auto ? 'Y' : 'N', r.answers.map(a => `${a.id}:${a.correct ? 'O' : 'X'}`).join(' ')]));
+    download(`응시결과_${fmtDate(Date.now()).replace(/[^\d]/g, '').slice(0, 12)}.csv`, toCSV(rows), 'text/csv;charset=utf-8');
+  });
+  document.getElementById('clear').addEventListener('click', () => { if (confirm('이 브라우저에 저장된 응시 결과를 모두 삭제할까요? 되돌릴 수 없습니다.')){ store.del('exam.results'); renderResultsTab(); } });
+}
+
+// ---------- 설정 ----------
+function renderSettingsTab(){
+  const panel = document.getElementById('panel'); const c = config;
+  panel.innerHTML = `
+  <form id="cfg" class="card" style="max-width:720px">
+    <div class="field"><label>시험 이름</label><input class="input" name="title" value="${esc(c.title)}"></div>
+    <div class="field"><label>안내 문구 (시작 화면)</label><textarea class="input" name="intro">${esc(c.intro)}</textarea></div>
+    <div class="grid2">
+      <div class="field"><label>레벨당 출제 문항 수</label><input class="input" name="perLevel" type="number" min="1" max="100" value="${c.perLevel}"><span class="hint">4개 레벨 × 이 값 = 총 문항 수</span></div>
+      <div class="field"><label>제한 시간 (분)</label><input class="input" name="timeLimitMin" type="number" min="0" max="600" value="${c.timeLimitMin}"><span class="hint">0이면 제한 없이 경과 시간만 표시</span></div>
+      <div class="field"><label>합격 기준 (정답률 %)</label><input class="input" name="passPercent" type="number" min="0" max="100" value="${c.passPercent}"></div>
+      <div class="field"><label>관리자 비밀번호</label><input class="input" name="adminPass" value="${esc(c.adminPass)}"><span class="hint">페이지 소스로 볼 수 있는 간단한 잠금입니다. 결과 원본은 구글 시트에 보관하세요.</span></div>
+    </div>
+    <div style="margin-bottom:14px">
+      <label class="switch"><div><div class="l">보기 순서 무작위 섞기</div><div class="d">같은 문항도 응시자마다 보기 순서가 달라집니다.</div></div><input type="checkbox" name="shuffleChoices" ${c.shuffleChoices ? 'checked' : ''}></label>
+      <label class="switch"><div><div class="l">제출 후 정답·해설 공개</div><div class="d">끄면 응시자에게는 점수와 레벨별 결과만 보입니다.</div></div><input type="checkbox" name="showAnswers" ${c.showAnswers ? 'checked' : ''}></label>
+    </div>
+    <div class="field"><label>결과 전송 주소 (구글 Apps Script 웹앱 URL)</label><input class="input" name="webhookUrl" value="${esc(c.webhookUrl)}" placeholder="https://script.google.com/macros/s/…/exec"><span class="hint">비워 두면 결과는 응시한 브라우저에만 저장됩니다. 설정 방법은 README.md 를 참고하세요.</span></div>
+    <div class="notice">설정은 이 브라우저에 저장됩니다. 실제 배포에서 모든 응시자에게 적용하려면 index.html 상단의 <b>DEFAULT_CONFIG</b> 값을 같은 내용으로 바꿔 주세요. <button class="btn sm ghost" type="button" id="cfg-copy">설정 JSON 복사</button></div>
+    <div class="row end"><button class="btn sm ghost" type="button" id="cfg-reset">기본값으로</button><button class="btn primary" type="submit">저장</button></div>
+  </form>`;
+  document.getElementById('cfg').addEventListener('submit', e => {
+    e.preventDefault(); const f = new FormData(e.target);
+    saveConfig({ title: String(f.get('title')).trim() || DEFAULT_CONFIG.title, intro: String(f.get('intro')).trim(), perLevel: Math.max(1, +f.get('perLevel') || 5), timeLimitMin: Math.max(0, +f.get('timeLimitMin') || 0), passPercent: Math.min(100, Math.max(0, +f.get('passPercent') || 0)), shuffleChoices: !!f.get('shuffleChoices'), showAnswers: !!f.get('showAnswers'), adminPass: String(f.get('adminPass')) || DEFAULT_CONFIG.adminPass, webhookUrl: String(f.get('webhookUrl')).trim() });
+    toast('설정을 저장했습니다.'); renderAdmin();
+  });
+  document.getElementById('cfg-reset').addEventListener('click', () => { if (confirm('설정을 기본값으로 되돌릴까요?')){ saveConfig({}); renderAdmin(); } });
+  document.getElementById('cfg-copy').addEventListener('click', () => { navigator.clipboard.writeText(JSON.stringify(config, null, 2)).then(() => toast('복사했습니다.'), () => toast('복사에 실패했습니다.')); });
+}
+
+route();
+})();
+</script>
+<!-- PAGE-END -->
+</body>
+</html>
