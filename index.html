@@ -161,11 +161,29 @@ kbd{font-family:var(--mono);font-size:11px;padding:1px 5px;border:1px solid var(
 .review .choice{padding:9px 12px}
 .explain{margin-top:12px;font-size:13px;color:var(--ink-2);padding:10px 12px;border-left:3px solid var(--line-strong);background:var(--surface-2);border-radius:0 8px 8px 0}
 
+/* ===== 계산형 문항 ===== */
+.case{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin-bottom:18px}
+.case .eyebrow{margin-bottom:6px}
+.case p{font-size:14px;line-height:1.7;white-space:pre-wrap;color:var(--ink)}
+.parts{display:flex;flex-direction:column;gap:10px}
+.part{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center}
+.part .plabel{font-size:13px;font-weight:600;color:var(--ink-2)}
+.part .pinput{font-family:var(--mono);font-size:16px;text-align:right;font-variant-numeric:tabular-nums}
+.part .punit{font-size:14px;color:var(--ink-2);min-width:24px}
+.pills{display:flex;gap:8px;grid-column:2/4}
+.pill{padding:8px 16px;border:1px solid var(--line-strong);border-radius:999px;cursor:pointer;font-weight:600;font-size:14px}
+.pill input{position:absolute;opacity:0;pointer-events:none}
+.pill.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.review-parts .pval{font-family:var(--mono);font-weight:600;padding:4px 10px;border-radius:6px;justify-self:start}
+.review-parts .pval.ok{background:var(--ok-soft);color:var(--ok)}
+.review-parts .pval.bad{background:var(--bad-soft);color:var(--bad)}
+.review-parts .pkey{font-size:13px;color:var(--ink-2)}
+
 /* ===== 관리자 ===== */
 .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px}
 .tabs button{padding:10px 14px;border:0;background:none;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
 .tabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
 @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;background:var(--surface)}
 .stat .k{font-size:12px;color:var(--muted);font-weight:600}
@@ -217,13 +235,14 @@ td.mono{white-space:nowrap}
 'use strict';
 
 // ===================== 설정 =====================
-const LEVELS = [1,2,3,4];
+const LEVELS = [1,2,3,4,5];
 const DEFAULT_CONFIG = {
   title: '레벨 진단 시험',
-  intro: '총 4개 레벨의 문제은행에서 레벨별 문항이 무작위로 출제됩니다. 시작하면 타이머가 바로 시작되니 준비되면 시작해 주세요.',
+  intro: '총 5개 레벨의 문제은행에서 레벨별 문항이 무작위로 출제됩니다. 시작하면 타이머가 바로 시작되니 준비되면 시작해 주세요.',
   perLevel: 5,          // 레벨당 출제 문항 수
-  timeLimitMin: 20,     // 제한 시간(분). 0이면 제한 없음
+  timeLimitMin: 30,     // 제한 시간(분). 0이면 제한 없음
   passPercent: 60,      // 합격 기준(%)
+  numTolerancePct: 0.2, // 계산형 문항 허용 오차(%) — 정답과 이 비율 이내면 정답 처리
   shuffleChoices: true, // 보기 순서 섞기
   showAnswers: true,    // 제출 후 정답/해설 공개
   adminPass: '1924',
@@ -266,6 +285,43 @@ function download(name, text, type){
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
 }
 function csvCell(v){ v = String(v == null ? '' : v); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+
+// ===================== 계산형(주관식) 문항 =====================
+// 정답 키 예: "16,000,000원" / "A 40,000원 / B 40,000원 / C 60,000원" / "차이 16,200원 / 손익선 안" / "0.19%"
+function parseNumber(str){
+  const s = String(str == null ? '' : str).trim().replace(/\s+/g, '').replace(/,/g, '');
+  if (!s) return null;
+  let m;
+  if ((m = s.match(/^(-?\d+(?:\.\d+)?)억(?:(\d+(?:\.\d+)?)만)?/))) return parseFloat(m[1]) * 1e8 + (m[2] ? parseFloat(m[2]) * 1e4 : 0);
+  if ((m = s.match(/^(-?\d+(?:\.\d+)?)만/))) return parseFloat(m[1]) * 1e4;
+  return (m = s.match(/-?\d+(?:\.\d+)?/)) ? parseFloat(m[0]) : null;
+}
+function unitOf(str){ return String(str == null ? '' : str).replace(/[\d,.\s\-]/g, '').replace(/^(만|억)+/, ''); }
+function parseAnswerKey(key){
+  return String(key == null ? '' : key).split('/').map(s => s.trim()).filter(Boolean).map(seg => {
+    let m;
+    if ((m = seg.match(/^손익선\s*(안|밖)$/))) return { kind: 'choice', label: '손익선', options: ['안', '밖'], answer: m[1] };
+    const lm = seg.match(/^([A-Za-z가-힣]{1,6})\s+(.+)$/);
+    const label = lm ? lm[1] : '', val = lm ? lm[2] : seg;
+    const num = parseNumber(val);
+    if (num == null) return { kind: 'text', label, answer: val };
+    return { kind: 'number', label, answer: val, value: num, unit: unitOf(val) };
+  });
+}
+function partCorrect(p, u){
+  u = String(u == null ? '' : u).trim(); if (!u) return false;
+  if (p.kind === 'choice') return u === p.answer;
+  if (p.kind === 'text') return u.replace(/\s+/g, '') === p.answer.replace(/\s+/g, '');
+  const v = parseNumber(u); if (v == null) return false;
+  const tol = Math.max(Math.abs(p.value) * (config.numTolerancePct || 0) / 100, p.unit === '%' ? 0.011 : 0.5);
+  return Math.abs(v - p.value) <= tol;
+}
+function inputCorrect(q, arr){ const parts = parseAnswerKey(q.answer); return parts.length > 0 && parts.every((p, i) => partCorrect(p, Array.isArray(arr) ? arr[i] : null)); }
+function isAnswered(a){ return Array.isArray(a) ? a.some(x => x != null && String(x).trim() !== '') : a != null; }
+function fmtPicked(q, picked){
+  if (q.type === 'input'){ if (!Array.isArray(picked)) return ''; const parts = parseAnswerKey(q.answer); return parts.map((p, i) => (p.label ? p.label + ' ' : '') + (picked[i] || '—')).join(' / '); }
+  return picked == null ? '' : (picked + 1) + '번';
+}
 function toCSV(rows){ return '\uFEFF' + rows.map(r => r.map(csvCell).join(',')).join('\r\n'); }
 
 // ===================== 시험 세션 =====================
@@ -277,17 +333,24 @@ function clearSession(){ session = null; sess.del('exam.session'); }
 function buildExam(bank){
   const questions = [], shortages = [];
   LEVELS.forEach(L => {
-    const pool = shuffle(bank.filter(q => q.level === L));
-    const take = pool.slice(0, config.perLevel);
+    const all = bank.filter(q => q.level === L);
+    let take;
+    const groups = [...new Set(all.map(q => q.group).filter(Boolean))];
+    if (groups.length && all.every(q => q.group)){
+      // 사례(CASE) 단위 문항은 사례를 통째로 뽑아 순서대로 출제
+      take = []; for (const g of shuffle(groups)){ if (take.length >= config.perLevel) break; take = take.concat(all.filter(q => q.group === g)); }
+      take = take.slice(0, config.perLevel);
+    } else take = shuffle(all).slice(0, config.perLevel);
     if (take.length < config.perLevel) shortages.push({ level: L, have: take.length });
     take.forEach(q => {
+      if (q.type === 'input'){ questions.push({ id: q.id, level: L, type: 'input', q: q.q, answer: q.answer, context: q.context || '', caseTitle: q.caseTitle || '', explain: q.explain || '' }); return; }
       let choices = q.choices.slice(), answer = q.answer;
       if (config.shuffleChoices){
         const order = shuffle(choices.map((_, i) => i));
         choices = order.map(i => q.choices[i]);
         answer = order.indexOf(q.answer);
       }
-      questions.push({ id: q.id, level: L, q: q.q, choices, answer, explain: q.explain || '' });
+      questions.push({ id: q.id, level: L, type: 'choice', q: q.q, choices, answer, explain: q.explain || '' });
     });
   });
   return { questions, shortages };
@@ -308,9 +371,9 @@ function startExam(applicant){
 function grade(s, auto){
   const byLevel = {}; LEVELS.forEach(L => byLevel[L] = { correct: 0, total: 0 });
   const answers = s.questions.map((q, i) => {
-    const picked = s.answers[i]; const correct = picked === q.answer;
+    const picked = s.answers[i]; const correct = q.type === 'input' ? inputCorrect(q, picked) : picked === q.answer;
     byLevel[q.level].total++; if (correct) byLevel[q.level].correct++;
-    return { id: q.id, level: q.level, text: q.q.slice(0, 80), picked, answer: q.answer, correct };
+    return { id: q.id, level: q.level, text: q.q.slice(0, 80), picked, answer: q.answer, correct, answered: isAnswered(picked) };
   });
   const total = answers.length, score = answers.filter(a => a.correct).length;
   const percent = total ? Math.round(score / total * 100) : 0;
@@ -326,7 +389,7 @@ function grade(s, auto){
 function submitExam(auto){
   if (!session || session.submitted) return;
   if (!auto){
-    const un = session.answers.filter(a => a == null).length;
+    const un = session.answers.filter(a => !isAnswered(a)).length;
     const msg = un ? `아직 답하지 않은 문항이 ${un}개 있습니다.\n그래도 제출할까요?` : '답안을 제출할까요? 제출 후에는 수정할 수 없습니다.';
     if (!confirm(msg)) return;
   }
@@ -434,13 +497,30 @@ function renderEntry(){
 // ===================== 화면: 시험 =====================
 function renderExam(){
   const s = session; const i = s.current; const q = s.questions[i]; const n = s.questions.length;
-  const answered = s.answers.filter(a => a != null).length;
+  const answered = s.answers.filter(isAnswered).length;
   document.title = `${i+1}/${n} · ${config.title}`;
   let navHtml = '', lastLevel = null;
   s.questions.forEach((qq, k) => {
     if (qq.level !== lastLevel){ navHtml += `<div class="qgroup">레벨 ${qq.level}</div>`; lastLevel = qq.level; }
-    navHtml += `<button type="button" data-go="${k}" class="${s.answers[k] != null ? 'done' : ''} ${k === i ? 'cur' : ''}" aria-label="${k+1}번 문항">${k+1}</button>`;
+    navHtml += `<button type="button" data-go="${k}" class="${isAnswered(s.answers[k]) ? 'done' : ''} ${k === i ? 'cur' : ''}" aria-label="${k+1}번 문항">${k+1}</button>`;
   });
+  const isInput = q.type === 'input';
+  const parts = isInput ? parseAnswerKey(q.answer) : [];
+  const cur = Array.isArray(s.answers[i]) ? s.answers[i] : [];
+  const bodyHtml = isInput ? `
+      ${q.context ? `<div class="case"><div class="eyebrow">${esc(q.caseTitle || '상황')}</div><p>${esc(q.context)}</p></div>` : ''}
+      <h2>${esc(q.q)}</h2>
+      <div class="parts">
+        ${parts.map((p, pi) => p.kind === 'choice'
+          ? `<div class="part"><span class="plabel">${esc(p.label)}</span><div class="pills">${p.options.map(o => `<label class="pill ${cur[pi] === o ? 'on' : ''}"><input type="radio" name="p${pi}" value="${esc(o)}" ${cur[pi] === o ? 'checked' : ''}>${esc(o)}</label>`).join('')}</div></div>`
+          : `<div class="part"><span class="plabel">${esc(p.label || '답')}</span><input class="input pinput" data-part="${pi}" inputmode="decimal" autocomplete="off" value="${esc(cur[pi] || '')}" placeholder="숫자 입력"><span class="punit">${esc(p.unit || '')}</span></div>`).join('')}
+      </div>
+      <p class="hint" style="font-size:12px;color:var(--muted);margin-top:10px">쉼표나 단위 없이 숫자만 적어도 됩니다. 비율은 %로 소수 둘째 자리까지 적으세요.</p>` : `
+      <h2>${esc(q.q)}</h2>
+      <ol class="choices">
+        ${q.choices.map((c, ci) => `
+        <li><label class="choice ${s.answers[i] === ci ? 'on' : ''}"><input type="radio" name="a" value="${ci}" ${s.answers[i] === ci ? 'checked' : ''}><span class="n">${ci+1}</span><span class="t">${esc(c)}</span></label></li>`).join('')}
+      </ol>`;
   app.innerHTML = `
   <div class="exambar">
     <div class="in">
@@ -454,21 +534,19 @@ function renderExam(){
   <div class="shell">
     <nav class="qnav" aria-label="문항 이동">${navHtml}</nav>
     <article class="question">
-      <div class="head"><span class="lvl">레벨 ${q.level}</span><span class="num">문항 ${i+1} / ${n}</span></div>
-      <h2>${esc(q.q)}</h2>
-      <ol class="choices">
-        ${q.choices.map((c, ci) => `
-        <li><label class="choice ${s.answers[i] === ci ? 'on' : ''}"><input type="radio" name="a" value="${ci}" ${s.answers[i] === ci ? 'checked' : ''}><span class="n">${ci+1}</span><span class="t">${esc(c)}</span></label></li>`).join('')}
-      </ol>
+      <div class="head"><span class="lvl">레벨 ${q.level}</span><span class="num">문항 ${i+1} / ${n}</span>${isInput ? '<span class="chip">계산형</span>' : ''}</div>
+      ${bodyHtml}
       <div class="pager">
         <button class="btn" type="button" id="prev" ${i === 0 ? 'disabled' : ''}>이전</button>
         ${i < n - 1 ? `<button class="btn primary" type="button" id="next">다음</button>` : `<button class="btn primary" type="button" id="submit">답안 제출</button>`}
       </div>
     </article>
-    <p class="keyhint">숫자 키 <kbd>1</kbd>~<kbd>${q.choices.length}</kbd>로 선택, <kbd>←</kbd> <kbd>→</kbd>로 이동할 수 있습니다.</p>
+    <p class="keyhint">${isInput ? '입력 후 <kbd>다음</kbd> 버튼으로 이동하세요. 답은 자동으로 저장됩니다.' : `숫자 키 <kbd>1</kbd>~<kbd>${q.choices.length}</kbd>로 선택, <kbd>←</kbd> <kbd>→</kbd>로 이동할 수 있습니다.`}</p>
   </div>`;
 
   app.querySelectorAll('input[name="a"]').forEach(r => r.addEventListener('change', () => pick(+r.value)));
+  app.querySelectorAll('.pinput').forEach(inp => inp.addEventListener('input', () => { setPart(+inp.dataset.part, inp.value); }));
+  app.querySelectorAll('.pill input').forEach(r => r.addEventListener('change', () => { setPart(+r.name.slice(1), r.value); renderExam(); }));
   app.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(+b.dataset.go)));
   const prev = document.getElementById('prev'), next = document.getElementById('next');
   if (prev) prev.addEventListener('click', () => go(i - 1));
@@ -476,6 +554,7 @@ function renderExam(){
   ['submit', 'submit-top'].forEach(id => { const b = document.getElementById(id); if (b) b.addEventListener('click', () => submitExam(false)); });
   document.onkeydown = e => {
     if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName) && e.target.type !== 'radio') return;
+    if (isInput) return;
     if (/^[1-9]$/.test(e.key) && +e.key <= q.choices.length){ pick(+e.key - 1); }
     else if (e.key === 'ArrowRight' && i < n - 1) go(i + 1);
     else if (e.key === 'ArrowLeft' && i > 0) go(i - 1);
@@ -483,6 +562,15 @@ function renderExam(){
   startTimer();
 
   function pick(ci){ s.answers[i] = ci; saveSession(); renderExam(); }
+  function setPart(pi, val){
+    if (!Array.isArray(s.answers[i])) s.answers[i] = [];
+    s.answers[i][pi] = val; saveSession();
+    // 입력 중에는 전체를 다시 그리지 않고 진행 표시만 갱신
+    const done = s.answers.filter(isAnswered).length;
+    const prog = app.querySelector('.prog'); if (prog) prog.textContent = `${done} / ${n} 응답`;
+    const bar = app.querySelector('.progressbar i'); if (bar) bar.style.width = (done / n * 100) + '%';
+    const nb = app.querySelector(`[data-go="${i}"]`); if (nb) nb.classList.toggle('done', isAnswered(s.answers[i]));
+  }
   function go(k){ if (k < 0 || k >= n) return; s.current = k; saveSession(); renderExam(); window.scrollTo({ top: 0 }); }
 }
 
@@ -510,11 +598,15 @@ function renderResult(){
     ${config.showAnswers ? `
     <section class="review">
       <div class="eyebrow">문항별 확인</div>
-      ${s.questions.map((q, i) => { const a = r.answers[i]; return `
+      ${s.questions.map((q, i) => { const a = r.answers[i]; const parts = q.type === 'input' ? parseAnswerKey(q.answer) : []; const mine = Array.isArray(a.picked) ? a.picked : []; return `
       <article class="question">
-        <div class="head"><span class="lvl">레벨 ${q.level}</span><span class="num">문항 ${i+1}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : a.picked == null ? '미응답' : '오답'}</span></div>
+        <div class="head"><span class="lvl">레벨 ${q.level}</span><span class="num">문항 ${i+1}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : !isAnswered(a.picked) ? '미응답' : '오답'}</span></div>
+        ${q.type === 'input' ? `
+        ${q.context ? `<div class="case"><div class="eyebrow">${esc(q.caseTitle || '상황')}</div><p>${esc(q.context)}</p></div>` : ''}
         <h2>${esc(q.q)}</h2>
-        <ol class="choices">${q.choices.map((c, ci) => `<li><div class="choice static ${ci === q.answer ? 'correct' : ''} ${a.picked === ci && ci !== q.answer ? 'wrong' : ''}"><span class="n">${ci+1}</span><span class="t">${esc(c)}</span></div></li>`).join('')}</ol>
+        <div class="parts review-parts">${parts.map((p, pi) => { const ok = partCorrect(p, mine[pi]); return `<div class="part"><span class="plabel">${esc(p.label || '답')}</span><span class="pval ${ok ? 'ok' : 'bad'}">${esc(mine[pi] || '—')}</span><span class="pkey">정답 ${esc(p.answer)}</span></div>`; }).join('')}</div>` : `
+        <h2>${esc(q.q)}</h2>
+        <ol class="choices">${q.choices.map((c, ci) => `<li><div class="choice static ${ci === q.answer ? 'correct' : ''} ${a.picked === ci && ci !== q.answer ? 'wrong' : ''}"><span class="n">${ci+1}</span><span class="t">${esc(c)}</span></div></li>`).join('')}</ol>`}
         ${q.explain ? `<div class="explain">${esc(q.explain)}</div>` : ''}
       </article>`; }).join('')}
     </section>` : `<div class="notice">답안이 제출되었습니다. 결과는 담당자가 별도로 안내드립니다.</div>`}
@@ -571,7 +663,7 @@ function renderAdmin(){
 function renderQuestionsTab(){
   const panel = document.getElementById('panel');
   const bank = getBank(); const counts = levelCounts(bank); const isDraft = !!draftBank();
-  const filtered = bank.filter(q => (A.level === 'all' || q.level === +A.level) && (!A.search || (q.q + ' ' + q.choices.join(' ')).toLowerCase().includes(A.search.toLowerCase())));
+  const filtered = bank.filter(q => (A.level === 'all' || q.level === +A.level) && (!A.search || (q.q + ' ' + (q.choices || []).join(' ') + ' ' + (q.context || '')).toLowerCase().includes(A.search.toLowerCase())));
   const P = A.pending;
   panel.innerHTML = `
     ${isDraft ? `<div class="notice warn"><b>이 브라우저에 임시 저장된 문항(초안)을 보고 있습니다.</b> 응시자에게 적용하려면 아래 <b>questions.js 내려받기</b>로 파일을 받아 index.html 옆의 questions.js를 교체해 주세요. <button class="btn sm ghost" id="drop-draft" type="button" style="margin-left:6px">초안 버리고 파일 문항으로</button></div>`
@@ -580,7 +672,7 @@ function renderQuestionsTab(){
     <div class="dz" id="dz">
       <input type="file" id="file" accept=".xlsx,.xls,.csv,.json,.docx">
       <div><b>Word(.docx) · 엑셀(.xlsx) · CSV · JSON 파일을 끌어다 놓거나</b> <button class="btn sm" type="button" id="pick">파일 선택</button></div>
-      <div style="font-size:12px;color:var(--muted);margin-top:8px">Word: "1. 문제" + ①~⑤ 보기 + 문서 끝 정답표 형식의 문제지를 그대로 읽습니다 (레벨은 문서의 "LEVEL n"에서 자동 인식).<br>엑셀·CSV 열 순서: 레벨(1~4) · 문제 · 보기1~5 · 정답(보기 번호) · 해설(선택) · 분류(선택) &nbsp;·&nbsp; <a href="#" id="tpl">양식 내려받기</a></div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">Word: 객관식("1. 문제" + ①~⑤ 보기 + 정답표)과 계산형("CASE n. 제목" + 상황 + "1. 문제" + "1. 정답: …") 문제지를 그대로 읽습니다 (레벨은 문서의 "LEVEL n"에서 자동 인식).<br>엑셀·CSV 열 순서: 레벨(1~5) · 문제 · 보기1~5 · 정답 · 해설 · 분류 · 상황 설명 · 사례 제목 · 사례 묶음 (계산형은 보기를 비우고 정답에 "16,000,000원"처럼 적음) &nbsp;·&nbsp; <a href="#" id="tpl">양식 내려받기</a></div>
     </div>
     ${P ? `<div class="notice ${P.errors.length ? 'warn' : 'ok'}">
       <b>${esc(P.name)}</b>에서 문항 ${P.questions.length}개를 읽었습니다. (${LEVELS.map(L => `레벨 ${L}: ${P.questions.filter(q => q.level === L).length}`).join(' · ')})
@@ -604,7 +696,7 @@ function renderQuestionsTab(){
     <div class="tablewrap"><table>
       <thead><tr><th>ID</th><th>레벨</th><th>분류</th><th>문제</th><th>보기</th><th>정답</th><th></th></tr></thead>
       <tbody>${filtered.length ? filtered.map(q => `
-        <tr><td class="mono">${esc(q.id)}</td><td><span class="lvl">L${q.level}</span></td><td class="trunc" style="max-width:140px;color:var(--ink-2)">${esc(q.topic || '')}</td><td class="trunc" title="${esc(q.q)}">${esc(q.q)}</td><td class="trunc" style="max-width:260px;color:var(--ink-2)">${q.choices.map((c, i) => `${i+1}. ${esc(c)}`).join(' · ')}</td><td class="num">${q.answer + 1}번</td>
+        <tr><td class="mono">${esc(q.id)}</td><td><span class="lvl">L${q.level}</span></td><td class="trunc" style="max-width:140px;color:var(--ink-2)">${esc(q.topic || '')}</td><td class="trunc" title="${esc(q.q)}">${esc(q.q)}</td><td class="trunc" style="max-width:260px;color:var(--ink-2)">${q.type === 'input' ? `<span class="chip">계산형</span> ${esc(((q.caseTitle || '') + ' · ' + (q.context || '')).slice(0, 90))}` : (q.choices || []).map((c, i) => `${i+1}. ${esc(c)}`).join(' · ')}</td><td class="num" style="white-space:normal;text-align:left;max-width:200px">${q.type === 'input' ? esc(q.answer) : (q.answer + 1) + '번'}</td>
         <td class="num"><button class="btn sm ghost" type="button" data-edit="${esc(q.id)}">수정</button><button class="btn sm ghost" type="button" data-del="${esc(q.id)}" style="color:var(--bad)">삭제</button></td></tr>`).join('')
         : `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:28px">문항이 없습니다.</td></tr>`}</tbody>
     </table></div>
@@ -620,7 +712,7 @@ function renderQuestionsTab(){
   document.getElementById('tpl').addEventListener('click', e => { e.preventDefault(); downloadTemplate(); });
   document.getElementById('lv').addEventListener('change', e => { A.level = e.target.value; renderQuestionsTab(); });
   let st; document.getElementById('search').addEventListener('input', e => { clearTimeout(st); st = setTimeout(() => { A.search = e.target.value; renderQuestionsTab(); const si = document.getElementById('search'); si.focus(); si.setSelectionRange(si.value.length, si.value.length); }, 250); });
-  document.getElementById('add').addEventListener('click', () => { A.editing = { level: A.level === 'all' ? 1 : +A.level, q: '', choices: ['', '', '', '', ''], answer: 0, explain: '', topic: '', isNew: true }; renderQuestionsTab(); });
+  document.getElementById('add').addEventListener('click', () => { A.editing = { type: 'choice', level: A.level === 'all' ? 1 : +A.level, q: '', choices: ['', '', '', '', ''], answer: 0, explain: '', topic: '', context: '', caseTitle: '', group: '', isNew: true }; renderQuestionsTab(); });
   document.getElementById('exp-js').addEventListener('click', () => exportQuestionsJs(bank));
   document.getElementById('exp-xlsx').addEventListener('click', () => exportXlsx(bank));
   const dd = document.getElementById('drop-draft'); if (dd) dd.addEventListener('click', () => { if (confirm('이 브라우저의 초안을 버리고 questions.js 파일의 문항으로 되돌릴까요?')){ store.del('exam.bankDraft'); A.pending = null; renderQuestionsTab(); } });
@@ -634,7 +726,7 @@ function renderQuestionsTab(){
     });
     const il = document.getElementById('imp-level'); if (il) il.addEventListener('change', () => { P.wordLevel = +il.value; P.questions.forEach(q => q.level = P.wordLevel); renderQuestionsTab(); });
   }
-  panel.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => { const q = bank.find(x => x.id === b.dataset.edit); A.editing = Object.assign({}, q, { choices: q.choices.concat(['', '', '', '', '']).slice(0, Math.max(5, q.choices.length)) }); renderQuestionsTab(); document.getElementById('editor').scrollIntoView({ block: 'start' }); }));
+  panel.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => { const q = bank.find(x => x.id === b.dataset.edit); A.editing = Object.assign({ type: 'choice' }, q, { choices: (q.choices || []).concat(['', '', '', '', '']).slice(0, Math.max(5, (q.choices || []).length)) }); renderQuestionsTab(); document.getElementById('editor').scrollIntoView({ block: 'start' }); }));
   panel.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => { if (confirm('이 문항을 삭제할까요?')){ saveDraft(bank.filter(x => x.id !== b.dataset.del)); renderQuestionsTab(); } }));
   if (A.editing) renderEditor(bank);
 }
@@ -644,11 +736,20 @@ function renderEditor(bank){
   box.innerHTML = `
   <form class="editor" id="qform">
     <div class="row between" style="margin-bottom:10px"><b>${e.isNew ? '새 문항' : '문항 수정 · ' + esc(e.id)}</b>
-      <select class="input" name="level" style="width:auto">${LEVELS.map(L => `<option value="${L}" ${e.level === L ? 'selected' : ''}>레벨 ${L}</option>`).join('')}</select></div>
-    <div class="field"><label>문제</label><textarea class="input" name="q" required>${esc(e.q)}</textarea></div>
-    <div class="grid2">${e.choices.map((c, i) => `<div class="field"><label>보기 ${i+1}${i < 2 ? '' : ' (선택)'}</label><input class="input" name="c${i}" value="${esc(c)}"></div>`).join('')}</div>
+      <div class="row"><select class="input" name="type" id="ed-type" style="width:auto"><option value="choice" ${e.type !== 'input' ? 'selected' : ''}>객관식</option><option value="input" ${e.type === 'input' ? 'selected' : ''}>계산형(주관식)</option></select>
+      <select class="input" name="level" style="width:auto">${LEVELS.map(L => `<option value="${L}" ${e.level === L ? 'selected' : ''}>레벨 ${L}</option>`).join('')}</select></div></div>
+    ${e.type === 'input' ? `
     <div class="grid2">
-      <div class="field"><label>정답</label><select class="input" name="answer">${e.choices.map((_, i) => `<option value="${i}" ${e.answer === i ? 'selected' : ''}>보기 ${i+1}</option>`).join('')}</select></div>
+      <div class="field"><label>사례 제목 (선택)</label><input class="input" name="caseTitle" value="${esc(e.caseTitle || '')}" placeholder="예: CASE 1. 1차 목표매출과 신규 확보"></div>
+      <div class="field"><label>사례 묶음 (선택)</label><input class="input" name="group" value="${esc(e.group || '')}" placeholder="예: CASE 1"><span class="hint">같은 값끼리 한 사례로 묶여 통째로 출제됩니다.</span></div>
+    </div>
+    <div class="field"><label>상황 설명</label><textarea class="input" name="context">${esc(e.context || '')}</textarea></div>` : ''}
+    <div class="field"><label>문제</label><textarea class="input" name="q" required>${esc(e.q)}</textarea></div>
+    ${e.type === 'input' ? `
+    <div class="field"><label>정답</label><input class="input" name="answerKey" value="${esc(typeof e.answer === 'string' ? e.answer : '')}" placeholder="예: 16,000,000원 · A 40,000원 / B 60,000원 · 차이 16,200원 / 손익선 안"><span class="hint">여러 답은 " / "로 구분합니다. 숫자는 허용 오차(설정) 안이면 정답 처리됩니다.</span></div>` : `
+    <div class="grid2">${e.choices.map((c, i) => `<div class="field"><label>보기 ${i+1}${i < 2 ? '' : ' (선택)'}</label><input class="input" name="c${i}" value="${esc(c)}"></div>`).join('')}</div>`}
+    <div class="grid2">
+      ${e.type === 'input' ? '' : `<div class="field"><label>정답</label><select class="input" name="answer">${e.choices.map((_, i) => `<option value="${i}" ${e.answer === i ? 'selected' : ''}>보기 ${i+1}</option>`).join('')}</select></div>`}
       <div class="field"><label>해설 (선택)</label><input class="input" name="explain" value="${esc(e.explain || '')}"></div>
       <div class="field"><label>분류 (선택)</label><input class="input" name="topic" value="${esc(e.topic || '')}" placeholder="예: 매출 구조와 원인 진단"></div>
     </div>
@@ -656,17 +757,26 @@ function renderEditor(bank){
     <div id="ed-err" class="error"></div>
   </form>`;
   document.getElementById('ed-cancel').addEventListener('click', () => { A.editing = null; renderQuestionsTab(); });
+  document.getElementById('ed-type').addEventListener('change', ev => { const f = new FormData(ev.target.form); A.editing = Object.assign({}, e, { type: ev.target.value, q: String(f.get('q') || ''), level: +f.get('level') }); renderQuestionsTab(); });
   document.getElementById('qform').addEventListener('submit', ev => {
     ev.preventDefault();
     const f = new FormData(ev.target);
+    const err = document.getElementById('ed-err');
+    if (e.type === 'input'){
+      const key = String(f.get('answerKey') || '').trim();
+      if (!String(f.get('q')).trim()) return err.textContent = '문제를 입력해 주세요.';
+      if (!parseAnswerKey(key).length) return err.textContent = '정답을 입력해 주세요.';
+      const nq = { id: e.id, type: 'input', level: +f.get('level'), q: String(f.get('q')).trim(), answer: key, explain: String(f.get('explain') || '').trim(), topic: String(f.get('topic') || '').trim(), context: String(f.get('context') || '').trim(), caseTitle: String(f.get('caseTitle') || '').trim(), group: String(f.get('group') || '').trim() };
+      const list = e.isNew ? bank.concat([nq]) : bank.map(x => x.id === e.id ? nq : x);
+      saveDraft(list); A.editing = null; toast('저장했습니다.'); renderQuestionsTab(); return;
+    }
     const raw = e.choices.map((_, i) => String(f.get('c' + i) || '').trim());
     const keep = raw.map((c, i) => ({ c, i })).filter(x => x.c);
     const ans = +f.get('answer');
-    const err = document.getElementById('ed-err');
     if (!String(f.get('q')).trim()) return err.textContent = '문제를 입력해 주세요.';
     if (keep.length < 2) return err.textContent = '보기는 최소 2개 필요합니다.';
     if (!raw[ans]) return err.textContent = '정답으로 고른 보기가 비어 있습니다.';
-    const nq = { id: e.id, level: +f.get('level'), q: String(f.get('q')).trim(), choices: keep.map(x => x.c), answer: keep.findIndex(x => x.i === ans), explain: String(f.get('explain') || '').trim(), topic: String(f.get('topic') || '').trim() };
+    const nq = { id: e.id, type: 'choice', level: +f.get('level'), q: String(f.get('q')).trim(), choices: keep.map(x => x.c), answer: keep.findIndex(x => x.i === ans), explain: String(f.get('explain') || '').trim(), topic: String(f.get('topic') || '').trim() };
     const list = e.isNew ? bank.concat([nq]) : bank.map(x => x.id === e.id ? nq : x);
     saveDraft(list); A.editing = null; toast('저장했습니다.'); renderQuestionsTab();
   });
@@ -697,23 +807,27 @@ function rowsToQuestions(rows){
     const cells = r.map(v => String(v == null ? '' : v).trim());
     if (cells.every(v => !v)) return;
     const level = parseInt(cells[0], 10);
-    if (idx === 0 && !(level >= 1 && level <= 4)) return; // 헤더 행
+    if (idx === 0 && !(level >= 1 && level <= 5)) return; // 헤더 행
     const line = idx + 1;
-    if (!(level >= 1 && level <= 4)) return errors.push(`${line}행: 레벨은 1~4여야 합니다. ("${cells[0]}")`);
+    if (!(level >= 1 && level <= 5)) return errors.push(`${line}행: 레벨은 1~5여야 합니다. ("${cells[0]}")`);
     const q = cells[1]; if (!q) return errors.push(`${line}행: 문제가 비어 있습니다.`);
     const rawChoices = cells.slice(2, 7); const keep = rawChoices.map((c, i) => ({ c, i })).filter(x => x.c);
+    if (keep.length === 0 && cells[7] && !/^\d$/.test(cells[7])){
+      // 보기 없이 정답만 있으면 계산형(주관식)
+      if (!parseAnswerKey(cells[7]).length) return errors.push(`${line}행: 계산형 정답을 읽을 수 없습니다. ("${cells[7]}")`);
+      questions.push({ id: '', level, type: 'input', q, answer: cells[7], explain: cells[8] || '', topic: cells[9] || '', context: cells[10] || '', caseTitle: cells[11] || '', group: cells[12] || '' }); return;
+    }
     if (keep.length < 2) return errors.push(`${line}행: 보기는 최소 2개 필요합니다.`);
     const ansNum = parseInt(String(cells[7]).replace(/[^\d]/g, ''), 10);
     if (!(ansNum >= 1 && ansNum <= 5) || !rawChoices[ansNum - 1]) return errors.push(`${line}행: 정답 번호가 올바르지 않습니다. ("${cells[7]}")`);
-    questions.push({ id: '', level, q, choices: keep.map(x => x.c), answer: keep.findIndex(x => x.i === ansNum - 1), explain: cells[8] || '', topic: cells[9] || '' });
+    questions.push({ id: '', level, type: 'choice', q, choices: keep.map(x => x.c), answer: keep.findIndex(x => x.i === ansNum - 1), explain: cells[8] || '', topic: cells[9] || '' });
   });
   return { questions, errors };
 }
 function jsonToQuestions(text){
   let data = JSON.parse(text.replace(/^\s*window\.QUESTION_BANK\s*=\s*/, '').replace(/;\s*$/, ''));
   if (!Array.isArray(data)) throw new Error('배열이 아닙니다');
-  const rows = data.map(q => [q.level, q.q, ...(q.choices || []).concat(['', '', '', '', '']).slice(0, 5), (q.answer | 0) + 1, q.explain || '', q.topic || '']);
-  return rowsToQuestions(rows);
+  return rowsToQuestions(data.map(questionToRow));
 }
 async function importFile(f){
   const ext = (f.name.split('.').pop() || '').toLowerCase();
@@ -737,17 +851,24 @@ async function importFile(f){
   }catch(e){ toast('파일을 읽지 못했습니다: ' + e.message); }
   renderQuestionsTab();
 }
+const SHEET_HEADER = ['레벨', '문제', '보기1', '보기2', '보기3', '보기4', '보기5', '정답(번호 또는 계산형 정답)', '해설', '분류', '상황 설명(계산형)', '사례 제목(계산형)', '사례 묶음(계산형)'];
+function questionToRow(q){
+  const choices = q.type === 'input' ? ['', '', '', '', ''] : (q.choices || []).concat(['', '', '', '', '']).slice(0, 5);
+  const answer = q.type === 'input' ? q.answer : (q.answer | 0) + 1;
+  return [q.level, q.q, ...choices, answer, q.explain || '', q.topic || '', q.context || '', q.caseTitle || '', q.group || ''];
+}
 function downloadTemplate(){
-  const rows = [['레벨', '문제', '보기1', '보기2', '보기3', '보기4', '보기5', '정답(번호)', '해설', '분류'],
-    [1, '매출을 가장 기본적으로 분해한 식은?', '객수 × 객단가', '신규 × 재방문', '광고비 × 전환율', '노출 × 리뷰', 'LTV × CAC', 1, '', '사업·매출·비용의 기본'],
-    [2, '3, 6, 12, 24 다음 수는?', '36', '42', '48', '54', '', 3, '앞의 수에 2를 곱합니다.', '']];
+  const rows = [SHEET_HEADER,
+    [1, '매출을 가장 기본적으로 분해한 식은?', '객수 × 객단가', '신규 × 재방문', '광고비 × 전환율', '노출 × 리뷰', 'LTV × CAC', 1, '', '사업·매출·비용의 기본', '', '', ''],
+    [2, '3, 6, 12, 24 다음 수는?', '36', '42', '48', '54', '', 3, '앞의 수에 2를 곱합니다.', '', '', '', ''],
+    [5, '현재매출에서 1차 목표매출까지 부족한 매출액을 구하시오.', '', '', '', '', '', '16,000,000원', '5,200만원 - 3,600만원', '1차 목표매출', 'A매장의 현재 월매출은 3,600만원, 1차 목표매출은 5,200만원이다.', 'CASE 1. 1차 목표매출과 신규 확보', 'CASE 1']];
   if (window.XLSX){
-    const ws = XLSX.utils.aoa_to_sheet(rows); ws['!cols'] = [{ wch: 6 }, { wch: 50 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 10 }, { wch: 30 }, { wch: 20 }];
+    const ws = XLSX.utils.aoa_to_sheet(rows); ws['!cols'] = [{ wch: 6 }, { wch: 50 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 24 }, { wch: 30 }, { wch: 20 }, { wch: 50 }, { wch: 28 }, { wch: 10 }];
     const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, '문항'); XLSX.writeFile(wb, '문항_양식.xlsx');
   } else download('문항_양식.csv', toCSV(rows), 'text/csv;charset=utf-8');
 }
 function exportXlsx(bank){
-  const rows = [['레벨', '문제', '보기1', '보기2', '보기3', '보기4', '보기5', '정답(번호)', '해설', '분류']].concat(bank.map(q => [q.level, q.q, ...q.choices.concat(['', '', '', '', '']).slice(0, 5), q.answer + 1, q.explain || '', q.topic || '']));
+  const rows = [SHEET_HEADER].concat(bank.map(questionToRow));
   if (window.XLSX){ const ws = XLSX.utils.aoa_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, '문항'); XLSX.writeFile(wb, '문제은행.xlsx'); }
   else download('문제은행.csv', toCSV(rows), 'text/csv;charset=utf-8');
 }
@@ -783,7 +904,7 @@ function renderResultsTab(){
           <td class="num mono">${fmtTime(r.durationSec)}</td>
           <td>${({ ok: '<span class="chip ok">전송됨</span>', fail: '<span class="chip bad">실패</span>', pending: '<span class="chip">대기</span>', none: '<span class="chip">-</span>' })[r.sent] || '-'}</td>
         </tr>
-        ${A.open === r.id ? `<tr><td colspan="${8 + LEVELS.length}" class="detail">${r.answers.map((a, i) => `<div class="a"><span class="mono">${esc(a.id)}</span><span>${esc(a.text)}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : a.picked == null ? '미응답' : '오답 (' + (a.picked + 1) + '번 선택, 정답 ' + (a.answer + 1) + '번)'}</span></div>`).join('')}</td></tr>` : ''}`).join('')
+        ${A.open === r.id ? `<tr><td colspan="${8 + LEVELS.length}" class="detail">${r.answers.map((a, i) => { const calc = Array.isArray(a.picked) || typeof a.answer === 'string'; const mine = Array.isArray(a.picked) ? a.picked.join(' / ') : a.picked == null ? '' : (a.picked + 1) + '번'; const key = typeof a.answer === 'string' ? a.answer : (a.answer + 1) + '번'; return `<div class="a"><span class="mono">${esc(a.id)}</span><span>${esc(a.text)}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : !isAnswered(a.picked) ? '미응답' : '오답 (' + esc(mine) + ' 입력, 정답 ' + esc(key) + ')'}</span></div>`; }).join('')}</td></tr>` : ''}`).join('')
         : `<tr><td colspan="${8 + LEVELS.length}" style="text-align:center;color:var(--muted);padding:28px">아직 응시 결과가 없습니다.</td></tr>`}</tbody>
     </table></div>`;
   panel.querySelectorAll('[data-open]').forEach(tr => tr.addEventListener('click', () => { A.open = A.open === tr.dataset.open ? null : tr.dataset.open; renderResultsTab(); }));
@@ -803,9 +924,10 @@ function renderSettingsTab(){
     <div class="field"><label>시험 이름</label><input class="input" name="title" value="${esc(c.title)}"></div>
     <div class="field"><label>안내 문구 (시작 화면)</label><textarea class="input" name="intro">${esc(c.intro)}</textarea></div>
     <div class="grid2">
-      <div class="field"><label>레벨당 출제 문항 수</label><input class="input" name="perLevel" type="number" min="1" max="100" value="${c.perLevel}"><span class="hint">4개 레벨 × 이 값 = 총 문항 수</span></div>
+      <div class="field"><label>레벨당 출제 문항 수</label><input class="input" name="perLevel" type="number" min="1" max="100" value="${c.perLevel}"><span class="hint">레벨 수 × 이 값 = 총 문항 수</span></div>
       <div class="field"><label>제한 시간 (분)</label><input class="input" name="timeLimitMin" type="number" min="0" max="600" value="${c.timeLimitMin}"><span class="hint">0이면 제한 없이 경과 시간만 표시</span></div>
       <div class="field"><label>합격 기준 (정답률 %)</label><input class="input" name="passPercent" type="number" min="0" max="100" value="${c.passPercent}"></div>
+      <div class="field"><label>계산형 허용 오차 (%)</label><input class="input" name="numTolerancePct" type="number" min="0" max="20" step="0.1" value="${c.numTolerancePct}"><span class="hint">정답과 이 비율 이내의 숫자는 정답 처리 (비율 답은 ±0.01%p, 정수 답은 ±0.5 기본 허용)</span></div>
       <div class="field"><label>관리자 비밀번호</label><input class="input" name="adminPass" value="${esc(c.adminPass)}"><span class="hint">페이지 소스로 볼 수 있는 간단한 잠금입니다. 결과 원본은 구글 시트에 보관하세요.</span></div>
     </div>
     <div style="margin-bottom:14px">
@@ -818,7 +940,7 @@ function renderSettingsTab(){
   </form>`;
   document.getElementById('cfg').addEventListener('submit', e => {
     e.preventDefault(); const f = new FormData(e.target);
-    saveConfig({ title: String(f.get('title')).trim() || DEFAULT_CONFIG.title, intro: String(f.get('intro')).trim(), perLevel: Math.max(1, +f.get('perLevel') || 5), timeLimitMin: Math.max(0, +f.get('timeLimitMin') || 0), passPercent: Math.min(100, Math.max(0, +f.get('passPercent') || 0)), shuffleChoices: !!f.get('shuffleChoices'), showAnswers: !!f.get('showAnswers'), adminPass: String(f.get('adminPass')) || DEFAULT_CONFIG.adminPass, webhookUrl: String(f.get('webhookUrl')).trim() });
+    saveConfig({ title: String(f.get('title')).trim() || DEFAULT_CONFIG.title, intro: String(f.get('intro')).trim(), perLevel: Math.max(1, +f.get('perLevel') || 5), timeLimitMin: Math.max(0, +f.get('timeLimitMin') || 0), passPercent: Math.min(100, Math.max(0, +f.get('passPercent') || 0)), numTolerancePct: Math.max(0, +f.get('numTolerancePct') || 0), shuffleChoices: !!f.get('shuffleChoices'), showAnswers: !!f.get('showAnswers'), adminPass: String(f.get('adminPass')) || DEFAULT_CONFIG.adminPass, webhookUrl: String(f.get('webhookUrl')).trim() });
     toast('설정을 저장했습니다.'); renderAdmin();
   });
   document.getElementById('cfg-reset').addEventListener('click', () => { if (confirm('설정을 기본값으로 되돌릴까요?')){ saveConfig({}); renderAdmin(); } });

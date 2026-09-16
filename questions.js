@@ -3,16 +3,21 @@
 //  - index.html 과 같은 폴더에 두세요.
 //  - 관리자 페이지(index.html#admin)에서 Word/엑셀/CSV 를 가져온 뒤
 //    "questions.js 내려받기"로 이 파일을 통째로 교체하면 됩니다.
-//  - 출처: 장가컴퍼니 LEVEL1~4 외식업경영 100문항 Word 문서 (2026-09-17 변환)
+//  - 출처: 장가컴퍼니 외식업경영 LEVEL1~5 100문항 Word 문서 (2026-09-17 변환)
 //
-//  문항 형식
-//    { id: "L1-001", level: 1, topic: "단원명", q: "문제 내용",
+//  객관식 문항
+//    { id: "L1-001", level: 1, type: "choice", topic: "단원명", q: "문제",
 //      choices: ["보기1","보기2","보기3","보기4","보기5"],
 //      answer: 0,            // 정답 보기의 순번 (0부터 시작 → 0 = 보기1 = ①)
 //      explain: "해설(선택)" }
+//  계산형(주관식) 문항
+//    { id: "L5-001", level: 5, type: "input", group: "CASE 1", caseTitle: "CASE 1. 제목",
+//      context: "상황 설명", q: "문제", answer: "16,000,000원",   // 여러 답은 " / "로 구분
+//      explain: "풀이" }
 // ============================================================
 window.QUESTION_BANK = [
   {
+    "type": "choice",
     "id": "L1-001",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -28,6 +33,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-002",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -43,6 +49,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-003",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -58,6 +65,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-004",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -73,6 +81,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-005",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -88,6 +97,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-006",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -103,6 +113,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-007",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -118,6 +129,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-008",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -133,6 +145,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-009",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -148,6 +161,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-010",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -163,6 +177,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-011",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -178,6 +193,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-012",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -193,6 +209,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-013",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -208,6 +225,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-014",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -223,6 +241,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-015",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -238,6 +257,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-016",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -253,6 +273,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-017",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -268,6 +289,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-018",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -283,6 +305,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-019",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -298,6 +321,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-020",
     "level": 1,
     "topic": "사업·매출·비용의 기본",
@@ -313,6 +337,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-021",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -328,6 +353,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-022",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -343,6 +369,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-023",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -358,6 +385,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-024",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -373,6 +401,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-025",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -388,6 +417,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-026",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -403,6 +433,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-027",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -418,6 +449,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-028",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -433,6 +465,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-029",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -448,6 +481,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-030",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -463,6 +497,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-031",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -478,6 +513,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-032",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -493,6 +529,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-033",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -508,6 +545,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-034",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -523,6 +561,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-035",
     "level": 1,
     "topic": "목표매출과 가동률",
@@ -538,6 +577,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-036",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -553,6 +593,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-037",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -568,6 +609,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-038",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -583,6 +625,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-039",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -598,6 +641,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-040",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -613,6 +657,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-041",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -628,6 +673,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-042",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -643,6 +689,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-043",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -658,6 +705,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-044",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -673,6 +721,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-045",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -688,6 +737,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-046",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -703,6 +753,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-047",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -718,6 +769,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-048",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -733,6 +785,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-049",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -748,6 +801,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-050",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -763,6 +817,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-051",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -778,6 +833,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-052",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -793,6 +849,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-053",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -808,6 +865,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-054",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -823,6 +881,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-055",
     "level": 1,
     "topic": "LTV·CAC·광고비의 기본",
@@ -838,6 +897,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-056",
     "level": 1,
     "topic": "사다리 8단계",
@@ -853,6 +913,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-057",
     "level": 1,
     "topic": "사다리 8단계",
@@ -868,6 +929,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-058",
     "level": 1,
     "topic": "사다리 8단계",
@@ -883,6 +945,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-059",
     "level": 1,
     "topic": "사다리 8단계",
@@ -898,6 +961,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-060",
     "level": 1,
     "topic": "사다리 8단계",
@@ -913,6 +977,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-061",
     "level": 1,
     "topic": "사다리 8단계",
@@ -928,6 +993,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-062",
     "level": 1,
     "topic": "사다리 8단계",
@@ -943,6 +1009,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-063",
     "level": 1,
     "topic": "사다리 8단계",
@@ -958,6 +1025,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-064",
     "level": 1,
     "topic": "사다리 8단계",
@@ -973,6 +1041,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-065",
     "level": 1,
     "topic": "사다리 8단계",
@@ -988,6 +1057,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-066",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1003,6 +1073,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-067",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1018,6 +1089,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-068",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1033,6 +1105,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-069",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1048,6 +1121,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-070",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1063,6 +1137,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-071",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1078,6 +1153,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-072",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1093,6 +1169,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-073",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1108,6 +1185,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-074",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1123,6 +1201,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-075",
     "level": 1,
     "topic": "사다리 8단계",
@@ -1138,6 +1217,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-076",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1153,6 +1233,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-077",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1168,6 +1249,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-078",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1183,6 +1265,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-079",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1198,6 +1281,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-080",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1213,6 +1297,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-081",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1228,6 +1313,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-082",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1243,6 +1329,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-083",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1258,6 +1345,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-084",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1273,6 +1361,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-085",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1288,6 +1377,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-086",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1303,6 +1393,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-087",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1318,6 +1409,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-088",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1333,6 +1425,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-089",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1348,6 +1441,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-090",
     "level": 1,
     "topic": "객단가·재방문·상권·업종",
@@ -1363,6 +1457,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-091",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1378,6 +1473,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-092",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1393,6 +1489,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-093",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1408,6 +1505,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-094",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1423,6 +1521,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-095",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1438,6 +1537,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-096",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1453,6 +1553,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-097",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1468,6 +1569,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-098",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1483,6 +1585,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-099",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1498,6 +1601,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L1-100",
     "level": 1,
     "topic": "데이터와 진단 철학",
@@ -1513,6 +1617,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-001",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1528,6 +1633,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-002",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1543,6 +1649,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-003",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1558,6 +1665,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-004",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1573,6 +1681,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-005",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1588,6 +1697,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-006",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1603,6 +1713,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-007",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1618,6 +1729,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-008",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1633,6 +1745,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-009",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1648,6 +1761,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-010",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1663,6 +1777,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-011",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1678,6 +1793,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-012",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1693,6 +1809,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-013",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1708,6 +1825,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-014",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1723,6 +1841,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-015",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1738,6 +1857,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-016",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1753,6 +1873,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-017",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1768,6 +1889,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-018",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1783,6 +1905,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-019",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1798,6 +1921,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-020",
     "level": 2,
     "topic": "매출 구조와 진단 관계",
@@ -1813,6 +1937,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-021",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1828,6 +1953,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-022",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1843,6 +1969,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-023",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1858,6 +1985,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-024",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1873,6 +2001,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-025",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1888,6 +2017,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-026",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1903,6 +2033,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-027",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1918,6 +2049,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-028",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1933,6 +2065,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-029",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1948,6 +2081,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-030",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1963,6 +2097,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-031",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1978,6 +2113,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-032",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -1993,6 +2129,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-033",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2008,6 +2145,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-034",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2023,6 +2161,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-035",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2038,6 +2177,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-036",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2053,6 +2193,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-037",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2068,6 +2209,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-038",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2083,6 +2225,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-039",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2098,6 +2241,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-040",
     "level": 2,
     "topic": "목표매출·가동률·비용구조",
@@ -2113,6 +2257,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-041",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2128,6 +2273,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-042",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2143,6 +2289,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-043",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2158,6 +2305,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-044",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2173,6 +2321,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-045",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2188,6 +2337,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-046",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2203,6 +2353,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-047",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2218,6 +2369,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-048",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2233,6 +2385,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-049",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2248,6 +2401,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-050",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2263,6 +2417,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-051",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2278,6 +2433,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-052",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2293,6 +2449,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-053",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2308,6 +2465,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-054",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2323,6 +2481,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-055",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2338,6 +2497,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-056",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2353,6 +2513,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-057",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2368,6 +2529,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-058",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2383,6 +2545,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-059",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2398,6 +2561,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-060",
     "level": 2,
     "topic": "LTV·CAC·채널의 관계",
@@ -2413,6 +2577,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-061",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2428,6 +2593,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-062",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2443,6 +2609,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-063",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2458,6 +2625,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-064",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2473,6 +2641,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-065",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2488,6 +2657,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-066",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2503,6 +2673,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-067",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2518,6 +2689,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-068",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2533,6 +2705,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-069",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2548,6 +2721,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-070",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2563,6 +2737,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-071",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2578,6 +2753,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-072",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2593,6 +2769,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-073",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2608,6 +2785,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-074",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2623,6 +2801,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-075",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2638,6 +2817,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-076",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2653,6 +2833,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-077",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2668,6 +2849,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-078",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2683,6 +2865,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-079",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2698,6 +2881,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-080",
     "level": 2,
     "topic": "사다리 8단계 구분과 연결",
@@ -2713,6 +2897,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-081",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2728,6 +2913,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-082",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2743,6 +2929,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-083",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2758,6 +2945,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-084",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2773,6 +2961,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-085",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2788,6 +2977,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-086",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2803,6 +2993,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-087",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2818,6 +3009,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-088",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2833,6 +3025,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-089",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2848,6 +3041,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-090",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2863,6 +3057,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-091",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2878,6 +3073,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-092",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2893,6 +3089,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-093",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2908,6 +3105,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-094",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2923,6 +3121,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-095",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2938,6 +3137,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-096",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2953,6 +3153,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-097",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2968,6 +3169,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-098",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2983,6 +3185,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-099",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -2998,6 +3201,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L2-100",
     "level": 2,
     "topic": "LTV 실전·상권·데이터·진단 프로세스",
@@ -3013,6 +3217,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-001",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3028,6 +3233,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-002",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3043,6 +3249,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-003",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3058,6 +3265,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-004",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3073,6 +3281,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-005",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3088,6 +3297,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-006",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3103,6 +3313,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-007",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3118,6 +3329,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-008",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3133,6 +3345,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-009",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3148,6 +3361,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-010",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3163,6 +3377,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-011",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3178,6 +3393,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-012",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3193,6 +3409,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-013",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3208,6 +3425,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-014",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3223,6 +3441,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-015",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3238,6 +3457,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-016",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3253,6 +3473,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-017",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3268,6 +3489,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-018",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3283,6 +3505,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-019",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3298,6 +3521,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-020",
     "level": 3,
     "topic": "매출 구조와 원인 진단",
@@ -3313,6 +3537,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-021",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3328,6 +3553,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-022",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3343,6 +3569,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-023",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3358,6 +3585,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-024",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3373,6 +3601,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-025",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3388,6 +3617,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-026",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3403,6 +3633,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-027",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3418,6 +3649,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-028",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3433,6 +3665,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-029",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3448,6 +3681,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-030",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3463,6 +3697,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-031",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3478,6 +3713,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-032",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3493,6 +3729,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-033",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3508,6 +3745,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-034",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3523,6 +3761,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-035",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3538,6 +3777,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-036",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3553,6 +3793,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-037",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3568,6 +3809,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-038",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3583,6 +3825,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-039",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3598,6 +3841,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-040",
     "level": 3,
     "topic": "목표매출·가동률·LTV/CAC 적용",
@@ -3613,6 +3857,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-041",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3628,6 +3873,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-042",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3643,6 +3889,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-043",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3658,6 +3905,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-044",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3673,6 +3921,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-045",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3688,6 +3937,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-046",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3703,6 +3953,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-047",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3718,6 +3969,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-048",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3733,6 +3985,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-049",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3748,6 +4001,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-050",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3763,6 +4017,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-051",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3778,6 +4033,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-052",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3793,6 +4049,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-053",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3808,6 +4065,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-054",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3823,6 +4081,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-055",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3838,6 +4097,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-056",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3853,6 +4113,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-057",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3868,6 +4129,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-058",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3883,6 +4145,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-059",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3898,6 +4161,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-060",
     "level": 3,
     "topic": "채널·CAC·클릭/전환 진단",
@@ -3913,6 +4177,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-061",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -3928,6 +4193,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-062",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -3943,6 +4209,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-063",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -3958,6 +4225,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-064",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -3973,6 +4241,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-065",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -3988,6 +4257,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-066",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4003,6 +4273,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-067",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4018,6 +4289,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-068",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4033,6 +4305,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-069",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4048,6 +4321,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-070",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4063,6 +4337,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-071",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4078,6 +4353,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-072",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4093,6 +4369,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-073",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4108,6 +4385,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-074",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4123,6 +4401,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-075",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4138,6 +4417,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-076",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4153,6 +4433,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-077",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4168,6 +4449,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-078",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4183,6 +4465,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-079",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4198,6 +4481,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-080",
     "level": 3,
     "topic": "사다리 8단계 실전 병목 진단",
@@ -4213,6 +4497,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-081",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4228,6 +4513,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-082",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4243,6 +4529,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-083",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4258,6 +4545,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-084",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4273,6 +4561,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-085",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4288,6 +4577,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-086",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4303,6 +4593,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-087",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4318,6 +4609,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-088",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4333,6 +4625,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-089",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4348,6 +4641,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-090",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4363,6 +4657,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-091",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4378,6 +4673,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-092",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4393,6 +4689,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-093",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4408,6 +4705,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-094",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4423,6 +4721,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-095",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4438,6 +4737,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-096",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4453,6 +4753,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-097",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4468,6 +4769,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-098",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4483,6 +4785,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-099",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4498,6 +4801,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L3-100",
     "level": 3,
     "topic": "상권·LTV 개선·데이터 진단 프로세스",
@@ -4513,6 +4817,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-001",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4528,6 +4833,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-002",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4543,6 +4849,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-003",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4558,6 +4865,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-004",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4573,6 +4881,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-005",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4588,6 +4897,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-006",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4603,6 +4913,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-007",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4618,6 +4929,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-008",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4633,6 +4945,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-009",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4648,6 +4961,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-010",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4663,6 +4977,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-011",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4678,6 +4993,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-012",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4693,6 +5009,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-013",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4708,6 +5025,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-014",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4723,6 +5041,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-015",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4738,6 +5057,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-016",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4753,6 +5073,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-017",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4768,6 +5089,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-018",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4783,6 +5105,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-019",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4798,6 +5121,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-020",
     "level": 4,
     "topic": "상담 진단 순서 · 목표매출",
@@ -4813,6 +5137,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-021",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4828,6 +5153,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-022",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4843,6 +5169,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-023",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4858,6 +5185,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-024",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4873,6 +5201,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-025",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4888,6 +5217,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-026",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4903,6 +5233,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-027",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4918,6 +5249,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-028",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4933,6 +5265,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-029",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4948,6 +5281,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-030",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4963,6 +5297,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-031",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4978,6 +5313,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-032",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -4993,6 +5329,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-033",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5008,6 +5345,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-034",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5023,6 +5361,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-035",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5038,6 +5377,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-036",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5053,6 +5393,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-037",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5068,6 +5409,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-038",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5083,6 +5425,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-039",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5098,6 +5441,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-040",
     "level": 4,
     "topic": "LTV · CAC · 광고예산 의사결정",
@@ -5113,6 +5457,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-041",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5128,6 +5473,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-042",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5143,6 +5489,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-043",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5158,6 +5505,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-044",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5173,6 +5521,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-045",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5188,6 +5537,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-046",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5203,6 +5553,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-047",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5218,6 +5569,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-048",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5233,6 +5585,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-049",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5248,6 +5601,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-050",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5263,6 +5617,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-051",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5278,6 +5633,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-052",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5293,6 +5649,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-053",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5308,6 +5665,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-054",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5323,6 +5681,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-055",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5338,6 +5697,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-056",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5353,6 +5713,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-057",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5368,6 +5729,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-058",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5383,6 +5745,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-059",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5398,6 +5761,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-060",
     "level": 4,
     "topic": "채널 선택 · 사다리 8단계 병목",
@@ -5413,6 +5777,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-061",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5428,6 +5793,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-062",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5443,6 +5809,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-063",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5458,6 +5825,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-064",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5473,6 +5841,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-065",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5488,6 +5857,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-066",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5503,6 +5873,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-067",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5518,6 +5889,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-068",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5533,6 +5905,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-069",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5548,6 +5921,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-070",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5563,6 +5937,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-071",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5578,6 +5953,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-072",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5593,6 +5969,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-073",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5608,6 +5985,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-074",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5623,6 +6001,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-075",
     "level": 4,
     "topic": "고객경험 · 재방문 · 추천",
@@ -5638,6 +6017,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-076",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5653,6 +6033,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-077",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5668,6 +6049,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-078",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5683,6 +6065,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-079",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5698,6 +6081,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-080",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5713,6 +6097,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-081",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5728,6 +6113,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-082",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5743,6 +6129,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-083",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5758,6 +6145,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-084",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5773,6 +6161,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-085",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5788,6 +6177,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-086",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5803,6 +6193,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-087",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5818,6 +6209,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-088",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5833,6 +6225,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-089",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5848,6 +6241,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-090",
     "level": 4,
     "topic": "상권 · 업종 · 객단가 전략",
@@ -5863,6 +6257,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-091",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5878,6 +6273,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-092",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5893,6 +6289,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-093",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5908,6 +6305,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-094",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5923,6 +6321,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-095",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5938,6 +6337,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-096",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5953,6 +6353,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-097",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5968,6 +6369,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-098",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5983,6 +6385,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-099",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -5998,6 +6401,7 @@ window.QUESTION_BANK = [
     "explain": ""
   },
   {
+    "type": "choice",
     "id": "L4-100",
     "level": 4,
     "topic": "종합 컨설팅 · 데이터 해석",
@@ -6011,5 +6415,1205 @@ window.QUESTION_BANK = [
     ],
     "answer": 3,
     "explain": ""
+  },
+  {
+    "id": "L5-001",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 1",
+    "caseTitle": "CASE 1. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,600만원, 1차 목표매출은 5,200만원이다. 평균 팀 객단가는 80,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다. 네이버 광고 CPC는 640원, 클릭 후 실제 신규방문 전환율은 1.6%다.",
+    "q": "현재매출에서 1차 목표매출까지 부족한 매출액을 구하시오.",
+    "answer": "16,000,000원",
+    "explain": "5,200만원 - 3,600만원 = 16,000,000원"
+  },
+  {
+    "id": "L5-002",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 1",
+    "caseTitle": "CASE 1. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,600만원, 1차 목표매출은 5,200만원이다. 평균 팀 객단가는 80,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다. 네이버 광고 CPC는 640원, 클릭 후 실제 신규방문 전환율은 1.6%다.",
+    "q": "부족한 매출을 채우기 위해 추가로 필요한 전체 고객 팀 수를 구하시오.",
+    "answer": "200팀",
+    "explain": "16,000,000원 ÷ 80,000원 = 200팀"
+  },
+  {
+    "id": "L5-003",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 1",
+    "caseTitle": "CASE 1. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,600만원, 1차 목표매출은 5,200만원이다. 평균 팀 객단가는 80,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다. 네이버 광고 CPC는 640원, 클릭 후 실제 신규방문 전환율은 1.6%다.",
+    "q": "재방문 증가분을 반영한 뒤 실제로 신규 확보해야 하는 팀 수를 구하시오.",
+    "answer": "160팀",
+    "explain": "200팀 - 40팀 = 160팀"
+  },
+  {
+    "id": "L5-004",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 1",
+    "caseTitle": "CASE 1. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,600만원, 1차 목표매출은 5,200만원이다. 평균 팀 객단가는 80,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다. 네이버 광고 CPC는 640원, 클릭 후 실제 신규방문 전환율은 1.6%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "192,000원",
+    "explain": "80,000원 × 2.4회 = 192,000원"
+  },
+  {
+    "id": "L5-005",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 1",
+    "caseTitle": "CASE 1. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,600만원, 1차 목표매출은 5,200만원이다. 평균 팀 객단가는 80,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다. 네이버 광고 CPC는 640원, 클릭 후 실제 신규방문 전환율은 1.6%다.",
+    "q": "현재 광고 CAC로 필요한 신규팀을 모두 확보한다고 할 때, 1차 손익 CAC 대비 남는 총 광고 여유액을 구하시오.",
+    "answer": "14,489,600원",
+    "explain": "1차 손익 CAC = 192,000원 × (1-32%) = 130,560원. 실제 CAC = 640원 ÷ 1.6% = 40,000원. 총 여유액 = (130,560원 - 40,000원) × 160팀 = 14,489,600원"
+  },
+  {
+    "id": "L5-006",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 2",
+    "caseTitle": "CASE 2. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 4,200만원, 1차 목표매출은 6,300만원이다. 평균 팀 객단가는 70,000원, 재방문 개선으로 월 60팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.0회, 식자재 원가율은 35%다. 네이버 광고 CPC는 550원, 클릭 후 실제 신규방문 전환율은 1.1%다.",
+    "q": "현재매출에서 1차 목표매출까지 부족한 매출액을 구하시오.",
+    "answer": "21,000,000원",
+    "explain": "6,300만원 - 4,200만원 = 21,000,000원"
+  },
+  {
+    "id": "L5-007",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 2",
+    "caseTitle": "CASE 2. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 4,200만원, 1차 목표매출은 6,300만원이다. 평균 팀 객단가는 70,000원, 재방문 개선으로 월 60팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.0회, 식자재 원가율은 35%다. 네이버 광고 CPC는 550원, 클릭 후 실제 신규방문 전환율은 1.1%다.",
+    "q": "부족한 매출을 채우기 위해 추가로 필요한 전체 고객 팀 수를 구하시오.",
+    "answer": "300팀",
+    "explain": "21,000,000원 ÷ 70,000원 = 300팀"
+  },
+  {
+    "id": "L5-008",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 2",
+    "caseTitle": "CASE 2. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 4,200만원, 1차 목표매출은 6,300만원이다. 평균 팀 객단가는 70,000원, 재방문 개선으로 월 60팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.0회, 식자재 원가율은 35%다. 네이버 광고 CPC는 550원, 클릭 후 실제 신규방문 전환율은 1.1%다.",
+    "q": "재방문 증가분을 반영한 뒤 실제로 신규 확보해야 하는 팀 수를 구하시오.",
+    "answer": "240팀",
+    "explain": "300팀 - 60팀 = 240팀"
+  },
+  {
+    "id": "L5-009",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 2",
+    "caseTitle": "CASE 2. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 4,200만원, 1차 목표매출은 6,300만원이다. 평균 팀 객단가는 70,000원, 재방문 개선으로 월 60팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.0회, 식자재 원가율은 35%다. 네이버 광고 CPC는 550원, 클릭 후 실제 신규방문 전환율은 1.1%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "140,000원",
+    "explain": "70,000원 × 2.0회 = 140,000원"
+  },
+  {
+    "id": "L5-010",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 2",
+    "caseTitle": "CASE 2. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 4,200만원, 1차 목표매출은 6,300만원이다. 평균 팀 객단가는 70,000원, 재방문 개선으로 월 60팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.0회, 식자재 원가율은 35%다. 네이버 광고 CPC는 550원, 클릭 후 실제 신규방문 전환율은 1.1%다.",
+    "q": "현재 광고 CAC로 필요한 신규팀을 모두 확보한다고 할 때, 1차 손익 CAC 대비 남는 총 광고 여유액을 구하시오.",
+    "answer": "9,840,000원",
+    "explain": "1차 손익 CAC = 140,000원 × (1-35%) = 91,000원. 실제 CAC = 550원 ÷ 1.1% = 50,000원. 총 여유액 = (91,000원 - 50,000원) × 240팀 = 9,840,000원"
+  },
+  {
+    "id": "L5-011",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 3",
+    "caseTitle": "CASE 3. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 2,800만원, 1차 목표매출은 4,500만원이다. 평균 팀 객단가는 50,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 3.2회, 식자재 원가율은 30%다. 네이버 광고 CPC는 480원, 클릭 후 실제 신규방문 전환율은 1.2%다.",
+    "q": "현재매출에서 1차 목표매출까지 부족한 매출액을 구하시오.",
+    "answer": "17,000,000원",
+    "explain": "4,500만원 - 2,800만원 = 17,000,000원"
+  },
+  {
+    "id": "L5-012",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 3",
+    "caseTitle": "CASE 3. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 2,800만원, 1차 목표매출은 4,500만원이다. 평균 팀 객단가는 50,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 3.2회, 식자재 원가율은 30%다. 네이버 광고 CPC는 480원, 클릭 후 실제 신규방문 전환율은 1.2%다.",
+    "q": "부족한 매출을 채우기 위해 추가로 필요한 전체 고객 팀 수를 구하시오.",
+    "answer": "340팀",
+    "explain": "17,000,000원 ÷ 50,000원 = 340팀"
+  },
+  {
+    "id": "L5-013",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 3",
+    "caseTitle": "CASE 3. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 2,800만원, 1차 목표매출은 4,500만원이다. 평균 팀 객단가는 50,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 3.2회, 식자재 원가율은 30%다. 네이버 광고 CPC는 480원, 클릭 후 실제 신규방문 전환율은 1.2%다.",
+    "q": "재방문 증가분을 반영한 뒤 실제로 신규 확보해야 하는 팀 수를 구하시오.",
+    "answer": "300팀",
+    "explain": "340팀 - 40팀 = 300팀"
+  },
+  {
+    "id": "L5-014",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 3",
+    "caseTitle": "CASE 3. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 2,800만원, 1차 목표매출은 4,500만원이다. 평균 팀 객단가는 50,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 3.2회, 식자재 원가율은 30%다. 네이버 광고 CPC는 480원, 클릭 후 실제 신규방문 전환율은 1.2%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "160,000원",
+    "explain": "50,000원 × 3.2회 = 160,000원"
+  },
+  {
+    "id": "L5-015",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 3",
+    "caseTitle": "CASE 3. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 2,800만원, 1차 목표매출은 4,500만원이다. 평균 팀 객단가는 50,000원, 재방문 개선으로 월 40팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 3.2회, 식자재 원가율은 30%다. 네이버 광고 CPC는 480원, 클릭 후 실제 신규방문 전환율은 1.2%다.",
+    "q": "현재 광고 CAC로 필요한 신규팀을 모두 확보한다고 할 때, 1차 손익 CAC 대비 남는 총 광고 여유액을 구하시오.",
+    "answer": "21,600,000원",
+    "explain": "1차 손익 CAC = 160,000원 × (1-30%) = 112,000원. 실제 CAC = 480원 ÷ 1.2% = 40,000원. 총 여유액 = (112,000원 - 40,000원) × 300팀 = 21,600,000원"
+  },
+  {
+    "id": "L5-016",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 4",
+    "caseTitle": "CASE 4. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 5,500만원, 1차 목표매출은 7,300만원이다. 평균 팀 객단가는 90,000원, 재방문 개선으로 월 50팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 1.8회, 식자재 원가율은 28%다. 네이버 광고 CPC는 720원, 클릭 후 실제 신규방문 전환율은 1.5%다.",
+    "q": "현재매출에서 1차 목표매출까지 부족한 매출액을 구하시오.",
+    "answer": "18,000,000원",
+    "explain": "7,300만원 - 5,500만원 = 18,000,000원"
+  },
+  {
+    "id": "L5-017",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 4",
+    "caseTitle": "CASE 4. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 5,500만원, 1차 목표매출은 7,300만원이다. 평균 팀 객단가는 90,000원, 재방문 개선으로 월 50팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 1.8회, 식자재 원가율은 28%다. 네이버 광고 CPC는 720원, 클릭 후 실제 신규방문 전환율은 1.5%다.",
+    "q": "부족한 매출을 채우기 위해 추가로 필요한 전체 고객 팀 수를 구하시오.",
+    "answer": "200팀",
+    "explain": "18,000,000원 ÷ 90,000원 = 200팀"
+  },
+  {
+    "id": "L5-018",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 4",
+    "caseTitle": "CASE 4. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 5,500만원, 1차 목표매출은 7,300만원이다. 평균 팀 객단가는 90,000원, 재방문 개선으로 월 50팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 1.8회, 식자재 원가율은 28%다. 네이버 광고 CPC는 720원, 클릭 후 실제 신규방문 전환율은 1.5%다.",
+    "q": "재방문 증가분을 반영한 뒤 실제로 신규 확보해야 하는 팀 수를 구하시오.",
+    "answer": "150팀",
+    "explain": "200팀 - 50팀 = 150팀"
+  },
+  {
+    "id": "L5-019",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 4",
+    "caseTitle": "CASE 4. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 5,500만원, 1차 목표매출은 7,300만원이다. 평균 팀 객단가는 90,000원, 재방문 개선으로 월 50팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 1.8회, 식자재 원가율은 28%다. 네이버 광고 CPC는 720원, 클릭 후 실제 신규방문 전환율은 1.5%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "162,000원",
+    "explain": "90,000원 × 1.8회 = 162,000원"
+  },
+  {
+    "id": "L5-020",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 4",
+    "caseTitle": "CASE 4. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 5,500만원, 1차 목표매출은 7,300만원이다. 평균 팀 객단가는 90,000원, 재방문 개선으로 월 50팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 1.8회, 식자재 원가율은 28%다. 네이버 광고 CPC는 720원, 클릭 후 실제 신규방문 전환율은 1.5%다.",
+    "q": "현재 광고 CAC로 필요한 신규팀을 모두 확보한다고 할 때, 1차 손익 CAC 대비 남는 총 광고 여유액을 구하시오.",
+    "answer": "10,296,000원",
+    "explain": "1차 손익 CAC = 162,000원 × (1-28%) = 116,640원. 실제 CAC = 720원 ÷ 1.5% = 48,000원. 총 여유액 = (116,640원 - 48,000원) × 150팀 = 10,296,000원"
+  },
+  {
+    "id": "L5-021",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 5",
+    "caseTitle": "CASE 5. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,150만원, 1차 목표매출은 4,950만원이다. 평균 팀 객단가는 60,000원, 재방문 개선으로 월 80팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 네이버 광고 CPC는 600원, 클릭 후 실제 신규방문 전환율은 2.0%다.",
+    "q": "현재매출에서 1차 목표매출까지 부족한 매출액을 구하시오.",
+    "answer": "18,000,000원",
+    "explain": "4,950만원 - 3,150만원 = 18,000,000원"
+  },
+  {
+    "id": "L5-022",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 5",
+    "caseTitle": "CASE 5. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,150만원, 1차 목표매출은 4,950만원이다. 평균 팀 객단가는 60,000원, 재방문 개선으로 월 80팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 네이버 광고 CPC는 600원, 클릭 후 실제 신규방문 전환율은 2.0%다.",
+    "q": "부족한 매출을 채우기 위해 추가로 필요한 전체 고객 팀 수를 구하시오.",
+    "answer": "300팀",
+    "explain": "18,000,000원 ÷ 60,000원 = 300팀"
+  },
+  {
+    "id": "L5-023",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 5",
+    "caseTitle": "CASE 5. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,150만원, 1차 목표매출은 4,950만원이다. 평균 팀 객단가는 60,000원, 재방문 개선으로 월 80팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 네이버 광고 CPC는 600원, 클릭 후 실제 신규방문 전환율은 2.0%다.",
+    "q": "재방문 증가분을 반영한 뒤 실제로 신규 확보해야 하는 팀 수를 구하시오.",
+    "answer": "220팀",
+    "explain": "300팀 - 80팀 = 220팀"
+  },
+  {
+    "id": "L5-024",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 5",
+    "caseTitle": "CASE 5. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,150만원, 1차 목표매출은 4,950만원이다. 평균 팀 객단가는 60,000원, 재방문 개선으로 월 80팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 네이버 광고 CPC는 600원, 클릭 후 실제 신규방문 전환율은 2.0%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "150,000원",
+    "explain": "60,000원 × 2.5회 = 150,000원"
+  },
+  {
+    "id": "L5-025",
+    "level": 5,
+    "type": "input",
+    "topic": "1차 목표매출과 신규 확보",
+    "group": "CASE 5",
+    "caseTitle": "CASE 5. 1차 목표매출과 신규 확보",
+    "context": "A매장의 현재 월매출은 3,150만원, 1차 목표매출은 4,950만원이다. 평균 팀 객단가는 60,000원, 재방문 개선으로 월 80팀을 추가 확보할 수 있다고 본다. 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 네이버 광고 CPC는 600원, 클릭 후 실제 신규방문 전환율은 2.0%다.",
+    "q": "현재 광고 CAC로 필요한 신규팀을 모두 확보한다고 할 때, 1차 손익 CAC 대비 남는 총 광고 여유액을 구하시오.",
+    "answer": "15,180,000원",
+    "explain": "1차 손익 CAC = 150,000원 × (1-34%) = 99,000원. 실제 CAC = 600원 ÷ 2.0% = 30,000원. 총 여유액 = (99,000원 - 30,000원) × 220팀 = 15,180,000원"
+  },
+  {
+    "id": "L5-026",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 6",
+    "caseTitle": "CASE 6. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 120,000회를 확보했고 노출 1회당 비용은 8원이다. CTR은 2.5%, 클릭 후 실제 신규방문 전환율은 4.0%다. 팀 객단가는 45,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다.",
+    "q": "한 달 예상 클릭 수를 구하시오.",
+    "answer": "3,000회",
+    "explain": "120,000회 × 2.5% = 3,000회"
+  },
+  {
+    "id": "L5-027",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 6",
+    "caseTitle": "CASE 6. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 120,000회를 확보했고 노출 1회당 비용은 8원이다. CTR은 2.5%, 클릭 후 실제 신규방문 전환율은 4.0%다. 팀 객단가는 45,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다.",
+    "q": "한 달 실제 신규방문 팀 수를 구하시오.",
+    "answer": "120팀",
+    "explain": "3,000회 × 4.0% = 120팀"
+  },
+  {
+    "id": "L5-028",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 6",
+    "caseTitle": "CASE 6. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 120,000회를 확보했고 노출 1회당 비용은 8원이다. CTR은 2.5%, 클릭 후 실제 신규방문 전환율은 4.0%다. 팀 객단가는 45,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다.",
+    "q": "한 달 총 광고비를 구하시오.",
+    "answer": "960,000원",
+    "explain": "120,000회 × 8원 = 960,000원"
+  },
+  {
+    "id": "L5-029",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 6",
+    "caseTitle": "CASE 6. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 120,000회를 확보했고 노출 1회당 비용은 8원이다. CTR은 2.5%, 클릭 후 실제 신규방문 전환율은 4.0%다. 팀 객단가는 45,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다.",
+    "q": "이 광고의 실제 CAC를 구하시오.",
+    "answer": "8,000원",
+    "explain": "960,000원 ÷ 120팀 = 8,000원"
+  },
+  {
+    "id": "L5-030",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 6",
+    "caseTitle": "CASE 6. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 120,000회를 확보했고 노출 1회당 비용은 8원이다. CTR은 2.5%, 클릭 후 실제 신규방문 전환율은 4.0%다. 팀 객단가는 45,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다.",
+    "q": "현재 CTR과 노출당 비용이 그대로일 때 1차 손익 CAC 안에 들어오기 위한 최소 실제 신규방문 전환율을 구하시오. 소수 둘째 자리까지 %로 표시하시오.",
+    "answer": "0.51%",
+    "explain": "LTV=90,000원, 손익 CAC=63,000원. 최소 전환율 = 8원 ÷ (2.5% × 63,000원) = 0.51%"
+  },
+  {
+    "id": "L5-031",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 7",
+    "caseTitle": "CASE 7. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 180,000회를 확보했고 노출 1회당 비용은 12원이다. CTR은 1.8%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 1.6회, 식자재 원가율은 35%다.",
+    "q": "한 달 예상 클릭 수를 구하시오.",
+    "answer": "3,239회",
+    "explain": "180,000회 × 1.8% = 3,239회"
+  },
+  {
+    "id": "L5-032",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 7",
+    "caseTitle": "CASE 7. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 180,000회를 확보했고 노출 1회당 비용은 12원이다. CTR은 1.8%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 1.6회, 식자재 원가율은 35%다.",
+    "q": "한 달 실제 신규방문 팀 수를 구하시오.",
+    "answer": "81팀",
+    "explain": "3,239회 × 2.5% = 81팀"
+  },
+  {
+    "id": "L5-033",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 7",
+    "caseTitle": "CASE 7. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 180,000회를 확보했고 노출 1회당 비용은 12원이다. CTR은 1.8%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 1.6회, 식자재 원가율은 35%다.",
+    "q": "한 달 총 광고비를 구하시오.",
+    "answer": "2,160,000원",
+    "explain": "180,000회 × 12원 = 2,160,000원"
+  },
+  {
+    "id": "L5-034",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 7",
+    "caseTitle": "CASE 7. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 180,000회를 확보했고 노출 1회당 비용은 12원이다. CTR은 1.8%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 1.6회, 식자재 원가율은 35%다.",
+    "q": "이 광고의 실제 CAC를 구하시오.",
+    "answer": "26,667원",
+    "explain": "2,160,000원 ÷ 81팀 = 26,667원"
+  },
+  {
+    "id": "L5-035",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 7",
+    "caseTitle": "CASE 7. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 180,000회를 확보했고 노출 1회당 비용은 12원이다. CTR은 1.8%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 1.6회, 식자재 원가율은 35%다.",
+    "q": "현재 CTR과 노출당 비용이 그대로일 때 1차 손익 CAC 안에 들어오기 위한 최소 실제 신규방문 전환율을 구하시오. 소수 둘째 자리까지 %로 표시하시오.",
+    "answer": "0.99%",
+    "explain": "LTV=104,000원, 손익 CAC=67,600원. 최소 전환율 = 12원 ÷ (1.8% × 67,600원) = 0.99%"
+  },
+  {
+    "id": "L5-036",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 8",
+    "caseTitle": "CASE 8. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 250,000회를 확보했고 노출 1회당 비용은 6원이다. CTR은 1.2%, 클릭 후 실제 신규방문 전환율은 3.0%다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다.",
+    "q": "한 달 예상 클릭 수를 구하시오.",
+    "answer": "3,000회",
+    "explain": "250,000회 × 1.2% = 3,000회"
+  },
+  {
+    "id": "L5-037",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 8",
+    "caseTitle": "CASE 8. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 250,000회를 확보했고 노출 1회당 비용은 6원이다. CTR은 1.2%, 클릭 후 실제 신규방문 전환율은 3.0%다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다.",
+    "q": "한 달 실제 신규방문 팀 수를 구하시오.",
+    "answer": "90팀",
+    "explain": "3,000회 × 3.0% = 90팀"
+  },
+  {
+    "id": "L5-038",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 8",
+    "caseTitle": "CASE 8. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 250,000회를 확보했고 노출 1회당 비용은 6원이다. CTR은 1.2%, 클릭 후 실제 신규방문 전환율은 3.0%다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다.",
+    "q": "한 달 총 광고비를 구하시오.",
+    "answer": "1,500,000원",
+    "explain": "250,000회 × 6원 = 1,500,000원"
+  },
+  {
+    "id": "L5-039",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 8",
+    "caseTitle": "CASE 8. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 250,000회를 확보했고 노출 1회당 비용은 6원이다. CTR은 1.2%, 클릭 후 실제 신규방문 전환율은 3.0%다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다.",
+    "q": "이 광고의 실제 CAC를 구하시오.",
+    "answer": "16,667원",
+    "explain": "1,500,000원 ÷ 90팀 = 16,667원"
+  },
+  {
+    "id": "L5-040",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 8",
+    "caseTitle": "CASE 8. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 250,000회를 확보했고 노출 1회당 비용은 6원이다. CTR은 1.2%, 클릭 후 실제 신규방문 전환율은 3.0%다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 32%다.",
+    "q": "현재 CTR과 노출당 비용이 그대로일 때 1차 손익 CAC 안에 들어오기 위한 최소 실제 신규방문 전환율을 구하시오. 소수 둘째 자리까지 %로 표시하시오.",
+    "answer": "0.56%",
+    "explain": "LTV=132,000원, 손익 CAC=89,760원. 최소 전환율 = 6원 ÷ (1.2% × 89,760원) = 0.56%"
+  },
+  {
+    "id": "L5-041",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 9",
+    "caseTitle": "CASE 9. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 100,000회를 확보했고 노출 1회당 비용은 15원이다. CTR은 3.0%, 클릭 후 실제 신규방문 전환율은 2.0%다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다.",
+    "q": "한 달 예상 클릭 수를 구하시오.",
+    "answer": "3,000회",
+    "explain": "100,000회 × 3.0% = 3,000회"
+  },
+  {
+    "id": "L5-042",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 9",
+    "caseTitle": "CASE 9. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 100,000회를 확보했고 노출 1회당 비용은 15원이다. CTR은 3.0%, 클릭 후 실제 신규방문 전환율은 2.0%다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다.",
+    "q": "한 달 실제 신규방문 팀 수를 구하시오.",
+    "answer": "60팀",
+    "explain": "3,000회 × 2.0% = 60팀"
+  },
+  {
+    "id": "L5-043",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 9",
+    "caseTitle": "CASE 9. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 100,000회를 확보했고 노출 1회당 비용은 15원이다. CTR은 3.0%, 클릭 후 실제 신규방문 전환율은 2.0%다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다.",
+    "q": "한 달 총 광고비를 구하시오.",
+    "answer": "1,500,000원",
+    "explain": "100,000회 × 15원 = 1,500,000원"
+  },
+  {
+    "id": "L5-044",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 9",
+    "caseTitle": "CASE 9. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 100,000회를 확보했고 노출 1회당 비용은 15원이다. CTR은 3.0%, 클릭 후 실제 신규방문 전환율은 2.0%다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다.",
+    "q": "이 광고의 실제 CAC를 구하시오.",
+    "answer": "25,000원",
+    "explain": "1,500,000원 ÷ 60팀 = 25,000원"
+  },
+  {
+    "id": "L5-045",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 9",
+    "caseTitle": "CASE 9. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 100,000회를 확보했고 노출 1회당 비용은 15원이다. CTR은 3.0%, 클릭 후 실제 신규방문 전환율은 2.0%다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다.",
+    "q": "현재 CTR과 노출당 비용이 그대로일 때 1차 손익 CAC 안에 들어오기 위한 최소 실제 신규방문 전환율을 구하시오. 소수 둘째 자리까지 %로 표시하시오.",
+    "answer": "0.60%",
+    "explain": "LTV=120,000원, 손익 CAC=84,000원. 최소 전환율 = 15원 ÷ (3.0% × 84,000원) = 0.60%"
+  },
+  {
+    "id": "L5-046",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 10",
+    "caseTitle": "CASE 10. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 160,000회를 확보했고 노출 1회당 비용은 10원이다. CTR은 2.0%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 33%다.",
+    "q": "한 달 예상 클릭 수를 구하시오.",
+    "answer": "3,200회",
+    "explain": "160,000회 × 2.0% = 3,200회"
+  },
+  {
+    "id": "L5-047",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 10",
+    "caseTitle": "CASE 10. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 160,000회를 확보했고 노출 1회당 비용은 10원이다. CTR은 2.0%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 33%다.",
+    "q": "한 달 실제 신규방문 팀 수를 구하시오.",
+    "answer": "80팀",
+    "explain": "3,200회 × 2.5% = 80팀"
+  },
+  {
+    "id": "L5-048",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 10",
+    "caseTitle": "CASE 10. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 160,000회를 확보했고 노출 1회당 비용은 10원이다. CTR은 2.0%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 33%다.",
+    "q": "한 달 총 광고비를 구하시오.",
+    "answer": "1,600,000원",
+    "explain": "160,000회 × 10원 = 1,600,000원"
+  },
+  {
+    "id": "L5-049",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 10",
+    "caseTitle": "CASE 10. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 160,000회를 확보했고 노출 1회당 비용은 10원이다. CTR은 2.0%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 33%다.",
+    "q": "이 광고의 실제 CAC를 구하시오.",
+    "answer": "20,000원",
+    "explain": "1,600,000원 ÷ 80팀 = 20,000원"
+  },
+  {
+    "id": "L5-050",
+    "level": 5,
+    "type": "input",
+    "topic": "노출비용·CTR·방문전환율",
+    "group": "CASE 10",
+    "caseTitle": "CASE 10. 노출비용·CTR·방문전환율",
+    "context": "B매장은 한 달 광고 노출 160,000회를 확보했고 노출 1회당 비용은 10원이다. CTR은 2.0%, 클릭 후 실제 신규방문 전환율은 2.5%다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 33%다.",
+    "q": "현재 CTR과 노출당 비용이 그대로일 때 1차 손익 CAC 안에 들어오기 위한 최소 실제 신규방문 전환율을 구하시오. 소수 둘째 자리까지 %로 표시하시오.",
+    "answer": "0.48%",
+    "explain": "LTV=154,000원, 손익 CAC=103,180원. 최소 전환율 = 10원 ÷ (2.0% × 103,180원) = 0.48%"
+  },
+  {
+    "id": "L5-051",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 11",
+    "caseTitle": "CASE 11. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,000만원, 1차 목표는 5,500만원, 2차 목표는 7,000만원이다. 팀 객단가는 75,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 32%다. 2차 목표 진입 시 월 3,000,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,200팀을 확보한다고 가정한다. 현재 광고 CPC는 660원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "현재매출에서 1차 목표까지 추가로 필요한 고객 팀 수를 구하시오.",
+    "answer": "200팀",
+    "explain": "(55,000,000원-40,000,000원) ÷ 75,000원 = 200팀"
+  },
+  {
+    "id": "L5-052",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 11",
+    "caseTitle": "CASE 11. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,000만원, 1차 목표는 5,500만원, 2차 목표는 7,000만원이다. 팀 객단가는 75,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 32%다. 2차 목표 진입 시 월 3,000,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,200팀을 확보한다고 가정한다. 현재 광고 CPC는 660원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "165,000원",
+    "explain": "75,000원 × 2.2회 = 165,000원"
+  },
+  {
+    "id": "L5-053",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 11",
+    "caseTitle": "CASE 11. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,000만원, 1차 목표는 5,500만원, 2차 목표는 7,000만원이다. 팀 객단가는 75,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 32%다. 2차 목표 진입 시 월 3,000,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,200팀을 확보한다고 가정한다. 현재 광고 CPC는 660원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "1차 목표 구간의 손익 CAC를 구하시오.",
+    "answer": "112,200원",
+    "explain": "165,000원 - (165,000원×32%) = 112,200원"
+  },
+  {
+    "id": "L5-054",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 11",
+    "caseTitle": "CASE 11. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,000만원, 1차 목표는 5,500만원, 2차 목표는 7,000만원이다. 팀 객단가는 75,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 32%다. 2차 목표 진입 시 월 3,000,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,200팀을 확보한다고 가정한다. 현재 광고 CPC는 660원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "추가 직원의 1년 인건비를 연간 신규고객에 배분했을 때 신규 1팀당 추가 인건비 배분액을 구하시오.",
+    "answer": "30,000원",
+    "explain": "3,000,000원 × 12개월 ÷ 1,200팀 = 30,000원"
+  },
+  {
+    "id": "L5-055",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 11",
+    "caseTitle": "CASE 11. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,000만원, 1차 목표는 5,500만원, 2차 목표는 7,000만원이다. 팀 객단가는 75,000원, 1년 평균 방문횟수는 2.2회, 식자재 원가율은 32%다. 2차 목표 진입 시 월 3,000,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,200팀을 확보한다고 가정한다. 현재 광고 CPC는 660원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "2차 목표 구간의 손익 CAC와 현재 실제 CAC의 차이를 구하고, 현재 광고가 손익선 안인지 밖인지 판단하시오.",
+    "answer": "차이 16,200원 / 손익선 안",
+    "explain": "2차 손익 CAC=82,200원. 실제 CAC=660원÷1.0%=66,000원. 차이=82,200원-66,000원=16,200원 → 손익선 안"
+  },
+  {
+    "id": "L5-056",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 12",
+    "caseTitle": "CASE 12. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,800만원, 1차 목표는 6,400만원, 2차 목표는 8,000만원이다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 30%다. 2차 목표 진입 시 월 3,600,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,440팀을 확보한다고 가정한다. 현재 광고 CPC는 540원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "현재매출에서 1차 목표까지 추가로 필요한 고객 팀 수를 구하시오.",
+    "answer": "200팀",
+    "explain": "(64,000,000원-48,000,000원) ÷ 80,000원 = 200팀"
+  },
+  {
+    "id": "L5-057",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 12",
+    "caseTitle": "CASE 12. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,800만원, 1차 목표는 6,400만원, 2차 목표는 8,000만원이다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 30%다. 2차 목표 진입 시 월 3,600,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,440팀을 확보한다고 가정한다. 현재 광고 CPC는 540원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "144,000원",
+    "explain": "80,000원 × 1.8회 = 144,000원"
+  },
+  {
+    "id": "L5-058",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 12",
+    "caseTitle": "CASE 12. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,800만원, 1차 목표는 6,400만원, 2차 목표는 8,000만원이다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 30%다. 2차 목표 진입 시 월 3,600,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,440팀을 확보한다고 가정한다. 현재 광고 CPC는 540원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "1차 목표 구간의 손익 CAC를 구하시오.",
+    "answer": "100,800원",
+    "explain": "144,000원 - (144,000원×30%) = 100,800원"
+  },
+  {
+    "id": "L5-059",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 12",
+    "caseTitle": "CASE 12. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,800만원, 1차 목표는 6,400만원, 2차 목표는 8,000만원이다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 30%다. 2차 목표 진입 시 월 3,600,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,440팀을 확보한다고 가정한다. 현재 광고 CPC는 540원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "추가 직원의 1년 인건비를 연간 신규고객에 배분했을 때 신규 1팀당 추가 인건비 배분액을 구하시오.",
+    "answer": "30,000원",
+    "explain": "3,600,000원 × 12개월 ÷ 1,440팀 = 30,000원"
+  },
+  {
+    "id": "L5-060",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 12",
+    "caseTitle": "CASE 12. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 4,800만원, 1차 목표는 6,400만원, 2차 목표는 8,000만원이다. 팀 객단가는 80,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 30%다. 2차 목표 진입 시 월 3,600,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,440팀을 확보한다고 가정한다. 현재 광고 CPC는 540원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "2차 목표 구간의 손익 CAC와 현재 실제 CAC의 차이를 구하고, 현재 광고가 손익선 안인지 밖인지 판단하시오.",
+    "answer": "차이 10,800원 / 손익선 안",
+    "explain": "2차 손익 CAC=70,800원. 실제 CAC=540원÷0.9%=60,000원. 차이=70,800원-60,000원=10,800원 → 손익선 안"
+  },
+  {
+    "id": "L5-061",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 13",
+    "caseTitle": "CASE 13. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 2,700만원, 1차 목표는 4,200만원, 2차 목표는 5,700만원이다. 팀 객단가는 50,000원, 1년 평균 방문횟수는 3.0회, 식자재 원가율은 35%다. 2차 목표 진입 시 월 2,800,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,680팀을 확보한다고 가정한다. 현재 광고 CPC는 620원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "현재매출에서 1차 목표까지 추가로 필요한 고객 팀 수를 구하시오.",
+    "answer": "300팀",
+    "explain": "(42,000,000원-27,000,000원) ÷ 50,000원 = 300팀"
+  },
+  {
+    "id": "L5-062",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 13",
+    "caseTitle": "CASE 13. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 2,700만원, 1차 목표는 4,200만원, 2차 목표는 5,700만원이다. 팀 객단가는 50,000원, 1년 평균 방문횟수는 3.0회, 식자재 원가율은 35%다. 2차 목표 진입 시 월 2,800,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,680팀을 확보한다고 가정한다. 현재 광고 CPC는 620원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "150,000원",
+    "explain": "50,000원 × 3.0회 = 150,000원"
+  },
+  {
+    "id": "L5-063",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 13",
+    "caseTitle": "CASE 13. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 2,700만원, 1차 목표는 4,200만원, 2차 목표는 5,700만원이다. 팀 객단가는 50,000원, 1년 평균 방문횟수는 3.0회, 식자재 원가율은 35%다. 2차 목표 진입 시 월 2,800,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,680팀을 확보한다고 가정한다. 현재 광고 CPC는 620원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "1차 목표 구간의 손익 CAC를 구하시오.",
+    "answer": "97,500원",
+    "explain": "150,000원 - (150,000원×35%) = 97,500원"
+  },
+  {
+    "id": "L5-064",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 13",
+    "caseTitle": "CASE 13. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 2,700만원, 1차 목표는 4,200만원, 2차 목표는 5,700만원이다. 팀 객단가는 50,000원, 1년 평균 방문횟수는 3.0회, 식자재 원가율은 35%다. 2차 목표 진입 시 월 2,800,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,680팀을 확보한다고 가정한다. 현재 광고 CPC는 620원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "추가 직원의 1년 인건비를 연간 신규고객에 배분했을 때 신규 1팀당 추가 인건비 배분액을 구하시오.",
+    "answer": "20,000원",
+    "explain": "2,800,000원 × 12개월 ÷ 1,680팀 = 20,000원"
+  },
+  {
+    "id": "L5-065",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 13",
+    "caseTitle": "CASE 13. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 2,700만원, 1차 목표는 4,200만원, 2차 목표는 5,700만원이다. 팀 객단가는 50,000원, 1년 평균 방문횟수는 3.0회, 식자재 원가율은 35%다. 2차 목표 진입 시 월 2,800,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,680팀을 확보한다고 가정한다. 현재 광고 CPC는 620원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "2차 목표 구간의 손익 CAC와 현재 실제 CAC의 차이를 구하고, 현재 광고가 손익선 안인지 밖인지 판단하시오.",
+    "answer": "차이 15,500원 / 손익선 안",
+    "explain": "2차 손익 CAC=77,500원. 실제 CAC=620원÷1.0%=62,000원. 차이=77,500원-62,000원=15,500원 → 손익선 안"
+  },
+  {
+    "id": "L5-066",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 14",
+    "caseTitle": "CASE 14. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 6,000만원, 1차 목표는 7,800만원, 2차 목표는 9,600만원이다. 팀 객단가는 90,000원, 1년 평균 방문횟수는 1.7회, 식자재 원가율은 28%다. 2차 목표 진입 시 월 4,200,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,260팀을 확보한다고 가정한다. 현재 광고 CPC는 700원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "현재매출에서 1차 목표까지 추가로 필요한 고객 팀 수를 구하시오.",
+    "answer": "200팀",
+    "explain": "(78,000,000원-60,000,000원) ÷ 90,000원 = 200팀"
+  },
+  {
+    "id": "L5-067",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 14",
+    "caseTitle": "CASE 14. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 6,000만원, 1차 목표는 7,800만원, 2차 목표는 9,600만원이다. 팀 객단가는 90,000원, 1년 평균 방문횟수는 1.7회, 식자재 원가율은 28%다. 2차 목표 진입 시 월 4,200,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,260팀을 확보한다고 가정한다. 현재 광고 CPC는 700원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "153,000원",
+    "explain": "90,000원 × 1.7회 = 153,000원"
+  },
+  {
+    "id": "L5-068",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 14",
+    "caseTitle": "CASE 14. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 6,000만원, 1차 목표는 7,800만원, 2차 목표는 9,600만원이다. 팀 객단가는 90,000원, 1년 평균 방문횟수는 1.7회, 식자재 원가율은 28%다. 2차 목표 진입 시 월 4,200,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,260팀을 확보한다고 가정한다. 현재 광고 CPC는 700원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "1차 목표 구간의 손익 CAC를 구하시오.",
+    "answer": "110,160원",
+    "explain": "153,000원 - (153,000원×28%) = 110,160원"
+  },
+  {
+    "id": "L5-069",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 14",
+    "caseTitle": "CASE 14. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 6,000만원, 1차 목표는 7,800만원, 2차 목표는 9,600만원이다. 팀 객단가는 90,000원, 1년 평균 방문횟수는 1.7회, 식자재 원가율은 28%다. 2차 목표 진입 시 월 4,200,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,260팀을 확보한다고 가정한다. 현재 광고 CPC는 700원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "추가 직원의 1년 인건비를 연간 신규고객에 배분했을 때 신규 1팀당 추가 인건비 배분액을 구하시오.",
+    "answer": "40,000원",
+    "explain": "4,200,000원 × 12개월 ÷ 1,260팀 = 40,000원"
+  },
+  {
+    "id": "L5-070",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 14",
+    "caseTitle": "CASE 14. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 6,000만원, 1차 목표는 7,800만원, 2차 목표는 9,600만원이다. 팀 객단가는 90,000원, 1년 평균 방문횟수는 1.7회, 식자재 원가율은 28%다. 2차 목표 진입 시 월 4,200,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,260팀을 확보한다고 가정한다. 현재 광고 CPC는 700원, 실제 신규방문 전환율은 1.0%다.",
+    "q": "2차 목표 구간의 손익 CAC와 현재 실제 CAC의 차이를 구하고, 현재 광고가 손익선 안인지 밖인지 판단하시오.",
+    "answer": "차이 160원 / 손익선 안",
+    "explain": "2차 손익 CAC=70,160원. 실제 CAC=700원÷1.0%=70,000원. 차이=70,160원-70,000원=160원 → 손익선 안"
+  },
+  {
+    "id": "L5-071",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 15",
+    "caseTitle": "CASE 15. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 3,500만원, 1차 목표는 5,000만원, 2차 목표는 6,500만원이다. 팀 객단가는 60,000원, 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 2차 목표 진입 시 월 3,300,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,320팀을 확보한다고 가정한다. 현재 광고 CPC는 690원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "현재매출에서 1차 목표까지 추가로 필요한 고객 팀 수를 구하시오.",
+    "answer": "250팀",
+    "explain": "(50,000,000원-35,000,000원) ÷ 60,000원 = 250팀"
+  },
+  {
+    "id": "L5-072",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 15",
+    "caseTitle": "CASE 15. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 3,500만원, 1차 목표는 5,000만원, 2차 목표는 6,500만원이다. 팀 객단가는 60,000원, 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 2차 목표 진입 시 월 3,300,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,320팀을 확보한다고 가정한다. 현재 광고 CPC는 690원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "이 매장의 1년 매출 LTV를 구하시오.",
+    "answer": "150,000원",
+    "explain": "60,000원 × 2.5회 = 150,000원"
+  },
+  {
+    "id": "L5-073",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 15",
+    "caseTitle": "CASE 15. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 3,500만원, 1차 목표는 5,000만원, 2차 목표는 6,500만원이다. 팀 객단가는 60,000원, 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 2차 목표 진입 시 월 3,300,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,320팀을 확보한다고 가정한다. 현재 광고 CPC는 690원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "1차 목표 구간의 손익 CAC를 구하시오.",
+    "answer": "99,000원",
+    "explain": "150,000원 - (150,000원×34%) = 99,000원"
+  },
+  {
+    "id": "L5-074",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 15",
+    "caseTitle": "CASE 15. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 3,500만원, 1차 목표는 5,000만원, 2차 목표는 6,500만원이다. 팀 객단가는 60,000원, 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 2차 목표 진입 시 월 3,300,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,320팀을 확보한다고 가정한다. 현재 광고 CPC는 690원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "추가 직원의 1년 인건비를 연간 신규고객에 배분했을 때 신규 1팀당 추가 인건비 배분액을 구하시오.",
+    "answer": "30,000원",
+    "explain": "3,300,000원 × 12개월 ÷ 1,320팀 = 30,000원"
+  },
+  {
+    "id": "L5-075",
+    "level": 5,
+    "type": "input",
+    "topic": "2차 목표와 추가 인건비",
+    "group": "CASE 15",
+    "caseTitle": "CASE 15. 2차 목표와 추가 인건비",
+    "context": "C매장의 현재 월매출은 3,500만원, 1차 목표는 5,000만원, 2차 목표는 6,500만원이다. 팀 객단가는 60,000원, 1년 평균 방문횟수는 2.5회, 식자재 원가율은 34%다. 2차 목표 진입 시 월 3,300,000원의 직원 1명이 추가되고, 이 직원이 필요한 구간에서 연간 신규고객 1,320팀을 확보한다고 가정한다. 현재 광고 CPC는 690원, 실제 신규방문 전환율은 0.9%다.",
+    "q": "2차 목표 구간의 손익 CAC와 현재 실제 CAC의 차이를 구하고, 현재 광고가 손익선 안인지 밖인지 판단하시오.",
+    "answer": "차이 7,667원 / 손익선 밖",
+    "explain": "2차 손익 CAC=69,000원. 실제 CAC=690원÷0.9%=76,667원. 차이=69,000원-76,667원=-7,667원 → 손익선 밖"
+  },
+  {
+    "id": "L5-076",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 16",
+    "caseTitle": "CASE 16. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 300팀 확보가 목표다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 600원, 방문전환율 1.50%, 최대 140팀. B: CPC 240원, 방문전환율 0.60%, 최대 100팀. C: CPC 300원, 방문전환율 0.50%, 최대 100팀.",
+    "q": "A, B, C 세 채널의 실제 CAC를 각각 구하시오.",
+    "answer": "A 40,000원 / B 40,000원 / C 60,000원",
+    "explain": "A=600원÷1.50%=40,000원, B=240원÷0.60%=40,000원, C=300원÷0.50%=60,000원"
+  },
+  {
+    "id": "L5-077",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 16",
+    "caseTitle": "CASE 16. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 300팀 확보가 목표다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 600원, 방문전환율 1.50%, 최대 140팀. B: CPC 240원, 방문전환율 0.60%, 최대 100팀. C: CPC 300원, 방문전환율 0.50%, 최대 100팀.",
+    "q": "A→B→C 순으로 목표 신규팀을 채울 때 각 채널에서 확보해야 하는 팀 수를 구하시오.",
+    "answer": "A 140팀 / B 100팀 / C 60팀",
+    "explain": "A에서 140팀 확보 후 160팀 남음 → B 100팀 → C 60팀"
+  },
+  {
+    "id": "L5-078",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 16",
+    "caseTitle": "CASE 16. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 300팀 확보가 목표다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 600원, 방문전환율 1.50%, 최대 140팀. B: CPC 240원, 방문전환율 0.60%, 최대 100팀. C: CPC 300원, 방문전환율 0.50%, 최대 100팀.",
+    "q": "위 배분대로 집행할 때 월 총 광고비와 가중평균 CAC를 구하시오.",
+    "answer": "총 13,200,000원 / 평균 44,000원",
+    "explain": "총 광고비=5,600,000원+4,000,000원+3,600,000원=13,200,000원. 가중평균 CAC=13,200,000원÷300팀=44,000원"
+  },
+  {
+    "id": "L5-079",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 16",
+    "caseTitle": "CASE 16. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 300팀 확보가 목표다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 600원, 방문전환율 1.50%, 최대 140팀. B: CPC 240원, 방문전환율 0.60%, 최대 100팀. C: CPC 300원, 방문전환율 0.50%, 최대 100팀.",
+    "q": "이 매장의 1차 손익 CAC를 기준으로, 목표 신규팀 전체에 사용할 수 있는 최대 광고비와 현재 배분안의 광고비 여유액을 구하시오.",
+    "answer": "최대 29,400,000원 / 여유 16,200,000원",
+    "explain": "LTV=140,000원, 손익 CAC=98,000원. 최대 광고비=300팀×98,000원=29,400,000원. 여유=29,400,000원-13,200,000원=16,200,000원"
+  },
+  {
+    "id": "L5-080",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 16",
+    "caseTitle": "CASE 16. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 300팀 확보가 목표다. 팀 객단가는 70,000원, 1년 평균 방문횟수는 2.0회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 600원, 방문전환율 1.50%, 최대 140팀. B: CPC 240원, 방문전환율 0.60%, 최대 100팀. C: CPC 300원, 방문전환율 0.50%, 최대 100팀.",
+    "q": "A와 B의 확보량·성과가 그대로일 때, 전체 가중평균 CAC가 손익 CAC를 넘지 않으려면 C채널의 실제 신규방문 전환율은 최소 몇 %여야 하는가? 소수 둘째 자리까지 구하시오.",
+    "answer": "0.09%",
+    "explain": "C에 쓸 수 있는 최대비용=29,400,000원-5,600,000원-4,000,000원=19,800,000원. C 허용 CAC=19,800,000원÷60팀=330,000원. 최소 전환율=300원÷330,000원=0.09%"
+  },
+  {
+    "id": "L5-081",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 17",
+    "caseTitle": "CASE 17. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 250팀 확보가 목표다. 팀 객단가는 85,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 32%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 700원, 방문전환율 1.40%, 최대 120팀. B: CPC 250원, 방문전환율 0.50%, 최대 80팀. C: CPC 360원, 방문전환율 0.40%, 최대 100팀.",
+    "q": "A, B, C 세 채널의 실제 CAC를 각각 구하시오.",
+    "answer": "A 50,000원 / B 50,000원 / C 90,000원",
+    "explain": "A=700원÷1.40%=50,000원, B=250원÷0.50%=50,000원, C=360원÷0.40%=90,000원"
+  },
+  {
+    "id": "L5-082",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 17",
+    "caseTitle": "CASE 17. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 250팀 확보가 목표다. 팀 객단가는 85,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 32%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 700원, 방문전환율 1.40%, 최대 120팀. B: CPC 250원, 방문전환율 0.50%, 최대 80팀. C: CPC 360원, 방문전환율 0.40%, 최대 100팀.",
+    "q": "A→B→C 순으로 목표 신규팀을 채울 때 각 채널에서 확보해야 하는 팀 수를 구하시오.",
+    "answer": "A 120팀 / B 80팀 / C 50팀",
+    "explain": "A에서 120팀 확보 후 130팀 남음 → B 80팀 → C 50팀"
+  },
+  {
+    "id": "L5-083",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 17",
+    "caseTitle": "CASE 17. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 250팀 확보가 목표다. 팀 객단가는 85,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 32%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 700원, 방문전환율 1.40%, 최대 120팀. B: CPC 250원, 방문전환율 0.50%, 최대 80팀. C: CPC 360원, 방문전환율 0.40%, 최대 100팀.",
+    "q": "위 배분대로 집행할 때 월 총 광고비와 가중평균 CAC를 구하시오.",
+    "answer": "총 14,500,000원 / 평균 58,000원",
+    "explain": "총 광고비=6,000,000원+4,000,000원+4,500,000원=14,500,000원. 가중평균 CAC=14,500,000원÷250팀=58,000원"
+  },
+  {
+    "id": "L5-084",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 17",
+    "caseTitle": "CASE 17. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 250팀 확보가 목표다. 팀 객단가는 85,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 32%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 700원, 방문전환율 1.40%, 최대 120팀. B: CPC 250원, 방문전환율 0.50%, 최대 80팀. C: CPC 360원, 방문전환율 0.40%, 최대 100팀.",
+    "q": "이 매장의 1차 손익 CAC를 기준으로, 목표 신규팀 전체에 사용할 수 있는 최대 광고비와 현재 배분안의 광고비 여유액을 구하시오.",
+    "answer": "최대 26,010,000원 / 여유 11,510,000원",
+    "explain": "LTV=153,000원, 손익 CAC=104,040원. 최대 광고비=250팀×104,040원=26,010,000원. 여유=26,010,000원-14,500,000원=11,510,000원"
+  },
+  {
+    "id": "L5-085",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 17",
+    "caseTitle": "CASE 17. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 250팀 확보가 목표다. 팀 객단가는 85,000원, 1년 평균 방문횟수는 1.8회, 식자재 원가율은 32%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 700원, 방문전환율 1.40%, 최대 120팀. B: CPC 250원, 방문전환율 0.50%, 최대 80팀. C: CPC 360원, 방문전환율 0.40%, 최대 100팀.",
+    "q": "A와 B의 확보량·성과가 그대로일 때, 전체 가중평균 CAC가 손익 CAC를 넘지 않으려면 C채널의 실제 신규방문 전환율은 최소 몇 %여야 하는가? 소수 둘째 자리까지 구하시오.",
+    "answer": "0.11%",
+    "explain": "C에 쓸 수 있는 최대비용=26,010,000원-6,000,000원-4,000,000원=16,010,000원. C 허용 CAC=16,010,000원÷50팀=320,200원. 최소 전환율=360원÷320,200원=0.11%"
+  },
+  {
+    "id": "L5-086",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 18",
+    "caseTitle": "CASE 18. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 400팀 확보가 목표다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.8회, 식자재 원가율은 35%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 500원, 방문전환율 1.25%, 최대 180팀. B: CPC 200원, 방문전환율 0.50%, 최대 120팀. C: CPC 480원, 방문전환율 0.60%, 최대 150팀.",
+    "q": "A, B, C 세 채널의 실제 CAC를 각각 구하시오.",
+    "answer": "A 40,000원 / B 40,000원 / C 80,000원",
+    "explain": "A=500원÷1.25%=40,000원, B=200원÷0.50%=40,000원, C=480원÷0.60%=80,000원"
+  },
+  {
+    "id": "L5-087",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 18",
+    "caseTitle": "CASE 18. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 400팀 확보가 목표다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.8회, 식자재 원가율은 35%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 500원, 방문전환율 1.25%, 최대 180팀. B: CPC 200원, 방문전환율 0.50%, 최대 120팀. C: CPC 480원, 방문전환율 0.60%, 최대 150팀.",
+    "q": "A→B→C 순으로 목표 신규팀을 채울 때 각 채널에서 확보해야 하는 팀 수를 구하시오.",
+    "answer": "A 180팀 / B 120팀 / C 100팀",
+    "explain": "A에서 180팀 확보 후 220팀 남음 → B 120팀 → C 100팀"
+  },
+  {
+    "id": "L5-088",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 18",
+    "caseTitle": "CASE 18. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 400팀 확보가 목표다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.8회, 식자재 원가율은 35%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 500원, 방문전환율 1.25%, 최대 180팀. B: CPC 200원, 방문전환율 0.50%, 최대 120팀. C: CPC 480원, 방문전환율 0.60%, 최대 150팀.",
+    "q": "위 배분대로 집행할 때 월 총 광고비와 가중평균 CAC를 구하시오.",
+    "answer": "총 20,000,000원 / 평균 50,000원",
+    "explain": "총 광고비=7,200,000원+4,800,000원+8,000,000원=20,000,000원. 가중평균 CAC=20,000,000원÷400팀=50,000원"
+  },
+  {
+    "id": "L5-089",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 18",
+    "caseTitle": "CASE 18. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 400팀 확보가 목표다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.8회, 식자재 원가율은 35%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 500원, 방문전환율 1.25%, 최대 180팀. B: CPC 200원, 방문전환율 0.50%, 최대 120팀. C: CPC 480원, 방문전환율 0.60%, 최대 150팀.",
+    "q": "이 매장의 1차 손익 CAC를 기준으로, 목표 신규팀 전체에 사용할 수 있는 최대 광고비와 현재 배분안의 광고비 여유액을 구하시오.",
+    "answer": "최대 40,040,000원 / 여유 20,040,000원",
+    "explain": "LTV=154,000원, 손익 CAC=100,100원. 최대 광고비=400팀×100,100원=40,040,000원. 여유=40,040,000원-20,000,000원=20,040,000원"
+  },
+  {
+    "id": "L5-090",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 18",
+    "caseTitle": "CASE 18. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 400팀 확보가 목표다. 팀 객단가는 55,000원, 1년 평균 방문횟수는 2.8회, 식자재 원가율은 35%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 500원, 방문전환율 1.25%, 최대 180팀. B: CPC 200원, 방문전환율 0.50%, 최대 120팀. C: CPC 480원, 방문전환율 0.60%, 최대 150팀.",
+    "q": "A와 B의 확보량·성과가 그대로일 때, 전체 가중평균 CAC가 손익 CAC를 넘지 않으려면 C채널의 실제 신규방문 전환율은 최소 몇 %여야 하는가? 소수 둘째 자리까지 구하시오.",
+    "answer": "0.17%",
+    "explain": "C에 쓸 수 있는 최대비용=40,040,000원-7,200,000원-4,800,000원=28,040,000원. C 허용 CAC=28,040,000원÷100팀=280,400원. 최소 전환율=480원÷280,400원=0.17%"
+  },
+  {
+    "id": "L5-091",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 19",
+    "caseTitle": "CASE 19. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 220팀 확보가 목표다. 팀 객단가는 95,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 750원, 방문전환율 1.50%, 최대 100팀. B: CPC 300원, 방문전환율 0.50%, 최대 70팀. C: CPC 420원, 방문전환율 0.35%, 최대 100팀.",
+    "q": "A, B, C 세 채널의 실제 CAC를 각각 구하시오.",
+    "answer": "A 50,000원 / B 60,000원 / C 120,000원",
+    "explain": "A=750원÷1.50%=50,000원, B=300원÷0.50%=60,000원, C=420원÷0.35%=120,000원"
+  },
+  {
+    "id": "L5-092",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 19",
+    "caseTitle": "CASE 19. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 220팀 확보가 목표다. 팀 객단가는 95,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 750원, 방문전환율 1.50%, 최대 100팀. B: CPC 300원, 방문전환율 0.50%, 최대 70팀. C: CPC 420원, 방문전환율 0.35%, 최대 100팀.",
+    "q": "A→B→C 순으로 목표 신규팀을 채울 때 각 채널에서 확보해야 하는 팀 수를 구하시오.",
+    "answer": "A 100팀 / B 70팀 / C 50팀",
+    "explain": "A에서 100팀 확보 후 120팀 남음 → B 70팀 → C 50팀"
+  },
+  {
+    "id": "L5-093",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 19",
+    "caseTitle": "CASE 19. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 220팀 확보가 목표다. 팀 객단가는 95,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 750원, 방문전환율 1.50%, 최대 100팀. B: CPC 300원, 방문전환율 0.50%, 최대 70팀. C: CPC 420원, 방문전환율 0.35%, 최대 100팀.",
+    "q": "위 배분대로 집행할 때 월 총 광고비와 가중평균 CAC를 구하시오.",
+    "answer": "총 15,200,000원 / 평균 69,091원",
+    "explain": "총 광고비=5,000,000원+4,200,000원+6,000,000원=15,200,000원. 가중평균 CAC=15,200,000원÷220팀=69,091원"
+  },
+  {
+    "id": "L5-094",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 19",
+    "caseTitle": "CASE 19. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 220팀 확보가 목표다. 팀 객단가는 95,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 750원, 방문전환율 1.50%, 최대 100팀. B: CPC 300원, 방문전환율 0.50%, 최대 70팀. C: CPC 420원, 방문전환율 0.35%, 최대 100팀.",
+    "q": "이 매장의 1차 손익 CAC를 기준으로, 목표 신규팀 전체에 사용할 수 있는 최대 광고비와 현재 배분안의 광고비 여유액을 구하시오.",
+    "answer": "최대 21,945,000원 / 여유 6,745,000원",
+    "explain": "LTV=142,500원, 손익 CAC=99,750원. 최대 광고비=220팀×99,750원=21,945,000원. 여유=21,945,000원-15,200,000원=6,745,000원"
+  },
+  {
+    "id": "L5-095",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 19",
+    "caseTitle": "CASE 19. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 220팀 확보가 목표다. 팀 객단가는 95,000원, 1년 평균 방문횟수는 1.5회, 식자재 원가율은 30%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 750원, 방문전환율 1.50%, 최대 100팀. B: CPC 300원, 방문전환율 0.50%, 최대 70팀. C: CPC 420원, 방문전환율 0.35%, 최대 100팀.",
+    "q": "A와 B의 확보량·성과가 그대로일 때, 전체 가중평균 CAC가 손익 CAC를 넘지 않으려면 C채널의 실제 신규방문 전환율은 최소 몇 %여야 하는가? 소수 둘째 자리까지 구하시오.",
+    "answer": "0.16%",
+    "explain": "C에 쓸 수 있는 최대비용=21,945,000원-5,000,000원-4,200,000원=12,745,000원. C 허용 CAC=12,745,000원÷50팀=254,900원. 최소 전환율=420원÷254,900원=0.16%"
+  },
+  {
+    "id": "L5-096",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 20",
+    "caseTitle": "CASE 20. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 360팀 확보가 목표다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 33%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 630원, 방문전환율 1.40%, 최대 160팀. B: CPC 270원, 방문전환율 0.60%, 최대 110팀. C: CPC 550원, 방문전환율 0.50%, 최대 150팀.",
+    "q": "A, B, C 세 채널의 실제 CAC를 각각 구하시오.",
+    "answer": "A 45,000원 / B 45,000원 / C 110,000원",
+    "explain": "A=630원÷1.40%=45,000원, B=270원÷0.60%=45,000원, C=550원÷0.50%=110,000원"
+  },
+  {
+    "id": "L5-097",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 20",
+    "caseTitle": "CASE 20. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 360팀 확보가 목표다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 33%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 630원, 방문전환율 1.40%, 최대 160팀. B: CPC 270원, 방문전환율 0.60%, 최대 110팀. C: CPC 550원, 방문전환율 0.50%, 최대 150팀.",
+    "q": "A→B→C 순으로 목표 신규팀을 채울 때 각 채널에서 확보해야 하는 팀 수를 구하시오.",
+    "answer": "A 160팀 / B 110팀 / C 90팀",
+    "explain": "A에서 160팀 확보 후 200팀 남음 → B 110팀 → C 90팀"
+  },
+  {
+    "id": "L5-098",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 20",
+    "caseTitle": "CASE 20. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 360팀 확보가 목표다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 33%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 630원, 방문전환율 1.40%, 최대 160팀. B: CPC 270원, 방문전환율 0.60%, 최대 110팀. C: CPC 550원, 방문전환율 0.50%, 최대 150팀.",
+    "q": "위 배분대로 집행할 때 월 총 광고비와 가중평균 CAC를 구하시오.",
+    "answer": "총 22,050,000원 / 평균 61,250원",
+    "explain": "총 광고비=7,200,000원+4,950,000원+9,900,000원=22,050,000원. 가중평균 CAC=22,050,000원÷360팀=61,250원"
+  },
+  {
+    "id": "L5-099",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 20",
+    "caseTitle": "CASE 20. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 360팀 확보가 목표다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 33%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 630원, 방문전환율 1.40%, 최대 160팀. B: CPC 270원, 방문전환율 0.60%, 최대 110팀. C: CPC 550원, 방문전환율 0.50%, 최대 150팀.",
+    "q": "이 매장의 1차 손익 CAC를 기준으로, 목표 신규팀 전체에 사용할 수 있는 최대 광고비와 현재 배분안의 광고비 여유액을 구하시오.",
+    "answer": "최대 37,627,200원 / 여유 15,577,200원",
+    "explain": "LTV=156,000원, 손익 CAC=104,520원. 최대 광고비=360팀×104,520원=37,627,200원. 여유=37,627,200원-22,050,000원=15,577,200원"
+  },
+  {
+    "id": "L5-100",
+    "level": 5,
+    "type": "input",
+    "topic": "채널 믹스와 가중 CAC",
+    "group": "CASE 20",
+    "caseTitle": "CASE 20. 채널 믹스와 가중 CAC",
+    "context": "D매장은 월 신규 360팀 확보가 목표다. 팀 객단가는 65,000원, 1년 평균 방문횟수는 2.4회, 식자재 원가율은 33%다. 채널은 A→B→C 순서로 최대 확보 가능 팀까지 사용한다. A: CPC 630원, 방문전환율 1.40%, 최대 160팀. B: CPC 270원, 방문전환율 0.60%, 최대 110팀. C: CPC 550원, 방문전환율 0.50%, 최대 150팀.",
+    "q": "A와 B의 확보량·성과가 그대로일 때, 전체 가중평균 CAC가 손익 CAC를 넘지 않으려면 C채널의 실제 신규방문 전환율은 최소 몇 %여야 하는가? 소수 둘째 자리까지 구하시오.",
+    "answer": "0.19%",
+    "explain": "C에 쓸 수 있는 최대비용=37,627,200원-7,200,000원-4,950,000원=25,477,200원. C 허용 CAC=25,477,200원÷90팀=283,080원. 최소 전환율=550원÷283,080원=0.19% 감으로 답을 주는 것이 아니라, 숫자로 선택지를 만들어준다."
   }
 ];
