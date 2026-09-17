@@ -161,6 +161,30 @@ kbd{font-family:var(--mono);font-size:11px;padding:1px 5px;border:1px solid var(
 .review .choice{padding:9px 12px}
 .explain{margin-top:12px;font-size:13px;color:var(--ink-2);padding:10px 12px;border-left:3px solid var(--line-strong);background:var(--surface-2);border-radius:0 8px 8px 0}
 
+/* ===== 이해도 분석 · 교안 ===== */
+.topics{display:flex;flex-direction:column;gap:8px}
+.trow{display:grid;grid-template-columns:64px 1fr 120px 52px 48px;gap:10px;align-items:center;font-size:13px}
+.trow .tname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trow .bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.trow .bar i{display:block;height:100%;border-radius:4px;background:var(--accent)}
+.trow .bar i.ok{background:var(--ok)}.trow .bar i.warn{background:var(--warn)}.trow .bar i.bad{background:var(--bad)}
+.trow .c{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+@media (max-width:560px){.trow{grid-template-columns:56px 1fr 44px 44px}.trow .bar{display:none}}
+.review-part{margin-top:16px;border-left:4px solid var(--bad)}
+.keypoints{margin:8px 0 0;padding-left:18px;font-size:14px;line-height:1.7}
+.keypoints li.kf{list-style:none;margin-left:-18px;font-family:var(--mono);font-size:13px;background:var(--accent-soft);color:var(--accent);padding:4px 10px;border-radius:6px;display:inline-block;margin-top:4px}
+.keypoints li.kq{color:var(--ink-2);font-style:italic}
+.gdetails{margin-top:12px}
+.gdetails summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--accent)}
+.gbody{margin-top:10px;padding:14px 16px;background:var(--surface-2);border-radius:var(--r);font-size:14px;line-height:1.7;max-width:65ch}
+.gbody h4{margin:14px 0 6px;font-size:14px}.gbody h4.gh3{font-size:13px;color:var(--ink-2)}
+.gbody .gp{margin:4px 0}.gbody .glist{margin:4px 0 4px 18px;padding:0}
+.gformula{font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:6px;margin:6px 0;display:inline-block}
+.gquote{margin:8px 0;padding-left:12px;border-left:3px solid var(--line-strong);color:var(--ink-2);font-style:italic}
+.witem{padding:12px 0;border-top:1px dashed var(--line);font-size:14px}
+.witem .wq{font-weight:600;margin-bottom:6px}
+.witem .wa{font-size:13px;margin-top:4px}
+
 /* ===== 계산형 문항 ===== */
 .case{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin-bottom:18px}
 .case .eyebrow{margin-bottom:6px}
@@ -227,6 +251,7 @@ td.mono{white-space:nowrap}
 <div id="toast" class="toast" role="status"></div>
 
 <script src="questions.js"></script>
+<script src="guide.js"></script>
 <script src="tools/word-parser.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.12.3/mammoth.browser.min.js"></script>
@@ -316,6 +341,58 @@ function partCorrect(p, u){
   const tol = Math.max(Math.abs(p.value) * (config.numTolerancePct || 0) / 100, p.unit === '%' ? 0.011 : 0.5);
   return Math.abs(v - p.value) <= tol;
 }
+// ===================== 교안 연동: 이해도 분석 =====================
+function getGuide(){ const d = store.get('exam.guideDraft', null); if (d && Array.isArray(d.parts) && d.parts.length) return d; const g = window.STUDY_GUIDE; return (g && Array.isArray(g.parts) && g.parts.length) ? g : null; }
+function partsForTopic(guide, topic){
+  if (!guide) return [];
+  const tm = guide.topicMap || {}; if (tm[topic]) return tm[topic].slice();
+  const out = []; (guide.keywordMap || []).forEach(([re, parts]) => { try{ if (new RegExp(re).test(topic || '')) parts.forEach(p => { if (!out.includes(p)) out.push(p); }); }catch(e){} });
+  return out;
+}
+function analyzeResult(s, r){
+  const guide = getGuide(); const bank = getBank();
+  const byTopic = {};
+  s.questions.forEach((q, i) => {
+    const src = bank.find(b => b.id === q.id); const topic = q.topic || (src && src.topic) || '기타';
+    const k = q.level + '|' + topic; byTopic[k] = byTopic[k] || { topic, level: q.level, total: 0, correct: 0, wrong: [] };
+    byTopic[k].total++; if (r.answers[i].correct) byTopic[k].correct++; else byTopic[k].wrong.push(i);
+  });
+  const topics = Object.values(byTopic).sort((a, b) => (a.correct / a.total) - (b.correct / b.total) || a.level - b.level);
+  const byPart = {};
+  if (guide) topics.forEach(t => partsForTopic(guide, t.topic).forEach(no => {
+    const part = guide.parts.find(p => p.no === no); if (!part) return;
+    const e = byPart[no] = byPart[no] || { no, part, total: 0, correct: 0, topics: [], wrong: [] };
+    e.total += t.total; e.correct += t.correct; if (!e.topics.includes(t.topic)) e.topics.push(t.topic); e.wrong.push(...t.wrong);
+  }));
+  const parts = Object.values(byPart).sort((a, b) => (a.correct / a.total) - (b.correct / b.total) || a.no - b.no);
+  // 복습 추천: 정답률 70% 미만인 파트, 최대 6개. 나머지 틀린 파트는 "가볍게 확인" 목록으로.
+  const weak = parts.filter(p => p.wrong.length && p.correct / p.total < 0.7).slice(0, 6);
+  const light = parts.filter(p => p.wrong.length && !weak.includes(p));
+  return { topics, parts, weak, light, hasGuide: !!guide };
+}
+function topicStatus(t){ const p = t.correct / t.total; return p >= 1 ? ['ok', '탄탄'] : p >= 0.6 ? ['warn', '보통'] : ['bad', '부족']; }
+function renderBlock(b){
+  if (b.kind === 'formula') return `<div class="gformula">${esc(b.text)}</div>`;
+  if (b.kind === 'bullet') return `<li>${esc(b.text)}</li>`;
+  if (b.kind === 'quote') return `<blockquote class="gquote">${esc(b.text)}</blockquote>`;
+  return `<p class="gp">${esc(b.text)}</p>`;
+}
+function renderBlocks(blocks){
+  let html = '', inList = false;
+  blocks.forEach(b => { const li = b.kind === 'bullet'; if (li && !inList){ html += '<ul class="glist">'; inList = true; } if (!li && inList){ html += '</ul>'; inList = false; } html += renderBlock(b); });
+  if (inList) html += '</ul>';
+  return html;
+}
+function renderPartFull(part){ return part.sections.map(sec => `${sec.title ? `<h4 class="gh${sec.level}">${esc(sec.title)}</h4>` : ''}${renderBlocks(sec.blocks)}`).join(''); }
+function renderKeyPoints(part){
+  const items = [];
+  part.sections.forEach(sec => {
+    if (sec.title && sec.level === 2) items.push(`<li><b>${esc(sec.title)}</b></li>`);
+    sec.blocks.filter(b => b.kind === 'formula' || b.kind === 'quote').forEach(b => items.push(`<li class="${b.kind === 'formula' ? 'kf' : 'kq'}">${esc(b.text)}</li>`));
+  });
+  return items.length ? `<ul class="keypoints">${items.join('')}</ul>` : '';
+}
+
 function inputCorrect(q, arr){ const parts = parseAnswerKey(q.answer); return parts.length > 0 && parts.every((p, i) => partCorrect(p, Array.isArray(arr) ? arr[i] : null)); }
 function isAnswered(a){ return Array.isArray(a) ? a.some(x => x != null && String(x).trim() !== '') : a != null; }
 function fmtPicked(q, picked){
@@ -343,14 +420,14 @@ function buildExam(bank){
     } else take = shuffle(all).slice(0, config.perLevel);
     if (take.length < config.perLevel) shortages.push({ level: L, have: take.length });
     take.forEach(q => {
-      if (q.type === 'input'){ questions.push({ id: q.id, level: L, type: 'input', q: q.q, answer: q.answer, context: q.context || '', caseTitle: q.caseTitle || '', explain: q.explain || '' }); return; }
+      if (q.type === 'input'){ questions.push({ id: q.id, level: L, type: 'input', topic: q.topic || '', q: q.q, answer: q.answer, context: q.context || '', caseTitle: q.caseTitle || '', explain: q.explain || '' }); return; }
       let choices = q.choices.slice(), answer = q.answer;
       if (config.shuffleChoices){
         const order = shuffle(choices.map((_, i) => i));
         choices = order.map(i => q.choices[i]);
         answer = order.indexOf(q.answer);
       }
-      questions.push({ id: q.id, level: L, type: 'choice', q: q.q, choices, answer, explain: q.explain || '' });
+      questions.push({ id: q.id, level: L, type: 'choice', topic: q.topic || '', q: q.q, choices, answer, explain: q.explain || '' });
     });
   });
   return { questions, shortages };
@@ -395,6 +472,9 @@ function submitExam(auto){
   }
   stopTimer();
   const result = grade(session, auto);
+  const an = analyzeResult(session, result);
+  result.weak = an.weak.map(p => `PART ${p.no} (${p.correct}/${p.total})`).join(', ');
+  result.topicStats = an.topics.map(t => `${t.topic} ${t.correct}/${t.total}`).join(', ');
   session.submitted = true; session.result = result; saveSession();
   const list = store.get('exam.results', []); list.push(result); store.set('exam.results', list);
   postWebhook(result).then(status => {
@@ -595,6 +675,29 @@ function renderResult(){
         <div class="lrow"><span class="lvl">레벨 ${L}</span><div class="bar"><i style="width:${p}%"></i></div><span class="c">${b.correct} / ${b.total}</span></div>`; }).join('')}
       </div>
     </section>
+    ${(() => {
+      const an = analyzeResult(s, r); const n = s.questions.length;
+      const wrongItem = i => { const q = s.questions[i]; const a = r.answers[i]; const key = q.type === 'input' ? q.answer : (q.answer + 1) + '번 ' + q.choices[q.answer]; const mine = q.type === 'input' ? fmtPicked(q, a.picked) : (a.picked == null ? '' : (a.picked + 1) + '번 ' + q.choices[a.picked]); return `
+        <div class="witem"><div class="wq"><span class="lvl">레벨 ${q.level}</span> ${esc(q.q)}</div><div class="wa"><span class="chip bad">내 답</span> ${esc(mine || '미응답')}</div><div class="wa"><span class="chip ok">정답</span> ${esc(key)}</div>${q.explain ? `<div class="explain">${esc(q.explain)}</div>` : ''}</div>`; };
+      return `
+    <section class="card" style="margin-top:16px">
+      <div class="eyebrow">이해도 분석</div>
+      <h2 style="font-size:18px;margin:6px 0 6px">${an.weak.length ? `복습이 필요한 파트 ${an.weak.length}개` : an.hasGuide ? '출제된 영역을 모두 잘 이해하고 있습니다' : '영역별 결과'}</h2>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">이번 시험에 출제된 ${n}문항을 분류별로 나눠 본 결과입니다. 문항 수가 적은 영역은 참고용으로 보세요.</p>
+      <div class="topics">${an.topics.map(t => { const [cls, label] = topicStatus(t); return `<div class="trow"><span class="lvl">레벨 ${t.level}</span><span class="tname">${esc(t.topic)}</span><div class="bar"><i class="${cls}" style="width:${t.correct / t.total * 100}%"></i></div><span class="c">${t.correct} / ${t.total}</span><span class="chip ${cls}">${label}</span></div>`; }).join('')}</div>
+      ${an.weak.length ? `<p style="font-size:13px;color:var(--ink-2);margin-top:14px">아래 순서대로 복습하세요: <b>${an.weak.map(p => 'PART ' + p.no).join(' → ')}</b></p>` : ''}
+      ${an.light.length ? `<p style="font-size:12px;color:var(--muted);margin-top:6px">그 외 가볍게 확인해 볼 파트: ${an.light.map(p => `${esc(p.part.title)} (${p.correct}/${p.total})`).join(', ')}</p>` : ''}
+    </section>
+    ${an.weak.map(p => `
+    <article class="card review-part">
+      <div class="row between" style="align-items:flex-start;gap:12px"><div><div class="eyebrow">복습 추천</div><h3 style="font-size:17px;margin-top:4px">${esc(p.part.title)}</h3></div><span class="chip bad" style="flex:none">${p.correct} / ${p.total} 정답</span></div>
+      <p style="font-size:13px;color:var(--ink-2);margin:6px 0 14px">관련 분류: ${p.topics.map(esc).join(' · ')}</p>
+      <div class="eyebrow">교안 핵심 정리</div>
+      ${renderKeyPoints(p.part) || '<p class="gp">핵심 정리가 없습니다.</p>'}
+      <details class="gdetails"><summary>교안 전체 내용 보기</summary><div class="gbody">${renderPartFull(p.part)}</div></details>
+      ${config.showAnswers ? `<div class="eyebrow" style="margin-top:16px">틀린 문항 다시 보기</div>${[...new Set(p.wrong)].map(wrongItem).join('')}` : ''}
+    </article>`).join('')}`;
+    })()}
     ${config.showAnswers ? `
     <section class="review">
       <div class="eyebrow">문항별 확인</div>
@@ -649,6 +752,7 @@ function renderAdmin(){
     </header>
     <nav class="tabs">
       <button type="button" data-tab="questions" class="${adminTab === 'questions' ? 'on' : ''}">문항 관리</button>
+      <button type="button" data-tab="guide" class="${adminTab === 'guide' ? 'on' : ''}">교안</button>
       <button type="button" data-tab="results" class="${adminTab === 'results' ? 'on' : ''}">응시 결과</button>
       <button type="button" data-tab="settings" class="${adminTab === 'settings' ? 'on' : ''}">설정</button>
     </nav>
@@ -656,7 +760,64 @@ function renderAdmin(){
   </div>`;
   document.getElementById('logout').addEventListener('click', () => { sessionStorage.removeItem('exam.admin'); location.hash = ''; });
   app.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => { adminTab = b.dataset.tab; A.editing = null; renderAdmin(); }));
-  ({ questions: renderQuestionsTab, results: renderResultsTab, settings: renderSettingsTab })[adminTab]();
+  ({ questions: renderQuestionsTab, guide: renderGuideTab, results: renderResultsTab, settings: renderSettingsTab })[adminTab]();
+}
+
+// ---------- 교안 ----------
+function renderGuideTab(){
+  const panel = document.getElementById('panel');
+  const guide = getGuide(); const isDraft = !!store.get('exam.guideDraft', null);
+  const bank = getBank(); const topics = [...new Set(bank.map(q => q.topic).filter(Boolean))];
+  const numbered = guide ? guide.parts.filter(p => p.no != null) : [];
+  panel.innerHTML = `
+    <div class="notice">교안을 올려 두면 응시자 결과 화면에 <b>이해도 분석</b>과 <b>복습 추천</b>(틀린 영역의 교안 핵심 정리·전체 내용·해설)이 표시됩니다. 문항의 "분류"가 교안 PART에 연결되는 방식입니다.</div>
+    ${isDraft ? `<div class="notice warn"><b>이 브라우저에 임시 저장된 교안(초안)</b>을 보고 있습니다. 응시자에게 적용하려면 <b>guide.js 내려받기</b>로 받은 파일로 guide.js를 교체하세요. <button class="btn sm ghost" id="g-drop" type="button">초안 버리기</button></div>` : ''}
+    <div class="dz" id="g-dz"><input type="file" id="g-file" accept=".docx">
+      <div><b>교안 Word(.docx) 파일을 끌어다 놓거나</b> <button class="btn sm" type="button" id="g-pick">파일 선택</button></div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">제목 1 = PART, 제목 2·3 = 소제목으로 인식합니다. PART 제목에 "PART n" 번호가 있어야 문항과 연결됩니다.</div></div>
+    ${guide ? `
+    <div class="row between" style="margin-bottom:12px"><div><b>${esc(guide.title || '교안')}</b> <span class="chip">${numbered.length}개 PART</span></div><button class="btn sm primary" type="button" id="g-export">guide.js 내려받기</button></div>
+    <div class="tablewrap" style="margin-bottom:20px"><table><thead><tr><th>PART</th><th>소제목</th><th class="num">문단</th><th>연결된 문항 분류</th></tr></thead><tbody>
+      ${guide.parts.map(p => { const linked = topics.filter(t => partsForTopic(guide, t).includes(p.no)); return `<tr><td style="white-space:nowrap">${esc(p.title)}</td><td class="trunc" style="max-width:360px;color:var(--ink-2)">${p.sections.map(s => esc(s.title)).filter(Boolean).join(' · ')}</td><td class="num">${p.sections.reduce((s, x) => s + x.blocks.length, 0)}</td><td style="font-size:12px;color:var(--ink-2)">${p.no == null ? '-' : linked.length ? linked.map(esc).join(', ') : '<span class="chip warn">연결 없음</span>'}</td></tr>`; }).join('')}
+    </tbody></table></div>
+    <div class="eyebrow" style="margin-bottom:8px">문항 분류 → PART 연결 확인</div>
+    <div class="tablewrap"><table><thead><tr><th>문항 분류</th><th class="num">문항 수</th><th>연결 PART</th></tr></thead><tbody>
+      ${topics.map(t => { const ps = partsForTopic(guide, t); return `<tr><td>${esc(t)}</td><td class="num">${bank.filter(q => q.topic === t).length}</td><td>${ps.length ? ps.map(n => `<span class="lvl">PART ${n}</span>`).join(' ') : '<span class="chip bad">연결 안 됨</span>'}</td></tr>`; }).join('')}
+    </tbody></table></div>
+    <p class="footer">연결은 guide.js 안의 topicMap(분류 이름 → PART 번호)과 keywordMap(키워드 규칙)으로 정해집니다. 새 분류를 추가했는데 연결이 안 되면 알려 주세요.</p>` : `<div class="notice warn">아직 교안이 없습니다. 위에 Word 파일을 올려 주세요.</div>`}`;
+  const dz = document.getElementById('g-dz'), file = document.getElementById('g-file');
+  document.getElementById('g-pick').addEventListener('click', () => file.click());
+  file.addEventListener('change', () => { if (file.files[0]) importGuide(file.files[0]); });
+  ['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+  dz.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if (f) importGuide(f); });
+  const gd = document.getElementById('g-drop'); if (gd) gd.addEventListener('click', () => { if (confirm('이 브라우저의 교안 초안을 버릴까요?')){ store.del('exam.guideDraft'); renderGuideTab(); } });
+  const ge = document.getElementById('g-export'); if (ge) ge.addEventListener('click', () => {
+    const text = `// 교안 데이터 — 관리자 페이지에서 내려받은 파일입니다. index.html 옆의 guide.js를 이 파일로 교체하세요.\n// 생성: ${fmtDate(Date.now())}\nwindow.STUDY_GUIDE = ${JSON.stringify(guide, null, 1)};\n`;
+    download('guide.js', text, 'text/javascript;charset=utf-8'); toast('guide.js를 내려받았습니다.');
+  });
+}
+async function importGuide(f){
+  if (!window.mammoth){ toast('Word 읽기 도구를 불러오지 못했습니다(인터넷 연결 필요).'); return; }
+  try{
+    const { value: html } = await mammoth.convertToHtml({ arrayBuffer: await f.arrayBuffer() });
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const old = getGuide() || {};
+    const guide = { title: '', motto: old.motto || '', parts: [], topicMap: old.topicMap || {}, keywordMap: old.keywordMap || [] };
+    let part = null, sec = null;
+    const push = (kind, text) => { text = text.replace(/\s+/g, ' ').trim(); if (!text || !part) return; if (!sec){ sec = { title: '', level: 2, blocks: [] }; part.sections.push(sec); } sec.blocks.push({ kind, text }); };
+    [...doc.body.children].forEach(el => {
+      const tag = el.tagName.toLowerCase(); const text = el.textContent.replace(/\s+/g, ' ').trim(); if (!text) return;
+      if (tag === 'h1'){ const pm = text.match(/PART\s*(\d+)/i); if (!guide.title && !pm && !part){ guide.title = text; return; } part = { no: pm ? +pm[1] : null, title: text, sections: [] }; guide.parts.push(part); sec = null; }
+      else if (tag === 'h2' || tag === 'h3'){ if (/^목차$/.test(text)) return; if (!part){ part = { no: null, title: text, sections: [] }; guide.parts.push(part); } sec = { title: text, level: tag === 'h2' ? 2 : 3, blocks: [] }; part.sections.push(sec); }
+      else if (tag === 'ul' || tag === 'ol'){ [...el.querySelectorAll('li')].forEach(li => push('bullet', li.textContent)); }
+      else if (tag === 'blockquote'){ push('quote', text); }
+      else { if (!part) return; const formula = text.length < 70 && /[=×÷→]/.test(text); push(formula ? 'formula' : 'p', text); }
+    });
+    if (!guide.title) guide.title = f.name.replace(/\.docx$/i, '');
+    if (!guide.parts.length) return toast('PART(제목 1)를 찾지 못했습니다. Word에서 제목 스타일을 확인해 주세요.');
+    store.set('exam.guideDraft', guide); toast(`교안을 읽었습니다: PART ${guide.parts.filter(p => p.no != null).length}개`); renderGuideTab();
+  }catch(e){ toast('교안을 읽지 못했습니다: ' + e.message); }
 }
 
 // ---------- 문항 관리 ----------
@@ -894,23 +1055,24 @@ function renderResultsTab(){
     </div>
     <div class="toolbar"><span class="sp"></span><button class="btn sm" type="button" id="exp-csv" ${list.length ? '' : 'disabled'}>CSV로 내보내기</button><button class="btn sm danger" type="button" id="clear" ${list.length ? '' : 'disabled'}>전체 삭제</button></div>
     <div class="tablewrap"><table>
-      <thead><tr><th>제출 일시</th><th>이름</th><th>전화번호</th><th>이메일</th><th class="num">점수</th>${LEVELS.map(L => `<th class="num">L${L}</th>`).join('')}<th>판정</th><th class="num">소요</th><th>전송</th></tr></thead>
+      <thead><tr><th>제출 일시</th><th>이름</th><th>전화번호</th><th>이메일</th><th class="num">점수</th>${LEVELS.map(L => `<th class="num">L${L}</th>`).join('')}<th>판정</th><th>복습 파트</th><th class="num">소요</th><th>전송</th></tr></thead>
       <tbody>${list.length ? list.map(r => `
         <tr class="clickable" data-open="${r.id}">
           <td class="mono" style="white-space:nowrap">${fmtDate(r.submittedAt)}</td><td style="white-space:nowrap">${esc(r.name)}</td><td class="mono">${esc(r.phone)}</td><td style="white-space:nowrap">${esc(r.email)}</td>
           <td class="num"><b>${r.score}</b>/${r.total} <span style="color:var(--muted)">(${r.percent}%)</span></td>
           ${LEVELS.map(L => `<td class="num">${r.byLevel[L] ? r.byLevel[L].correct + '/' + r.byLevel[L].total : '-'}</td>`).join('')}
           <td><span class="chip ${r.pass ? 'ok' : 'bad'}">${r.pass ? '합격' : '불합격'}</span>${r.auto ? ' <span class="chip warn" title="시간 종료 자동 제출">자동</span>' : ''}</td>
+          <td style="font-size:12px;color:var(--ink-2);min-width:120px">${esc(r.weak || '-')}</td>
           <td class="num mono">${fmtTime(r.durationSec)}</td>
           <td>${({ ok: '<span class="chip ok">전송됨</span>', fail: '<span class="chip bad">실패</span>', pending: '<span class="chip">대기</span>', none: '<span class="chip">-</span>' })[r.sent] || '-'}</td>
         </tr>
-        ${A.open === r.id ? `<tr><td colspan="${8 + LEVELS.length}" class="detail">${r.answers.map((a, i) => { const calc = Array.isArray(a.picked) || typeof a.answer === 'string'; const mine = Array.isArray(a.picked) ? a.picked.join(' / ') : a.picked == null ? '' : (a.picked + 1) + '번'; const key = typeof a.answer === 'string' ? a.answer : (a.answer + 1) + '번'; return `<div class="a"><span class="mono">${esc(a.id)}</span><span>${esc(a.text)}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : !isAnswered(a.picked) ? '미응답' : '오답 (' + esc(mine) + ' 입력, 정답 ' + esc(key) + ')'}</span></div>`; }).join('')}</td></tr>` : ''}`).join('')
-        : `<tr><td colspan="${8 + LEVELS.length}" style="text-align:center;color:var(--muted);padding:28px">아직 응시 결과가 없습니다.</td></tr>`}</tbody>
+        ${A.open === r.id ? `<tr><td colspan="${9 + LEVELS.length}" class="detail">${r.topicStats ? `<div style="margin-bottom:8px;color:var(--ink-2)">분류별: ${esc(r.topicStats)}</div>` : ''}${r.answers.map((a, i) => { const calc = Array.isArray(a.picked) || typeof a.answer === 'string'; const mine = Array.isArray(a.picked) ? a.picked.join(' / ') : a.picked == null ? '' : (a.picked + 1) + '번'; const key = typeof a.answer === 'string' ? a.answer : (a.answer + 1) + '번'; return `<div class="a"><span class="mono">${esc(a.id)}</span><span>${esc(a.text)}</span><span class="chip ${a.correct ? 'ok' : 'bad'}">${a.correct ? '정답' : !isAnswered(a.picked) ? '미응답' : '오답 (' + esc(mine) + ' 입력, 정답 ' + esc(key) + ')'}</span></div>`; }).join('')}</td></tr>` : ''}`).join('')
+        : `<tr><td colspan="${9 + LEVELS.length}" style="text-align:center;color:var(--muted);padding:28px">아직 응시 결과가 없습니다.</td></tr>`}</tbody>
     </table></div>`;
   panel.querySelectorAll('[data-open]').forEach(tr => tr.addEventListener('click', () => { A.open = A.open === tr.dataset.open ? null : tr.dataset.open; renderResultsTab(); }));
   document.getElementById('exp-csv').addEventListener('click', () => {
-    const rows = [['제출일시', '이름', '전화번호', '이메일', '점수', '총문항', '정답률(%)', '판정', ...LEVELS.map(L => `레벨${L}`), '소요(초)', '자동제출', '문항별']]
-      .concat(list.map(r => [fmtDate(r.submittedAt), r.name, r.phone, r.email, r.score, r.total, r.percent, r.pass ? '합격' : '불합격', ...LEVELS.map(L => r.byLevel[L] ? `${r.byLevel[L].correct}/${r.byLevel[L].total}` : ''), r.durationSec, r.auto ? 'Y' : 'N', r.answers.map(a => `${a.id}:${a.correct ? 'O' : 'X'}`).join(' ')]));
+    const rows = [['제출일시', '이름', '전화번호', '이메일', '점수', '총문항', '정답률(%)', '판정', ...LEVELS.map(L => `레벨${L}`), '소요(초)', '자동제출', '복습 파트', '분류별', '문항별']]
+      .concat(list.map(r => [fmtDate(r.submittedAt), r.name, r.phone, r.email, r.score, r.total, r.percent, r.pass ? '합격' : '불합격', ...LEVELS.map(L => r.byLevel[L] ? `${r.byLevel[L].correct}/${r.byLevel[L].total}` : ''), r.durationSec, r.auto ? 'Y' : 'N', r.weak || '', r.topicStats || '', r.answers.map(a => `${a.id}:${a.correct ? 'O' : 'X'}`).join(' ')]));
     download(`응시결과_${fmtDate(Date.now()).replace(/[^\d]/g, '').slice(0, 12)}.csv`, toCSV(rows), 'text/csv;charset=utf-8');
   });
   document.getElementById('clear').addEventListener('click', () => { if (confirm('이 브라우저에 저장된 응시 결과를 모두 삭제할까요? 되돌릴 수 없습니다.')){ store.del('exam.results'); renderResultsTab(); } });

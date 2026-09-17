@@ -21,7 +21,7 @@ function doPost(e) {
 
   var r = JSON.parse(e.postData.contents);
   var header = ['제출일시', '이름', '전화번호', '이메일', '점수', '총문항', '정답률(%)', '판정',
-                '레벨1', '레벨2', '레벨3', '레벨4', '레벨5', '소요(초)', '자동제출', '문항별(O/X)', '응시ID'];
+                '레벨1', '레벨2', '레벨3', '레벨4', '레벨5', '소요(초)', '자동제출', '복습 파트', '분류별', '문항별(O/X)', '응시ID'];
   if (sh.getLastRow() === 0) {
     sh.appendRow(header);
     sh.getRange(1, 1, 1, header.length).setFontWeight('bold');
@@ -32,6 +32,7 @@ function doPost(e) {
   sh.appendRow([
     new Date(r.submittedAt), r.name, r.phone, r.email, r.score, r.total, r.percent,
     r.pass ? '합격' : '불합격', lv(1), lv(2), lv(3), lv(4), lv(5), r.durationSec, r.auto ? 'Y' : 'N',
+    r.weak || '', r.topicStats || '',
     (r.answers || []).map(function (a) { return a.id + ':' + (a.correct ? 'O' : 'X'); }).join(' '),
     r.id
   ]);
